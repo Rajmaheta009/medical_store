@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {}
+    </style>
+</head>
+
+<body>
+
+    <form>
+        <div class="mb-3">
+            <label for="productImage" class="form-label">Image Upload</label>
+            <div class="image-upload-wrapper">
+                <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
+                <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Name" aria-label="First name">
+            </div>
+            <div class="col">
+                <label for="productType">Type</label>
+                <select class="form-select" id="productType" required>
+                <option value="" disabled selected>Select type</option>
+                <option value="tablet">Tablet</option>
+                <option value="syrup">Syrup</option>
+                <option value="tube">Tube</option>
+            </select>
+            </div>
+        </div>
+
+        <!-- Other form fields -->
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <script>
+        function previewImage(event) {
+            const image = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    image.style.display = 'block';
+                    image.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                image.style.display = 'none';
+                image.src = '';
+            }
+        }
+    </script>
+</body>
+
+</html>

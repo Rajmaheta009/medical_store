@@ -55,30 +55,37 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <div class="mb-3">
-                                    <label for="productName" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="productName" required>
+                            <div class="mb-3">
+                                <label for="productImage" class="form-label">Image Upload</label>
+                                <div class="image-upload-wrapper">
+                                    <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
+                                    <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="productType" class="form-label">Type</label>
-                                    <select class="form-select" id="productType" required>
-                                        <option value="" disabled selected>Select type</option>
-                                        <option value="tablet">Tablet</option>
-                                        <option value="syrup">Syrup</option>
-                                        <option value="tube">Tube</option>
-                                    </select>
+                            </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="productPrice" class="form-label">Name</label>
+                                        <input type="text" class="form-control" placeholder="Name" aria-label="First name">
+                                    </div>
+                                    <div class="col">
+                                        <label for="productType" class="form-label">Type</label>
+                                        <select class="form-select" id="productType" required>
+                                            <option value="" disabled selected>Select type</option>
+                                            <option value="tablet">Tablet</option>
+                                            <option value="syrup">Syrup</option>
+                                            <option value="tube">Tube</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="productImage" class="form-label">Image Upload</label>
-                                    <input type="file" class="form-control" id="productImage" accept="image/*">
-                                </div>
-                                <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
                                     <label for="productPrice" class="form-label">Price</label>
                                     <input type="number" class="form-control" id="productPrice" required>
-                                </div>
-                                <div class="mb-3">
+                                    </div>
+                                <div class="col">
                                     <label for="productPower" class="form-label">Power</label>
                                     <input type="text" class="form-control" id="productPower" required>
+                                </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="productPharmacy" class="form-label">Pharmacy</label>
@@ -89,15 +96,21 @@
                                         <option value="pharmacy3">Pharmacy 3</option>
                                     </select>
                                 </div>
+                                <div class="row">   
+                                    <div class="col">
+                                        <label for="editProductGramMl" class="form-label">Gram/ML</label>
+                                        <input type="text" class="form-control" id="editProductGramMl" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="editProductSellingPrice" class="form-label">Selling Price</label>
+                                        <input type="number" class="form-control" id="editProductSellingPrice" required>
+                                    </div>
+                                </div>
                                 <div class="mb-3">
-                                    <label for="productGramMl" class="form-label">Gram/ML</label>
+                                    <label for="productGramMl" class="form-label">Description</label>
                                     <input type="text" class="form-control" id="productGramMl" required>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="productSellingPrice" class="form-label">Selling Price</label>
-                                    <input type="number" class="form-control" id="productSellingPrice" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -113,50 +126,63 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="editProductName" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="editProductName" required>
+                            <for<form>
+                            <div class="mb-3">
+                                <label for="productImage" class="form-label">Image Upload</label>
+                                <div class="image-upload-wrapper">
+                                    <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
+                                    <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="productPrice" class="form-label">Name</label>
+                                        <input type="text" class="form-control" placeholder="Name" aria-label="First name">
+                                    </div>
+                                    <div class="col">
+                                        <label for="productType" class="form-label">Type</label>
+                                        <select class="form-select" id="productType" required>
+                                            <option value="" disabled selected>Select type</option>
+                                            <option value="tablet">Tablet</option>
+                                            <option value="syrup">Syrup</option>
+                                            <option value="tube">Tube</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <label for="productPrice" class="form-label">Price</label>
+                                    <input type="number" class="form-control" id="productPrice" required>
+                                    </div>
+                                <div class="col">
+                                    <label for="productPower" class="form-label">Power</label>
+                                    <input type="text" class="form-control" id="productPower" required>
+                                </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editProductType" class="form-label">Type</label>
-                                    <select class="form-select" id="editProductType" required>
-                                        <option value="" disabled selected>Select type</option>
-                                        <option value="tablet">Tablet</option>
-                                        <option value="syrup">Syrup</option>
-                                        <option value="tube">Tube</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editProductImage" class="form-label">Image Upload</label>
-                                    <input type="file" class="form-control" id="editProductImage" accept="image/*">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editProductPrice" class="form-label">Price</label>
-                                    <input type="number" class="form-control" id="editProductPrice" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editProductPower" class="form-label">Power</label>
-                                    <input type="text" class="form-control" id="editProductPower" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editProductPharmacy" class="form-label">Pharmacy</label>
-                                    <select class="form-select" id="editProductPharmacy" required>
+                                    <label for="productPharmacy" class="form-label">Pharmacy</label>
+                                    <select class="form-select" id="productPharmacy" required>
                                         <option value="" disabled selected>Select pharmacy</option>
                                         <option value="pharmacy1">Pharmacy 1</option>
                                         <option value="pharmacy2">Pharmacy 2</option>
                                         <option value="pharmacy3">Pharmacy 3</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="editProductGramMl" class="form-label">Gram/ML</label>
-                                    <input type="text" class="form-control" id="editProductGramMl" required>
+                                <div class="row">   
+                                    <div class="col">
+                                        <label for="editProductGramMl" class="form-label">Gram/ML</label>
+                                        <input type="text" class="form-control" id="editProductGramMl" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="editProductSellingPrice" class="form-label">Selling Price</label>
+                                        <input type="number" class="form-control" id="editProductSellingPrice" required>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editProductSellingPrice" class="form-label">Selling Price</label>
-                                    <input type="number" class="form-control" id="editProductSellingPrice" required>
+                                    <label for="productGramMl" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="productGramMl" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -204,6 +230,22 @@
             // Add your deletion logic here
             alert('Product deleted.');
         });
+        function previewImage(event) {
+            const image = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    image.style.display = 'block';
+                    image.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                image.style.display = 'none';
+                image.src = '';
+            }
+        }
     </script>
 </body>
 </html>
