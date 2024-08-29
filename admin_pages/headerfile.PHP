@@ -187,7 +187,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light d-flex align-items-center" href="product_type.php">
-                                <i class="fas fa-box"></i> <span>Product Type</span>
+                                <i class="fas fa-book"></i> <span>Product Type</span>
                             </a>
                         </li>
                         <li class="nav-item dropdown">

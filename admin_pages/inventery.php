@@ -1,17 +1,15 @@
-<?php include 'headerfile.PHP'; ?>
+<?php include 'headerfile.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Details</title>
-    <!-- Add Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Product Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma4f5lPjyX7Ujq5k5BzG9jZtme5V4jF94D5p3cN0Rm7yxbJ" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" integrity="sha512-..." crossorigin="anonymous">
     <style>
-        /* Dark mode styles */
         body.dark-mode {
             background-color: #121212;
             color: #ffffff;
@@ -20,12 +18,7 @@
             background-color: #333;
         }
         body.dark-mode .table tbody tr:hover {
-            background-color: #fff;
-            color:#121212;
-        }
-        body.dark-mode .table tbody tr{
-            background-color: rgba(79, 79, 79, 0.344);
-            color: #ffffff;
+            background-color: #444;
         }
         body.dark-mode .btn {
             color:#ffffff;
@@ -38,104 +31,115 @@
             right: 20px;
             z-index: 1000;
         }
+        /* Base card style */
+        .card {
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.15));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 350px;
+            padding: 20px; /* Added padding for consistency */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Card image style */
+        .card img {
+            background-position: center;
+            height: 120px;
+            width: 100%; /* Adjust to cover full width */
+            border-radius: 8px; /* Slightly smaller radius for a better look */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+            object-fit: cover; /* Ensure image covers the container */
+            margin-bottom: 15px; /* Space between image and text */
+        }
+
+        /* Dark mode styles */
+        .dark-mode .card {
+            background-color: #121212;
+            border: 1px solid #444;
+        }
+
+        .dark-mode .card img {
+            border: 1px solid #444;
+        }
+
+        /* Ensuring smooth transitions and consistent styling */
+        .dark-mode .card img {
+            border: 1px solid #444;
+            filter: brightness(90%); /* Slightly adjust image brightness for dark mode */
+        }
+
     </style>
 </head>
-
 <body>
-    <!-- Dark Mode Toggle Button -->
-    <button id="darkModeToggle" class="btn btn-secondary dark-mode-toggle" style="margin-top:-4px;">
+    <div class="container-fluid">
+        <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="btn btn-secondary dark-mode-toggle" style="margin-top:-4px; margin-left: 125px;">
         <i class="fas fa-moon"></i> Dark Mode
     </button>
 
-    <div class="container-fluid">
         <!-- Main Content -->
         <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Inventery Report</h1>
+                <h1 class="h2">Inventory </h1>
                 <div class="input-group mb-3 w-50">
                     <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
                     <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                         <i class="fas fa-search"></i> Search
                     </button>
-                    <button class="btn btn-primary" type="button" id="addUserBtn" style="margin-right:120px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                        <i class="fas fa-user-plus"></i> Add Product
+                    <button class="btn btn-primary" type="button" id="addProductBtn" style="margin-right:120px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                        <i class="fas fa-user-plus"></i> Add Product Quantity
                     </button>
                 </div>
             </div>
 
-            <!-- Table Section -->
+            <!-- Example Product Card -->
             <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Selling Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col" class="text-success">Selling Quantity</th>
-                    <th scope="col" class="text-danger">Available Quantity</th>
-                    <th scope="col">Expiry Date</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">name</th>
-                    <td>$10.00</td>
-                    <td>$15.00</td>
-                    <td>10</td>
-                    <td class="text-success">5</td>
-                    <td class="text-danger">4</td>
-                    <td>28/12/2024</td>
-                    <td>
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProductModal"
-                                data-id="1" data-name="Name_user" data-type="Customer" data-email="name@gmail.com" data-phone="1234567890" data-address="Address">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Selling Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col" class="text-success">Selling Quantity</th>
+                        <th scope="col" class="text-danger">Available Quantity</th>
+                        <th scope="col">Expiry Date</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample Data Row -->
+                    <tr>
+                        <th scope="row">Product 1</th>
+                        <td>$10.00</td>
+                        <td>$15.00</td>
+                        <td>10</td>
+                        <td class="text-success">5</td>
+                        <td class="text-danger">4</td>
+                        <td>28/12/2024</td>
+                        <td>
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProductModal">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                            <button class="btn btn-outline-danger delete btn" type="button" data-id="1">
+                            <button class="btn btn-outline-danger delete" type="button" data-bs-target="#deleteProductModal">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
                         </td>
-                </tr>
-                <tr>
-                    <th scope="row">name</th>
-                    <td>$10.00</td>
-                    <td>$15.00</td>
-                    <td>10</td>
-                    <td class="text-success">5</td>
-                    <td class="text-danger">4</td>
-                    <td>28/12/2024</td>
-                    <td>
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProductModal"
-                                data-id="1" data-name="Name_user" data-type="Customer" data-email="name@gmail.com" data-phone="1234567890" data-address="Address">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn btn-outline-danger delete btn" type="button" data-id="1">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                </tr>
-                <tr>
-                    <th scope="row">name</th>
-                    <td>$10.00</td>
-                    <td>$15.00</td>
-                    <td>10</td>
-                    <td class="text-success">5</td>
-                    <td class="text-danger">4</td>
-                    <td>28/12/2024</td>
-                    <td>
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProductModal"
-                                data-id="1" data-name="Name_user" data-type="Customer" data-email="name@gmail.com" data-phone="1234567890" data-address="Address">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn btn-outline-danger delete btn" type="button" data-id="1">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+                </tbody>
+            </table>
 
-        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+            <!-- Modal for Adding Product -->
+            <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -144,60 +148,26 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                            <div class="mb-3">
-                                <label for="productImage" class="form-label" style="color:#333;">Image Upload</label>
-                                <div class="image-upload-wrapper">
-                                    <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
-                                    <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
-                                </div>
-                            </div>
-                                <div class="row">
+                            <div class="row">
                                     <div class="col">
-                                        <label for="productPrice" class="form-label" style="color:#333;">Name</label>
-                                        <input type="text" class="form-control" placeholder= aria-label="First name">
-                                    </div>
-                                    <div class="col">
-                                        <label for="productType" class="form-label" style="color:#333;">Type</label>
-                                        <select class="form-select" id="productType" required>
-                                            <option value="" disabled selected>Select type</option>
-                                            <option value="tablet">Tablet</option>
-                                            <option value="syrup">Syrup</option>
-                                            <option value="tube">Tube</option>
+                                        <label for="productPharmacy" class="form-label" style="color:#333;">Product Name</label>
+                                        <select class="form-select" id="productPharmacy" required>
+                                            <option value="" disabled selected>Select Product</option>
+                                            <option value="pharmacy1">Product 1</option>
+                                            <option value="pharmacy2">Product 2</option>
+                                            <option value="pharmacy3">Product 3</option>
                                         </select>
                                     </div>
+                                    <div class="col">
+                                        <label for="productQuantity" class="form-label" style="color:#333;">Quantity</label>
+                                        <input type="number" class="form-control" id="productQuantity" required>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                    <label for="productPrice" class="form-label" style="color:#333;">Price</label>
-                                    <input type="number" class="form-control" id="productPrice" required>
+                                        <label for="productExpiry" class="form-label" style="color:#333;">EXP Date</label>
+                                        <input type="date" class="form-control" id="productExpiry" required>
                                     </div>
-                                <div class="col">
-                                    <label for="productPower" class="form-label" style="color:#333;">Power</label>
-                                    <input type="text" class="form-control" id="productPower" required>
-                                </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productPharmacy" class="form-label" style="color:#333;">Pharmacy</label>
-                                    <select class="form-select" id="productPharmacy" required>
-                                        <option value="" disabled selected>Select pharmacy</option>
-                                        <option value="pharmacy1">Pharmacy 1</option>
-                                        <option value="pharmacy2">Pharmacy 2</option>
-                                        <option value="pharmacy3">Pharmacy 3</option>
-                                    </select>
-                                </div>
-                                <div class="row">   
-                                    <div class="col">
-                                        <label for="editProductGramMl" class="form-label" style="color:#333;">Gram/ML</label>
-                                        <input type="text" class="form-control" id="editProductGramMl" required>
-                                    </div>
-                                    <div class="col">
-                                        <label for="editProductSellingPrice" class="form-label" style="color:#333;">Selling Price</label>
-                                        <input type="number" class="form-control" id="editProductSellingPrice" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productGramMl" class="form-label" style="color:#333;">Description</label>
-                                    <input type="text" class="form-control" id="productGramMl" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
                             </form>
@@ -215,61 +185,27 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <for<form>
-                            <div class="mb-3">
-                                <label for="productImage" class="form-label">Image Upload</label>
-                                <div class="image-upload-wrapper">
-                                    <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
-                                    <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
-                                </div>
-                            </div>
-                                <div class="row">
+                            <form>
+                            <div class="row">
                                     <div class="col">
-                                        <label for="productPrice" class="form-label">Name</label>
-                                        <input type="text" class="form-control" placeholder="Name" aria-label="First name">
-                                    </div>
-                                    <div class="col">
-                                        <label for="productType" class="form-label">Type</label>
-                                        <select class="form-select" id="productType" required>
-                                            <option value="" disabled selected>Select type</option>
-                                            <option value="tablet">Tablet</option>
-                                            <option value="syrup">Syrup</option>
-                                            <option value="tube">Tube</option>
+                                        <label for="productPharmacy" class="form-label" style="color:#333;">Product Name</label>
+                                        <select class="form-select" id="productPharmacy" required>
+                                            <option value="" disabled selected>Select Product</option>
+                                            <option value="pharmacy1">Product 1</option>
+                                            <option value="pharmacy2">Product 2</option>
+                                            <option value="pharmacy3">Product 3</option>
                                         </select>
                                     </div>
+                                    <div class="col">
+                                        <label for="productQuantity" class="form-label" style="color:#333;">Quantity</label>
+                                        <input type="number" class="form-control" id="productQuantity" required>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                    <label for="productPrice" class="form-label">Price</label>
-                                    <input type="number" class="form-control" id="productPrice" required>
+                                        <label for="productExpiry" class="form-label" style="color:#333;">EXP Date</label>
+                                        <input type="date" class="form-control" id="productExpiry" required>
                                     </div>
-                                <div class="col">
-                                    <label for="productPower" class="form-label">Power</label>
-                                    <input type="text" class="form-control" id="productPower" required>
-                                </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productPharmacy" class="form-label">Pharmacy</label>
-                                    <select class="form-select" id="productPharmacy" required>
-                                        <option value="" disabled selected>Select pharmacy</option>
-                                        <option value="pharmacy1">Pharmacy 1</option>
-                                        <option value="pharmacy2">Pharmacy 2</option>
-                                        <option value="pharmacy3">Pharmacy 3</option>
-                                    </select>
-                                </div>
-                                <div class="row">   
-                                    <div class="col">
-                                        <label for="editProductGramMl" class="form-label">Gram/ML</label>
-                                        <input type="text" class="form-control" id="editProductGramMl" required>
-                                    </div>
-                                    <div class="col">
-                                        <label for="editProductSellingPrice" class="form-label">Selling Price</label>
-                                        <input type="number" class="form-control" id="editProductSellingPrice" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productGramMl" class="form-label">Description</label>
-                                    <input type="text" class="form-control" id="productGramMl" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
                             </form>
