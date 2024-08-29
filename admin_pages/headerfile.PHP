@@ -186,7 +186,7 @@
                             </a>
                             <ul class="dropdown-menu bg-dark-custom text-light" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item text-light" href="#">Sales Report</a></li>
-                                <li><a class="dropdown-item text-light" href="#">Inventory Report</a></li>
+                                <li><a class="dropdown-item text-light" href="inventery.php">Inventory Report</a></li>
                                 <li><a class="dropdown-item text-light" href="#">Feedback Report</a></li>
                             </ul>
                         </li>
