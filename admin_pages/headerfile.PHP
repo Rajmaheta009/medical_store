@@ -175,23 +175,28 @@
                                 <i class="fas fa-pills"></i> <span>Pharmacy</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light d-flex align-items-center" href="inventery.php">
+                                <i class="fas fa-file"></i> <span>Inventory Report</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light d-flex align-items-center" href="pharmacy.php">
+                                <i class="fas fa-users"></i> <span>User Type</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light d-flex align-items-center" href="pharmacy.php">
+                                <i class="fas fa-box"></i> <span>Product Type</span>
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-chart-bar"></i> <span>Report</span>
                             </a>
                             <ul class="dropdown-menu bg-dark-custom text-light" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item text-light" href="#">Sales Report</a></li>
-                                <li><a class="dropdown-item text-light" href="inventery.php">Inventory Report</a></li>
                                 <li><a class="dropdown-item text-light" href="#">Feedback Report</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light d-flex align-items-center" href="#" id="navbarDropdownSettings" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-cogs"></i> <span>Settings</span>
-                            </a>
-                            <ul class="dropdown-menu bg-dark-custom text-light" aria-labelledby="navbarDropdownSettings">
-                                <li><a class="dropdown-item text-light" href="#">User Type</a></li>
-                                <li><a class="dropdown-item text-light" href="#">Product Type</a></li>
                             </ul>
                         </li>
                     </ul>

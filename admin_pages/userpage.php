@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Store User Page</title>
+    <title>User Details</title>
     <!-- Add Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Add Font Awesome for icons -->
@@ -20,7 +20,12 @@
             background-color: #333;
         }
         body.dark-mode .table tbody tr:hover {
-            background-color: #444;
+            background-color: #fff;
+            color:#121212;
+        }
+        body.dark-mode .table tbody tr{
+            background-color: rgba(79, 79, 79, 0.344);
+            color: #ffffff;
         }
         body.dark-mode .btn {
             color:#ffffff;
@@ -49,10 +54,10 @@
                 <h1 class="h2">Users</h1>
                 <div class="input-group mb-3 w-50">
                     <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
-                    <button class="btn btn-light" type="button" id="button-addon2" style="margin-left:2px;">
+                    <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                         <i class="fas fa-search"></i> Search
                     </button>
-                    <button class="btn btn-light" type="button" id="addUserBtn" style="margin-right:120px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <button class="btn btn-primary" type="button" id="addUserBtn" style="margin-right:120px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addUserModal">
                         <i class="fas fa-user-plus"></i> Add User
                     </button>
                 </div>
@@ -78,13 +83,13 @@
                         <td>Customer</td>
                         <td>name@gmail.com</td>
                         <td>1234567890</td>
-                        <td><span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="ADDRESS"><button class="btn btn-primary" type="button" disabled>ADDRESS</button></span></td>
+                        <td><span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="ADDRESS"><button class="btn btn-outline-dark" type="button" disabled>ADDRESS</button></span></td>
                         <td>
-                            <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal"
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal"
                                 data-id="1" data-name="Name_user" data-type="Customer" data-email="name@gmail.com" data-phone="1234567890" data-address="Address">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                            <button class="btn btn-outline-dark delete btn" type="button" data-id="1">
+                            <button class="btn btn-outline-danger delete btn" type="button" data-id="1">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
                         </td>
@@ -97,34 +102,34 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+                        <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">Add User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="#" method="POST">
                             <div class="row">
                                 <div class="col">
-                                    <label for="userName" class="form-label">Name</label>
+                                    <label for="userName" class="form-label" style="color:#333;">Name</label>
                                     <input type="text" class="form-control" placeholder="Name" aria-label="Name" name="userName" id="userName">
                                 </div>
                                 <div class="col">
-                                    <label for="contactNo" class="form-label">Contact No</label>
+                                    <label for="contactNo" class="form-label" style="color:#333;">Contact No</label>
                                     <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for="email" class="form-label">Email</label>
+                                    <label for="email" class="form-label" style="color:#333;">Email</label>
                                     <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" id="email">
                                 </div>
                                 <div class="col">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label" style="color:#333;">Password</label>
                                     <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" id="password">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for="role" class="form-label">Role</label>
+                                    <label for="role" class="form-label" style="color:#333;">Role</label>
                                     <input type="text" class="form-control" placeholder="Role" aria-label="Role" name="role" id="role">
                                 </div>
                             </div>
@@ -142,6 +147,15 @@
     
     <!-- Dark Mode JavaScript -->
     <script>
+       // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const toggleBtn = document.getElementById('toggleBtn');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('shifted');
+        });
         document.addEventListener('DOMContentLoaded', function () {
             const darkModeToggle = document.getElementById('darkModeToggle');
             const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;

@@ -4,60 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Joined Cards</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
     <style>
-        body {}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .card-container {
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: #ffffff;
+            width: 350px;
+            /* Slightly wider container */
+            overflow: hidden;
+        }
+        
+        .image-card {
+            border-bottom: 1px solid #ddd;
+            /* Border separating image card from details card */
+            border-radius: 10px 10px 0 0;
+            /* Rounded top corners */
+            overflow: hidden;
+        }
+        
+        .image-card img {
+            width: 10%;
+            height: auto;
+            display: block;
+        }
+        
+        .details-card {
+            padding: 20px;
+            border: 1px solid #ddd;
+            /* Border around the details card */
+            border-radius: 0 0 10px 10px;
+            /* Rounded bottom corners */
+            text-align: center;
+        }
+        
+        .details-card h2 {
+            font-size: 1.5em;
+            margin: 0 0 10px;
+            color: #333;
+        }
+        
+        .details-card p {
+            font-size: 1em;
+            color: #666;
+        }
+        
+        .view-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .view-more:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
-
-    <form>
-        <div class="mb-3">
-            <label for="productImage" class="form-label">Image Upload</label>
-            <div class="image-upload-wrapper">
-                <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
-                <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
-            </div>
+    <div class="card">
+        <div class="image-card">
+            <img src="https://via.placeholder.com/300x200" alt="Image">
         </div>
-
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Name" aria-label="First name">
-            </div>
-            <div class="col">
-                <label for="productType">Type</label>
-                <select class="form-select" id="productType" required>
-                <option value="" disabled selected>Select type</option>
-                <option value="tablet">Tablet</option>
-                <option value="syrup">Syrup</option>
-                <option value="tube">Tube</option>
-            </select>
-            </div>
+        <div class="details-card">
+            <h2>Details Card</h2>
+            <p>This card contains detailed information about the item. It is larger and includes more content.</p>
+            <a href="#image-card" class="view-more">View Image</a>
         </div>
-
-        <!-- Other form fields -->
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <script>
-        function previewImage(event) {
-            const image = document.getElementById('imagePreview');
-            const file = event.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    image.style.display = 'block';
-                    image.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                image.style.display = 'none';
-                image.src = '';
-            }
-        }
-    </script>
+    </div>
 </body>
 
 </html>

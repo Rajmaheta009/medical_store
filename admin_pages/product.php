@@ -4,24 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
+    <title>Product Details</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma4f5lPjyX7Ujq5k5BzG9jZtme5V4jF94D5p3cN0Rm7yxbJ" crossorigin="anonymous">
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" integrity="sha512-..." crossorigin="anonymous">
+    <style>
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        body.dark-mode .table thead th {
+            background-color: #333;
+        }
+        body.dark-mode .table tbody tr:hover {
+            background-color: #444;
+        }
+        body.dark-mode .btn {
+            color:#ffffff;
+            background-color:#333;
+
+        }
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        /* Base card style */
+        .card {
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.15));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 350px;
+            padding: 20px; /* Added padding for consistency */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Card image style */
+        .card img {
+            background-position: center;
+            height: 120px;
+            width: 100%; /* Adjust to cover full width */
+            border-radius: 8px; /* Slightly smaller radius for a better look */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+            object-fit: cover; /* Ensure image covers the container */
+            margin-bottom: 15px; /* Space between image and text */
+        }
+
+        /* Dark mode styles */
+        .dark-mode .card {
+            background-color: #121212;
+            border: 1px solid #444;
+        }
+
+        .dark-mode .card img {
+            border: 1px solid #444;
+        }
+
+        /* Ensuring smooth transitions and consistent styling */
+        .dark-mode .card img {
+            border: 1px solid #444;
+            filter: brightness(90%); /* Slightly adjust image brightness for dark mode */
+        }
+
+    </style>
 </head>
 <body>
     <div class="container-fluid">
+        <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="btn btn-secondary dark-mode-toggle" style="margin-top:-4px; margin-left: 125px;">
+        <i class="fas fa-moon"></i> Dark Mode
+    </button>
+
         <!-- Main Content -->
         <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Products</h1>
                 <div class="input-group mb-3 w-50">
                     <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
-                    <button class="btn btn-primary" type="button" id="button-addon2">
+                    <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                         <i class="fas fa-search"></i> Search
                     </button>
-                    <button class="btn btn-primary" type="button" id="addProductBtn" style="margin-left:6px" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <button class="btn btn-primary" type="button" id="addProductBtn" style="margin-right:120px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addProductModal">
                         <i class="fas fa-user-plus"></i> Add Product
                     </button>
                 </div>
@@ -29,14 +104,14 @@
 
             <!-- Example Product Card -->
             <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <img src="../requrment/project_logo_medi.png" class="card-img-top" alt="Product Image">
+                <div class="card-body-image">
+                    <img src="../requrment/project_logo_medi.png" width="100" height="20">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Product Name</h5>
                     <p class="card-text">Product Details</p>
                     <h6 class="text-end me-3">$Price</h6>
-                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal" style="margin-right:70px;">
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal" style="margin-right:0px;">
                         <i class="fas fa-edit"></i> Edit
                     </a>
                     <a href="#" class="btn btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
@@ -50,13 +125,13 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                            <h5 class="modal-title" id="addProductModalLabel" style="color:#333;">Add Product</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form>
                             <div class="mb-3">
-                                <label for="productImage" class="form-label">Image Upload</label>
+                                <label for="productImage" class="form-label" style="color:#333;">Image Upload</label>
                                 <div class="image-upload-wrapper">
                                     <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
                                     <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
@@ -64,11 +139,11 @@
                             </div>
                                 <div class="row">
                                     <div class="col">
-                                        <label for="productPrice" class="form-label">Name</label>
-                                        <input type="text" class="form-control" placeholder="Name" aria-label="First name">
+                                        <label for="productPrice" class="form-label" style="color:#333;">Name</label>
+                                        <input type="text" class="form-control" placeholder= aria-label="First name">
                                     </div>
                                     <div class="col">
-                                        <label for="productType" class="form-label">Type</label>
+                                        <label for="productType" class="form-label" style="color:#333;">Type</label>
                                         <select class="form-select" id="productType" required>
                                             <option value="" disabled selected>Select type</option>
                                             <option value="tablet">Tablet</option>
@@ -79,16 +154,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                    <label for="productPrice" class="form-label">Price</label>
+                                    <label for="productPrice" class="form-label" style="color:#333;">Price</label>
                                     <input type="number" class="form-control" id="productPrice" required>
                                     </div>
                                 <div class="col">
-                                    <label for="productPower" class="form-label">Power</label>
+                                    <label for="productPower" class="form-label" style="color:#333;">Power</label>
                                     <input type="text" class="form-control" id="productPower" required>
                                 </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="productPharmacy" class="form-label">Pharmacy</label>
+                                    <label for="productPharmacy" class="form-label" style="color:#333;">Pharmacy</label>
                                     <select class="form-select" id="productPharmacy" required>
                                         <option value="" disabled selected>Select pharmacy</option>
                                         <option value="pharmacy1">Pharmacy 1</option>
@@ -98,16 +173,16 @@
                                 </div>
                                 <div class="row">   
                                     <div class="col">
-                                        <label for="editProductGramMl" class="form-label">Gram/ML</label>
+                                        <label for="editProductGramMl" class="form-label" style="color:#333;">Gram/ML</label>
                                         <input type="text" class="form-control" id="editProductGramMl" required>
                                     </div>
                                     <div class="col">
-                                        <label for="editProductSellingPrice" class="form-label">Selling Price</label>
+                                        <label for="editProductSellingPrice" class="form-label" style="color:#333;">Selling Price</label>
                                         <input type="number" class="form-control" id="editProductSellingPrice" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="productGramMl" class="form-label">Description</label>
+                                    <label for="productGramMl" class="form-label" style="color:#333;">Description</label>
                                     <input type="text" class="form-control" id="productGramMl" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
@@ -246,6 +321,32 @@
                 image.src = '';
             }
         }
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+            // Apply saved theme on load
+            if (currentTheme) {
+                document.body.classList.add(currentTheme);
+                if (currentTheme === 'dark-mode') {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                }
+            }
+
+            // Toggle dark mode
+            darkModeToggle.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+
+                // Update button text
+                if (document.body.classList.contains('dark-mode')) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                    localStorage.setItem('theme', 'dark-mode');
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                    localStorage.setItem('theme', 'light-mode');
+                }
+            });
+        });
     </script>
 </body>
 </html>

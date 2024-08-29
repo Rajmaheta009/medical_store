@@ -1,67 +1,309 @@
-<?php 
-    include 'headerfile.PHP'
-    ?>
-<div class="container-fluid">
+<?php include 'headerfile.PHP'; ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        body.dark-mode .table thead th {
+            background-color: #333;
+        }
+        body.dark-mode .table tbody tr:hover {
+            background-color: #fff;
+            color:#121212;
+        }
+        body.dark-mode .table tbody tr{
+            background-color: rgba(79, 79, 79, 0.344);
+            color: #ffffff;
+        }
+        body.dark-mode .btn {
+            color:#ffffff;
+            background-color:#333;
+
+        }
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle" class="btn btn-secondary dark-mode-toggle" style="margin-top:-4px;">
+        <i class="fas fa-moon"></i> Dark Mode
+    </button>
+
+    <div class="container-fluid">
         <!-- Main Content -->
         <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Inventory</h1>
+                <h1 class="h2">Inventery Report</h1>
                 <div class="input-group mb-3 w-50">
                     <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
-                    <button class="btn btn-primary" type="button" id="button-addon2">
+                    <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                         <i class="fas fa-search"></i> Search
                     </button>
-                    <button class="btn btn-primary" type="button" id="addProductBtn" style="margin-left:6px" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <button class="btn btn-primary" type="button" id="addUserBtn" style="margin-right:120px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addProductModal">
                         <i class="fas fa-user-plus"></i> Add Product
                     </button>
                 </div>
             </div>
+
+            <!-- Table Section -->
             <table class="table">
-                <tbody>
-                    <tr>
+            <thead>
+                <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Selling_price</th>
-                    <th scope="col">Quntity</th>
-                    <th scope="col">selling_Quntity</th>
-                    <th scope="col">avaliable_Quntity</th>
-                    <th scope="col">Exp_Date</th>
+                    <th scope="col">Selling Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col" class="text-success">Selling Quantity</th>
+                    <th scope="col" class="text-danger">Available Quantity</th>
+                    <th scope="col">Expiry Date</th>
                     <th scope="col">Action</th>
                 </tr>
-                    <tr>
+            </thead>
+            <tbody>
+                <tr>
                     <th scope="row">name</th>
                     <td>$10.00</td>
                     <td>$15.00</td>
                     <td>10</td>
-                    <td>5</td>
-                    <td>4</td>
+                    <td class="text-success">5</td>
+                    <td class="text-danger">4</td>
                     <td>28/12/2024</td>
-                    <td>28/12/2024</td>
-                    </tr>
-                    <tr>
+                    <td>
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProductModal"
+                                data-id="1" data-name="Name_user" data-type="Customer" data-email="name@gmail.com" data-phone="1234567890" data-address="Address">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger delete btn" type="button" data-id="1">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                </tr>
+                <tr>
                     <th scope="row">name</th>
                     <td>$10.00</td>
                     <td>$15.00</td>
                     <td>10</td>
-                    <td>5</td>
-                    <td>4</td>
+                    <td class="text-success">5</td>
+                    <td class="text-danger">4</td>
                     <td>28/12/2024</td>
-                    <td>28/12
-                    </tr>
-                    <tr>
+                    <td>
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProductModal"
+                                data-id="1" data-name="Name_user" data-type="Customer" data-email="name@gmail.com" data-phone="1234567890" data-address="Address">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger delete btn" type="button" data-id="1">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                </tr>
+                <tr>
                     <th scope="row">name</th>
                     <td>$10.00</td>
                     <td>$15.00</td>
                     <td>10</td>
-                    <td>5</td>
-                    <td>4</td>
+                    <td class="text-success">5</td>
+                    <td class="text-danger">4</td>
                     <td>28/12/2024</td>
-                    <td>28/12
-                    </tr>
-                </tbody>
-            </table>
+                    <td>
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProductModal"
+                                data-id="1" data-name="Name_user" data-type="Customer" data-email="name@gmail.com" data-phone="1234567890" data-address="Address">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger delete btn" type="button" data-id="1">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addProductModalLabel" style="color:#333;">Add Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                            <div class="mb-3">
+                                <label for="productImage" class="form-label" style="color:#333;">Image Upload</label>
+                                <div class="image-upload-wrapper">
+                                    <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
+                                    <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="productPrice" class="form-label" style="color:#333;">Name</label>
+                                        <input type="text" class="form-control" placeholder= aria-label="First name">
+                                    </div>
+                                    <div class="col">
+                                        <label for="productType" class="form-label" style="color:#333;">Type</label>
+                                        <select class="form-select" id="productType" required>
+                                            <option value="" disabled selected>Select type</option>
+                                            <option value="tablet">Tablet</option>
+                                            <option value="syrup">Syrup</option>
+                                            <option value="tube">Tube</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <label for="productPrice" class="form-label" style="color:#333;">Price</label>
+                                    <input type="number" class="form-control" id="productPrice" required>
+                                    </div>
+                                <div class="col">
+                                    <label for="productPower" class="form-label" style="color:#333;">Power</label>
+                                    <input type="text" class="form-control" id="productPower" required>
+                                </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productPharmacy" class="form-label" style="color:#333;">Pharmacy</label>
+                                    <select class="form-select" id="productPharmacy" required>
+                                        <option value="" disabled selected>Select pharmacy</option>
+                                        <option value="pharmacy1">Pharmacy 1</option>
+                                        <option value="pharmacy2">Pharmacy 2</option>
+                                        <option value="pharmacy3">Pharmacy 3</option>
+                                    </select>
+                                </div>
+                                <div class="row">   
+                                    <div class="col">
+                                        <label for="editProductGramMl" class="form-label" style="color:#333;">Gram/ML</label>
+                                        <input type="text" class="form-control" id="editProductGramMl" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="editProductSellingPrice" class="form-label" style="color:#333;">Selling Price</label>
+                                        <input type="number" class="form-control" id="editProductSellingPrice" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productGramMl" class="form-label" style="color:#333;">Description</label>
+                                    <input type="text" class="form-control" id="productGramMl" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Editing Product -->
+            <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <for<form>
+                            <div class="mb-3">
+                                <label for="productImage" class="form-label">Image Upload</label>
+                                <div class="image-upload-wrapper">
+                                    <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px;">
+                                    <input type="file" class="form-control" id="productImage" accept="image/*" onchange="previewImage(event)" style="margin-top: 10px;">
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="productPrice" class="form-label">Name</label>
+                                        <input type="text" class="form-control" placeholder="Name" aria-label="First name">
+                                    </div>
+                                    <div class="col">
+                                        <label for="productType" class="form-label">Type</label>
+                                        <select class="form-select" id="productType" required>
+                                            <option value="" disabled selected>Select type</option>
+                                            <option value="tablet">Tablet</option>
+                                            <option value="syrup">Syrup</option>
+                                            <option value="tube">Tube</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <label for="productPrice" class="form-label">Price</label>
+                                    <input type="number" class="form-control" id="productPrice" required>
+                                    </div>
+                                <div class="col">
+                                    <label for="productPower" class="form-label">Power</label>
+                                    <input type="text" class="form-control" id="productPower" required>
+                                </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productPharmacy" class="form-label">Pharmacy</label>
+                                    <select class="form-select" id="productPharmacy" required>
+                                        <option value="" disabled selected>Select pharmacy</option>
+                                        <option value="pharmacy1">Pharmacy 1</option>
+                                        <option value="pharmacy2">Pharmacy 2</option>
+                                        <option value="pharmacy3">Pharmacy 3</option>
+                                    </select>
+                                </div>
+                                <div class="row">   
+                                    <div class="col">
+                                        <label for="editProductGramMl" class="form-label">Gram/ML</label>
+                                        <input type="text" class="form-control" id="editProductGramMl" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="editProductSellingPrice" class="form-label">Selling Price</label>
+                                        <input type="number" class="form-control" id="editProductSellingPrice" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productGramMl" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="productGramMl" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Deleting Product -->
+            <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteProductModalLabel">Confirm Deletion</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this product?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
-<script>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-wEmeIV1m8gOnjK5la4aLHEkThD91D/ePb3qu5RcnPjkp6dF+Z2xjK3M13uoDIWdpE" crossorigin="anonymous"></script>
+
+    <script>
+        // Toggle Sidebar
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('mainContent');
         const toggleBtn = document.getElementById('toggleBtn');
@@ -70,4 +312,55 @@
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('shifted');
         });
-</script>
+
+        // Handle Delete Confirmation
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        confirmDeleteBtn.addEventListener('click', () => {
+            // Add your deletion logic here
+            alert('Product deleted.');
+        });
+        function previewImage(event) {
+            const image = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    image.style.display = 'block';
+                    image.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                image.style.display = 'none';
+                image.src = '';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+            // Apply saved theme on load
+            if (currentTheme) {
+                document.body.classList.add(currentTheme);
+                if (currentTheme === 'dark-mode') {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                }
+            }
+
+            // Toggle dark mode
+            darkModeToggle.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+
+                // Update button text
+                if (document.body.classList.contains('dark-mode')) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                    localStorage.setItem('theme', 'dark-mode');
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                    localStorage.setItem('theme', 'light-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
