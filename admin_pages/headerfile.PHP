@@ -181,12 +181,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light d-flex align-items-center" href="pharmacy.php">
+                            <a class="nav-link text-light d-flex align-items-center" href="user_type.php">
                                 <i class="fas fa-users"></i> <span>User Type</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light d-flex align-items-center" href="pharmacy.php">
+                            <a class="nav-link text-light d-flex align-items-center" href="product_type.php">
                                 <i class="fas fa-box"></i> <span>Product Type</span>
                             </a>
                         </li>
