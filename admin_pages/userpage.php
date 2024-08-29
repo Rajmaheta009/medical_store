@@ -11,6 +11,9 @@
     <!-- Add Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        body{
+            background-color: gray;
+        }
         .modal-content {
             border-radius: 0.5rem;
         }

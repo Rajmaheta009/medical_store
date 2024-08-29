@@ -139,11 +139,6 @@
             text-align: center;
         }
 
-        table thead th {
-            background-color: #343a40;
-            color: #fff;
-        }
-
         table tbody tr:nth-child(odd) {
             background-color: #f2f2f2;
             
