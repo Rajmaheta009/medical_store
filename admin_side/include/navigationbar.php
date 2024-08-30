@@ -48,8 +48,8 @@
                                 <i class="fas fa-chart-bar"></i> <span>Report</span>
                             </a>
                             <ul class="dropdown-menu bg-dark-custom text-light" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item text-dark" href="#" style="background-color: #343a40; padding:none;">Sales Report</a></li>
-                                <li><a class="dropdown-item text-dark" href="#" style="background-color: #343a40;">Feedback Report</a></li>
+                                <li><a class="dropdown-item text-dark" href="#" >Sales Report</a></li>
+                                <li><a class="dropdown-item text-dark" href="#" >Feedback Report</a></li>
                             </ul>
                         </li>
                     </ul>
