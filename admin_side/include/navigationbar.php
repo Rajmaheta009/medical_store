@@ -4,7 +4,7 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark-custom text-light sidebar">
                 <div class="position-sticky">
                     <!-- Toggle Button in Sidebar -->
-                    <button class="btn toggle-btn" id="toggleBtn">
+                    <button class="btn toggle-btn" id="toggleBtn" style="background-color:#343a40; margin-left:-12px;">
                         <i class="fas fa-bars"></i>
                     </button>
                     <ul class="nav flex-column mt-4">

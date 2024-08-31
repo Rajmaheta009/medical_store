@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'include/header.php';?>
 <div class="container-fluid">
         <!-- Main Content -->
         <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
@@ -48,50 +48,49 @@
                     </tr>
                 </tbody>
             </table>
-
-        <!-- Modal for Adding User -->
-        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">Add User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" method="POST">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="userName" class="form-label" style="color:#333;">Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" aria-label="Name" name="userName" id="userName">
+            <!-- Modal for Adding User -->
+            <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">Add User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" method="POST">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="userName" class="form-label" style="color:#333;">Name</label>
+                                        <input type="text" class="form-control" placeholder="Name" aria-label="Name" name="userName" id="userName">
+                                    </div>
+                                    <div class="col">
+                                        <label for="contactNo" class="form-label" style="color:#333;">Contact No</label>
+                                        <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo">
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <label for="contactNo" class="form-label" style="color:#333;">Contact No</label>
-                                    <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="email" class="form-label" style="color:#333;">Email</label>
+                                        <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" id="email">
+                                    </div>
+                                    <div class="col">
+                                        <label for="password" class="form-label" style="color:#333;">Password</label>
+                                        <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" id="password">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="email" class="form-label" style="color:#333;">Email</label>
-                                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" id="email">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="role" class="form-label" style="color:#333;">Role</label>
+                                        <input type="text" class="form-control" placeholder="Role" aria-label="Role" name="role" id="role">
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <label for="password" class="form-label" style="color:#333;">Password</label>
-                                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" id="password">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="role" class="form-label" style="color:#333;">Role</label>
-                                    <input type="text" class="form-control" placeholder="Role" aria-label="Role" name="role" id="role">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                        </form>
+                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
 
-<?php include 'fotter.php';?>
+<?php include 'include/fotter.php';?>

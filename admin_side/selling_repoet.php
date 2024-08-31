@@ -1,4 +1,4 @@
-<?php include 'header.php'?>
+<?php include 'include/header.php'?>
 <div class="container-fluid">
         <!-- Main Content -->
         <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
@@ -29,4 +29,4 @@
             </table>
     </main>
 </div>
-<?php include 'fotter.php' ?>
+<?php include 'include/fotter.php' ?>

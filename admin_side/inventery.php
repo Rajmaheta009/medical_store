@@ -1,4 +1,4 @@
-<?php include 'header.php';?>
+<?php include 'include/header.php';?>
 <!-- Main Content -->
 <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -88,63 +88,4 @@
                 </div>
             </div>
 
-            <!-- Modal for Editing Product -->
-            <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                            <div class="row">
-                                    <div class="col">
-                                        <label for="productPharmacy" class="form-label" style="color:#333;">Product Name</label>
-                                        <select class="form-select" id="productPharmacy" required>
-                                            <option value="" disabled selected>Select Product</option>
-                                            <option value="pharmacy1">Product 1</option>
-                                            <option value="pharmacy2">Product 2</option>
-                                            <option value="pharmacy3">Product 3</option>
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <label for="productQuantity" class="form-label" style="color:#333;">Quantity</label>
-                                        <input type="number" class="form-control" id="productQuantity" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="productExpiry" class="form-label" style="color:#333;">EXP Date</label>
-                                        <input type="date" class="form-control" id="productExpiry" required>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for Deleting Product -->
-            <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteProductModalLabel">Confirm Deletion</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this product?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <?php include 'fotter.php';?>
+    <?php include 'include/fotter.php';?>
