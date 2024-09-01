@@ -33,6 +33,7 @@
 
 .sidebar.collapsed .nav-link span {
     opacity: 0;
+    display: none;
 }
 
 .sidebar .nav-link i {
