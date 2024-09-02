@@ -19,6 +19,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">No</th>
                         <th scope="col">Pharmacy name</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
@@ -26,6 +27,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>Name_user</td>
                         <td>Active // De-Active</td>
                         <td>

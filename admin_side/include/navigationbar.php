@@ -48,9 +48,14 @@
                                 <i class="fas fa-chart-bar"></i> <span>Report</span>
                             </a>
                             <ul class="dropdown-menu bg-dark-custom text-light" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item text-dark" href="#" >Sales Report</a></li>
-                                <li><a class="dropdown-item text-dark" href="#" >Feedback Report</a></li>
+                                <li><a class="dropdown-item text-dark" href="selling_repoet.php" >Sales Report</a></li>
+                                <li><a class="dropdown-item text-dark" href="feedback.php" >Feedback Report</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item" style="margin-top:150%;">
+                            <a class="nav-link text-light d-flex align-items-center" href="../login_registration/login_registration.html">
+                                <i class="fa-solid fa-right-from-bracket"></i> <span>Sing out</span>
+                            </a>
                         </li>
                     </ul>
                 </div>

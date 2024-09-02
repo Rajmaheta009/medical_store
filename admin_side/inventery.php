@@ -18,6 +18,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">No</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Selling Price</th>
@@ -31,6 +32,7 @@
                 <tbody>
                     <!-- Sample Data Row -->
                     <tr>
+                        <th scope="row">1</th>
                         <th scope="row">Product 1</th>
                         <td>$10.00</td>
                         <td>$15.00</td>

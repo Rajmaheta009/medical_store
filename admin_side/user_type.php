@@ -21,6 +21,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">No</th>
                         <th scope="col">Role</th>
                         <th scope="col">Status</th>
                         <th scope="col">ACtion</th>
@@ -28,6 +29,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>Name_user</td>
                         <td>Active // Non-Active</td>
                         <td>

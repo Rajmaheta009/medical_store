@@ -16,12 +16,14 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">name</th>
+                        <th scope="col">No</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>Name_user</td>
                         <td>Active // De-Active</td>
                         </tr>
