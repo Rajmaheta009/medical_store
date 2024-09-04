@@ -1,16 +1,23 @@
 <?php
-include '../database/collaction.php';
+include '../../database/collaction.php'; // Ensure this is correct
 
-$productId = $_POST['product_id'] ?? null;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-if ($productId) {
-    $result = $product_collection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
-    if ($result->getDeletedCount() > 0) {
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['error' => 'Product not found or already deleted']);
+    $productId = $_POST['product_id'];
+
+    try {
+        // Delete product logic
+        $result = $product_collection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
+        // Check if the delete was successful
+        if ($result->getDeletedCount() > 0) {
+            header('Location: ../product.php'); // Redirect to the page with the table
+        } else {
+            echo "<script>alert('Error deleting user.'); window.location.href='../product.php';</script>";
+        }
+    } catch (Exception $e) {
+        echo "<script>alert('Exception: " . $e->getMessage() . "'); window.location.href='../product.php';</script>";
     }
 } else {
-    echo json_encode(['error' => 'No product ID provided']);
+    echo "<script>alert('No product ID provided.'); window.location.href='../product.php';</script>";
 }
 ?>

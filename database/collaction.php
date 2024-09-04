@@ -18,6 +18,7 @@ $medical_project_database = $conn->selectDatabase('medical_project');
 $login_registration_collection = $medical_project_database->selectCollection('login_registration');
 $user_collection = $medical_project_database->selectCollection('medi_user');
 $product_collection = $medical_project_database->selectCollection('medi_product');
+$pharmacy_collection = $medical_project_database->selectCollection('medi_pharmacy');
 
 
 // Database and collection for 'mydatabase'

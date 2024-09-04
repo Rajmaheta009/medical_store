@@ -3,11 +3,7 @@ include '../../database/collaction.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $productId = $_POST['product_id'] ?? ''; // Ensure productId is provided
-    $action = $_POST['action'] ?? ''; // Ensure action is provided
-
-    
-if ($_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
+    if ($_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
     $fileTmpPath = $_FILES['productImage']['tmp_name'];
     $fileName = $_FILES['productImage']['name'];
     $fileSize = $_FILES['productImage']['size'];
@@ -35,9 +31,22 @@ if ($_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
     $imagePath = $_POST['existingImage'] ?? ''; // Use existing image if no new file uploaded
 }
 
-    if ($action === 'add') {
-        $result = $product_collection->insertOne([
-            'name' => $_POST['productName'],
+include '../../database/collaction.php'; // Adjust the path as necessary
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['productName'];
+            $type = $_POST['productType'];
+            $price = $_POST['productPrice'];
+            $power = $_POST['productPower'];
+            $pharmacy = $_POST['productPharmacy'];
+            $gramMl = $_POST['editProductGramMl'];
+            $sellingPrice = $_POST['editProductSellingPrice'];
+            $description = $_POST['productDescription'];
+            
+
+    // Prepare the user data
+    $productData = [
+        'name' => $_POST['productName'],
             'type' => $_POST['productType'],
             'price' => $_POST['productPrice'],
             'power' => $_POST['productPower'],
@@ -46,49 +55,30 @@ if ($_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
             'sellingPrice' => $_POST['editProductSellingPrice'],
             'description' => $_POST['productDescription'],
             'image' => $image // Save image path
-        ]);
+    ];
 
-        if ($result->getInsertedCount() > 0) {
-            echo json_encode(['success' => true]);
+
+    if (!empty($productId)) {
+        // Edit existing user
+        $result = $user_collection->updateOne(
+            ['_id' => new MongoDB\BSON\ObjectID($productId)],
+            ['$set' => $productData]
+        );
+
+        if ($result->getModifiedCount() > 0) {
+            header("Location: ../product.php?status=success&type=edit");
         } else {
-            echo json_encode(['error' => 'Failed to add product.']);
-        }
-    } elseif ($action === 'edit') {
-        // Ensure the productId is valid
-        if (!empty($productId)) {
-            $updateData = [
-                'name' => $_POST['productName'],
-                'type' => $_POST['productType'],
-                'price' => $_POST['productPrice'],
-                'power' => $_POST['productPower'],
-                'pharmacy' => $_POST['productPharmacy'],
-                'gramMl' => $_POST['editProductGramMl'],
-                'sellingPrice' => $_POST['editProductSellingPrice'],
-                'description' => $_POST['productDescription'],
-            ];
-
-            // If a new image is uploaded, include it in the update
-            if (!empty($image)) {
-                $updateData['image'] = $image;
-            }
-
-            $result = $product_collection->updateOne(
-                ['_id' => new MongoDB\BSON\ObjectID($productId)],
-                ['$set' => $updateData]
-            );
-
-            if ($result->getModifiedCount() > 0) {
-                echo json_encode(['success' => true]);
-            } else {
-                echo json_encode(['error' => 'Failed to update product.']);
-            }
-        } else {
-            echo json_encode(['error' => 'Invalid Product ID.']);
+            header("Location: ../product.php?status=failed&type=edit");
         }
     } else {
-        echo json_encode(['error' => 'Invalid action.']);
+            $result = $user_collection->insertOne($productData);
+
+            if ($result->getInsertedCount() > 0) {
+                header("Location: ../product.php?status=success&type=add");
+            } else {
+                header("Location: ../product.php?status=failed&type=add");
+            }
+        }
     }
-} else {
-    echo json_encode(['error' => 'Invalid request method.']);
 }
 ?>
