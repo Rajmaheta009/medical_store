@@ -30,25 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         if ($result->getModifiedCount() > 0) {
-            echo '<script>alert("User updated successfully!"); window.location.href="../user.php";</script>';
+            header("Location: ../user.php?status=success&type=edit");
         } else {
-            echo '<script>alert("Update failed!"); window.location.href="../user.php";</script>';
+            header("Location: ../user.php?status=failed&type=edit");
         }
     } else {
         // Add new user
         $existingUser = $user_collection->findOne(['email' => $email]);
-        
+
         if ($existingUser) {
-            echo '<script>alert("Email already exists!"); window.location.href="../user.php";</script>';
+            header("Location: ../user.php?status=failed&type=email_exists");
         } else {
             $result = $user_collection->insertOne($userData);
 
             if ($result->getInsertedCount() > 0) {
-                echo '<script>alert("User added successfully!"); window.location.href="../user.php";</script>';
+                header("Location: ../user.php?status=success&type=add");
             } else {
-                echo '<script>alert("Add user failed!"); window.location.href="../user.php";</script>';
+                header("Location: ../user.php?status=failed&type=add");
             }
         }
     }
 }
-?>

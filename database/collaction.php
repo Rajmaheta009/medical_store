@@ -2,6 +2,7 @@
 require 'vendor/autoload.php'; // Make sure this path is correct for your autoload.php
 
 use MongoDB\Client;
+// use MongoDB\BSON\ObjectID;
 
 // MongoDB connection
 $conn = new Client('mongodb://localhost:27017/?authSource=raj');
@@ -16,9 +17,8 @@ $data_save_collection = $raj_database->selectCollection('data_save');
 $medical_project_database = $conn->selectDatabase('medical_project');
 $login_registration_collection = $medical_project_database->selectCollection('login_registration');
 $user_collection = $medical_project_database->selectCollection('medi_user');
-// $products_collection = $medical_project_database->selectCollection('product_deshboard');
-// $cart_collection = $medical_project_database -> selectCollection('cart');
-// $feedback_collection =$medical_project_database -> selectCollection('feedback');
+$product_collection = $medical_project_database->selectCollection('medi_product');
+
 
 // Database and collection for 'mydatabase'
 $mydatabase_database = $conn->selectDatabase('mydatabase');

@@ -71,28 +71,31 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="userName" class="form-label" style="color:#333;">Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" aria-label="Name" name="userName" id="userName">
+                                    <input type="text" class="form-control" placeholder="Name" aria-label="Name" name="userName" id="userName" required>
                                 </div>
                                 <div class="col">
                                     <label for="contactNo" class="form-label" style="color:#333;">Contact No</label>
-                                    <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo">
+                                    <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo" required> 
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label for="email" class="form-label" style="color:#333;">Email</label>
-                                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" id="email">
+                                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" id="email" required>
                                 </div>
                                 <div class="col">
                                     <label for="password" class="form-label" style="color:#333;">Password</label>
-                                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" id="password">
+                                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" id="password" required>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">
-                                    <label for="role" class="form-label" style="color:#333;">Role</label>
-                                    <input type="text" class="form-control" placeholder="Role" aria-label="Role" name="role" id="role">
-                                </div>
+                                <label for="role" style="color:#333;">Select Role:</label>
+                                <select id="role" name="role" class="form-select" required>
+                                <option value="manager">Manager</option>
+                                <option value="product_manager">Product Manager</option>
+                                <option value="user_manager">User Manager</option>
+                                <option value="pharmacy_manager">Pharmacy Manager</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
                         </form>
@@ -103,20 +106,84 @@
     </main>
 </div>
 
-<?php include 'include/fotter.php'; ?>
+<!-- Toast container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000"> <!-- Auto hide after 5 seconds -->
+        <div class="toast-header" style="background-color:#333; color:aliceblue;">
+            <strong class="me-auto" >Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    <div class="toast-body" style="background-color:#333; color:aliceblue;">
+    <!-- Toast message will be set here -->
+    </div>
+    </div>
+</div>
+
+<!-- Your content goes here -->
+
+<script>
+function showToast(message) {
+    var toastEl = document.getElementById('liveToast');
+    var toastBody = toastEl.querySelector('.toast-body');
+    toastBody.innerText = message;
+
+    var toast = new bootstrap.Toast(toastEl, {
+        delay: 5000 // Hide after 5 seconds
+    });
+
+    // Show the toast after 2 seconds (2000 milliseconds)
+    setTimeout(function() {
+        toast.show();
+    }, 2000);
+}
+
+// URL parameter parsing function
+function getParameterByName(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const status = getParameterByName('status');
+    const type = getParameterByName('type');
+    
+    if (status && type) {
+        let message = '';
+
+        if (status === 'success' && type === 'add') {
+            message = 'User added successfully!';
+        } else if (status === 'success' && type === 'edit') {
+            message = 'User updated successfully!';
+        } else if (status === 'failed' && type === 'edit') {
+            message = 'Failed to update user!';
+        } else if (status === 'failed' && type === 'add') {
+            message = 'Failed to add user!';
+        } else if (status === 'failed' && type === 'email_exists') {
+            message = 'Email already exists!';
+        }
+
+        // Show the toast with the respective message if it's not empty
+        if (message) {
+            showToast(message);
+        }
+    }
+});
+</script>
+
+
 
 <!-- JavaScript to handle the Add/Edit User Modal behavior -->
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const editButtons = document.querySelectorAll('.btn-outline-primary');
-    const addUserButton = document.getElementById('addUserBtn');
-    const userIdInput = document.getElementById('userId');
-    const userNameInput = document.getElementById('userName');
-    const contactNoInput = document.getElementById('contactNo');
-    const emailInput = document.getElementById('email');
-    const roleInput = document.getElementById('role');
-    const passwordInput = document.getElementById('password');
-
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.btn-outline-primary');
+        const addUserButton = document.getElementById('addUserBtn');
+        const userIdInput = document.getElementById('userId');
+        const userNameInput = document.getElementById('userName');
+        const contactNoInput = document.getElementById('contactNo');
+        const emailInput = document.getElementById('email');
+        const roleInput = document.getElementById('role');
+        const passwordInput = document.getElementById('password');
+    
     // Clear form fields when Add User button is clicked
     addUserButton.addEventListener('click', function () {
         userIdInput.value = ''; // Clear hidden User ID
@@ -142,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
             contactNoInput.value = phone;
             emailInput.value = email;
             roleInput.value = role;
-
+            
             // Password is usually not edited or displayed for security reasons, so it remains empty.
             passwordInput.value = '';
         });
@@ -156,3 +223,5 @@ function confirmDelete(userId) {
     }
 }
 </script>
+
+<?php include 'include/fotter.php'; ?>
