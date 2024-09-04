@@ -7,7 +7,7 @@
             <div class="input-group mb-3 w-50">
                 <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
                 <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search"></i> 
                 </button>
                 <button class="btn btn-primary" type="button" id="addUserBtn" style="margin-right:120px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addUserModal">
                     <i class="fas fa-user-plus"></i> Add User
@@ -35,8 +35,7 @@
                 $counter = 1; // Initialize counter for PHP
                 foreach ($datas as $data) { ?>
                     <tr>
-                        <td><?php echo $counter++; // Display incremented counter 
-                            ?></td>
+                        <td><?php echo $counter++; // Display incremented counter ?></td>
                         <td><?php echo $data['name']; ?></td>
                         <td><?php echo $data['role']; ?></td>
                         <td><?php echo $data['email']; ?></td>
@@ -44,10 +43,10 @@
                         <td><span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Address"><i class="fa-solid fa-location-dot"></i></span></td>
                         <td>
                             <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addUserModal"
-                                data-id="<?php echo $data['_id']; ?>"
-                                data-name="<?php echo $data['name']; ?>"
-                                data-phone="<?php echo $data['phone']; ?>"
-                                data-email="<?php echo $data['email']; ?>"
+                                data-id="<?php echo $data['_id']; ?>" 
+                                data-name="<?php echo $data['name']; ?>" 
+                                data-phone="<?php echo $data['phone']; ?>" 
+                                data-email="<?php echo $data['email']; ?>" 
                                 data-role="<?php echo $data['role']; ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
@@ -76,7 +75,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="contactNo" class="form-label" style="color:#333;">Contact No</label>
-                                    <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo" required>
+                                    <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo" required> 
                                 </div>
                             </div>
                             <div class="row">
@@ -92,10 +91,10 @@
                             <div class="row">
                                 <label for="role" style="color:#333;">Select Role:</label>
                                 <select id="role" name="role" class="form-select" required>
-                                    <option value="manager">Manager</option>
-                                    <option value="product_manager">Product Manager</option>
-                                    <option value="user_manager">User Manager</option>
-                                    <option value="pharmacy_manager">Pharmacy Manager</option>
+                                <option value="manager">Manager</option>
+                                <option value="product_manager">Product Manager</option>
+                                <option value="user_manager">User Manager</option>
+                                <option value="pharmacy_manager">Pharmacy Manager</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -111,71 +110,71 @@
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000"> <!-- Auto hide after 5 seconds -->
         <div class="toast-header" style="background-color:#333; color:aliceblue;">
-            <strong class="me-auto">Notification</strong>
+            <strong class="me-auto" >Notification</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body" style="background-color:#333; color:aliceblue;">
-            <!-- Toast message will be set here -->
-        </div>
+    <div class="toast-body" style="background-color:#333; color:aliceblue;">
+    <!-- Toast message will be set here -->
+    </div>
     </div>
 </div>
 
 <!-- Your content goes here -->
 
 <script>
-    function showToast(message) {
-        var toastEl = document.getElementById('liveToast');
-        var toastBody = toastEl.querySelector('.toast-body');
-        toastBody.innerText = message;
+function showToast(message) {
+    var toastEl = document.getElementById('liveToast');
+    var toastBody = toastEl.querySelector('.toast-body');
+    toastBody.innerText = message;
 
-        var toast = new bootstrap.Toast(toastEl, {
-            delay: 5000 // Hide after 5 seconds
-        });
-
-        // Show the toast after 2 seconds (2000 milliseconds)
-        setTimeout(function() {
-            toast.show();
-        }, 2000);
-    }
-
-    // URL parameter parsing function
-    function getParameterByName(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const status = getParameterByName('status');
-        const type = getParameterByName('type');
-
-        if (status && type) {
-            let message = '';
-
-            if (status === 'success' && type === 'add') {
-                message = 'User added successfully!';
-            } else if (status === 'success' && type === 'edit') {
-                message = 'User updated successfully!';
-            } else if (status === 'failed' && type === 'edit') {
-                message = 'Failed to update user!';
-            } else if (status === 'failed' && type === 'add') {
-                message = 'Failed to add user!';
-            } else if (status === 'failed' && type === 'email_exists') {
-                message = 'Email already exists!';
-            }
-
-            // Show the toast with the respective message if it's not empty
-            if (message) {
-                showToast(message);
-            }
-        }
+    var toast = new bootstrap.Toast(toastEl, {
+        delay: 5000 // Hide after 5 seconds
     });
+
+    // Show the toast after 2 seconds (2000 milliseconds)
+    setTimeout(function() {
+        toast.show();
+    }, 2000);
+}
+
+// URL parameter parsing function
+function getParameterByName(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const status = getParameterByName('status');
+    const type = getParameterByName('type');
+    
+    if (status && type) {
+        let message = '';
+
+        if (status === 'success' && type === 'add') {
+            message = 'User added successfully!';
+        } else if (status === 'success' && type === 'edit') {
+            message = 'User updated successfully!';
+        } else if (status === 'failed' && type === 'edit') {
+            message = 'Failed to update user!';
+        } else if (status === 'failed' && type === 'add') {
+            message = 'Failed to add user!';
+        } else if (status === 'failed' && type === 'email_exists') {
+            message = 'Email already exists!';
+        }
+
+        // Show the toast with the respective message if it's not empty
+        if (message) {
+            showToast(message);
+        }
+    }
+});
 </script>
 
 
 
 <!-- JavaScript to handle the Add/Edit User Modal behavior -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const editButtons = document.querySelectorAll('.btn-outline-primary');
         const addUserButton = document.getElementById('addUserBtn');
         const userIdInput = document.getElementById('userId');
@@ -184,45 +183,45 @@
         const emailInput = document.getElementById('email');
         const roleInput = document.getElementById('role');
         const passwordInput = document.getElementById('password');
-
-        // Clear form fields when Add User button is clicked
-        addUserButton.addEventListener('click', function() {
-            userIdInput.value = ''; // Clear hidden User ID
-            userNameInput.value = ''; // Clear name field
-            contactNoInput.value = ''; // Clear phone field
-            emailInput.value = ''; // Clear email field
-            roleInput.value = ''; // Clear role field
-            passwordInput.value = ''; // Clear password field
-        });
-
-        // Populate form when Edit button is clicked
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const userId = this.getAttribute('data-id');
-                const userName = this.getAttribute('data-name');
-                const phone = this.getAttribute('data-phone');
-                const email = this.getAttribute('data-email');
-                const role = this.getAttribute('data-role');
-
-                // Set the values in the modal inputs
-                userIdInput.value = userId;
-                userNameInput.value = userName;
-                contactNoInput.value = phone;
-                emailInput.value = email;
-                roleInput.value = role;
-
-                // Password is usually not edited or displayed for security reasons, so it remains empty.
-                passwordInput.value = '';
-            });
-        });
+    
+    // Clear form fields when Add User button is clicked
+    addUserButton.addEventListener('click', function () {
+        userIdInput.value = ''; // Clear hidden User ID
+        userNameInput.value = ''; // Clear name field
+        contactNoInput.value = ''; // Clear phone field
+        emailInput.value = ''; // Clear email field
+        roleInput.value = ''; // Clear role field
+        passwordInput.value = ''; // Clear password field
     });
 
-    function confirmDelete(userId) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            // Redirect to delete PHP script with user ID
-            window.location.href = `crud_code/user_delte.php?id=${userId}`;
-        }
+    // Populate form when Edit button is clicked
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const userId = this.getAttribute('data-id');
+            const userName = this.getAttribute('data-name');
+            const phone = this.getAttribute('data-phone');
+            const email = this.getAttribute('data-email');
+            const role = this.getAttribute('data-role');
+
+            // Set the values in the modal inputs
+            userIdInput.value = userId;
+            userNameInput.value = userName;
+            contactNoInput.value = phone;
+            emailInput.value = email;
+            roleInput.value = role;
+            
+            // Password is usually not edited or displayed for security reasons, so it remains empty.
+            passwordInput.value = '';
+        });
+    });
+});
+
+function confirmDelete(userId) {
+    if (confirm("Are you sure you want to delete this user?")) {
+        // Redirect to delete PHP script with user ID
+        window.location.href = `crud_code/user_delte.php?id=${userId}`;
     }
+}
 </script>
 
 <?php include 'include/fotter.php'; ?>
