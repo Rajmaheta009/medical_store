@@ -1,10 +1,8 @@
 <?php
 include '../../database/collaction.php'; // Ensure this is correct
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $productId = $_POST['product_id'];
-
+$productId = $_GET['id'];
+if ($productId){
     try {
         // Delete product logic
         $result = $product_collection->deleteOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);

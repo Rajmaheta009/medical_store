@@ -14,7 +14,6 @@
                 </button>
             </div>
         </div>
-
         <!-- Table Section -->
         <div class="row">
             <?php
@@ -23,32 +22,30 @@
             foreach ($products as $product) { ?>
                 <div class="card col-md-3" style="background-color:#333; margin-bottom: 20px; margin-left:65px;">
                     <div class="image-wrapper">
-                        <img src="<?php echo $product['image_id']; ?>" alt="<?php echo $product['name']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <img src="get_image.php?image_id=<?php echo $product['image_id']; ?>" alt="<?php echo $product['name']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body" style="margin-top: -60px;">
                         <h5 class="card-title"><?php echo $product['name']; ?></h5>
                         <p class="card-text"><?php echo $product['description']; ?></p>
                         <h6 class="text-center md-3">$<?php echo $product['price']; ?></h6>
-                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addUserModal"
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addEditProductModal"
                             data-id="<?php echo $product['_id']; ?>"
+                            data-image="<?php echo $product['image_id']; ?>"
                             data-name="<?php echo $product['name']; ?>"
-                            data-phone="<?php echo $product['type']; ?>"
+                            data-type="<?php echo $product['type']; ?>"
                             data-price="<?php echo $product['price']; ?>"
                             data-power="<?php echo $product['power']; ?>"
                             data-pharmacy="<?php echo $product['pharmacy']; ?>"
                             data-gram_ml="<?php echo $product['gram_ml']; ?>"
                             data-selling_price="<?php echo $product['selling_price']; ?>"
-                            data-description="<?php echo $product['description']; ?>"
-                            data-image="<?php echo $product['image_id']; ?>">
+                            data-description="<?php echo $product['description']; ?>">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-
+                        <button onclick="confirmDelete('<?php echo $product['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             <?php } ?>
         </div>
-
         <!-- Modal for Adding/Editing Product -->
         <div class="modal fade" id="addEditProductModal" tabindex="-1" aria-labelledby="addEditProductModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -61,17 +58,23 @@
                         <form id="productForm" action="crud_code/product_crud.php" method="post" enctype="multipart/form-data">
                             <input type="hidden" id="productId" name="product_id">
                             <input type="hidden" name="action" id="action" value="add">
+                            <!-- Image Upload Section -->
                             <div class="mb-3">
                                 <label for="productImage" class="form-label" style="color:#333;">Image Upload</label>
                                 <div class="image-upload-wrapper">
+                                    <!-- Hidden File Input -->
                                     <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" onchange="previewImage(event)" style="display:none;">
-                                    <span id="uploadIcon" onclick="triggerFileInput()" style="cursor: pointer; font-size: 24px; display: inline-block; margin-top: 10px;">
+                                    <span id="uploadIcon" onclick="triggerFileInput()" style="cursor: pointer; font-size: 24px;">
                                         <i class="fas fa-plus-circle" style="color: black; padding:40px; border-radius:2px; border:dotted"></i>
                                     </span>
+                                    <!-- Image Preview -->
                                     <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px;">
+                                    <!-- Existing Image Display -->
+                                    <img id="existingImage" class="img-thumbnail" src="" alt="Existing Image" style="width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; display:none;">
                                 </div>
                             </div>
 
+                            <!-- Other Input Fields -->
                             <div class="row">
                                 <div class="col">
                                     <label for="productName" class="form-label" style="color:#333;">Name</label>
@@ -131,6 +134,7 @@
                 </div>
             </div>
         </div>
+
     </main>
 </div>
 
@@ -203,32 +207,34 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const editButtons = document.querySelectorAll('.btn-outline-primary');
-        const addUserButton = document.getElementById('addUserBtn');
-        const productIdInput = document.getElementById('product_id');
+        const addProductButton = document.getElementById('addProductBtn');
+        const productIdInput = document.getElementById('productId');
         const imageInput = document.getElementById('productImage');
-        const nameInput = document.getElementById('productname');
+        const nameInput = document.getElementById('productName');
         const typeInput = document.getElementById('productType');
-        const priceInput = document.getElementById('productprice');
-        const powerInput = document.getElementById('productpower');
-        const pharmacyInput = document.getElementById('productpharmacy');
+        const priceInput = document.getElementById('productPrice');
+        const powerInput = document.getElementById('productPower');
+        const pharmacyInput = document.getElementById('productPharmacy');
         const GramMlInput = document.getElementById('editProductGramMl');
         const SellingPriceInput = document.getElementById('editProductSellingPrice');
         const DescriptionInput = document.getElementById('productDescription');
+        const imagePreview = document.getElementById('imagePreview');
+        const existingImage = document.getElementById('existingImage');
 
-        // Clear form fields when Add User button is clicked
-        addUserButton.addEventListener('click', function() {
-            editButtons = ''; // make all field are empty..
-            addUserButton = ''; // make all field are empty..
-            productIdInput = ''; // make all field are empty..
-            imageInput = ''; // make all field are empty..
-            nameInput = ''; // make all field are empty..
-            typeInput = ''; // make all field are empty..
-            priceInput = ''; // make all field are empty..
-            powerInput = ''; // make all field are empty..
-            pharmacyInput = ''; // make all field are empty..
-            GramMlInput = ''; // make all field are empty..
-            SellingPriceInput = ''; // make all field are empty..
-            DescriptionInput = ''; // make all field are empty..
+        // Clear form fields when Add Product button is clicked
+        addProductButton.addEventListener('click', function() {
+            productIdInput.value = '';
+            nameInput.value = '';
+            typeInput.value = '';
+            priceInput.value = '';
+            powerInput.value = '';
+            pharmacyInput.value = '';
+            GramMlInput.value = '';
+            SellingPriceInput.value = '';
+            DescriptionInput.value = '';
+            imageInput.value = '';
+            imagePreview.style.display = 'none';
+            existingImage.style.display = 'none';
         });
 
         // Populate form when Edit button is clicked
@@ -236,7 +242,8 @@
             button.addEventListener('click', function() {
                 const productId = this.getAttribute('data-id');
                 const image = this.getAttribute('data-image');
-                const name = this.getAttribute('data-type');
+                const name = this.getAttribute('data-name');
+                const type = this.getAttribute('data-type');
                 const price = this.getAttribute('data-price');
                 const power = this.getAttribute('data-power');
                 const pharmacy = this.getAttribute('data-pharmacy');
@@ -244,27 +251,23 @@
                 const selling_price = this.getAttribute('data-selling_price');
                 const description = this.getAttribute('data-description');
 
-                // Set the values in the modal inputs
-                productIdInput = productId;
-                imageInput = image;
-                nameInput = name;
-                typeInput = type;
-                priceInput = price;
-                powerInput = power;
-                pharmacyInput = pharmacy;
-                GramMlInput = gram_ml;
-                SellingPriceInput = selling_price;
-                DescriptionInput = description;
+                productIdInput.value = productId;
+                nameInput.value = name;
+                typeInput.value = type;
+                priceInput.value = price;
+                powerInput.value = power;
+                pharmacyInput.value = pharmacy;
+                GramMlInput.value = gram_ml;
+                SellingPriceInput.value = selling_price;
+                DescriptionInput.value = description;
+
+                // Show the existing image and hide the image input preview
+                existingImage.src = `get_image.php?image_id=${image}`;
+                existingImage.style.display = 'block';
+                imagePreview.style.display = 'none';
             });
         });
     });
-
-    function confirmDelete(productId) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            // Redirect to delete PHP script with user ID
-            window.location.href = `crud_code/product_delte.php?id=${productId}`;
-        }
-    }
 
     function triggerFileInput() {
         document.getElementById('productImage').click();
@@ -273,11 +276,18 @@
     function previewImage(event) {
         const reader = new FileReader();
         reader.onload = function() {
-            const output = document.getElementById('imagePreview');
-            output.src = reader.result;
-            output.style.display = 'block';
-        };
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = reader.result;
+            imagePreview.style.display = 'block';
+        }
         reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function confirmDelete(productId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            // Redirect to delete PHP script with user ID
+            window.location.href = `crud_code/product_delete.php?id=${productId}`;
+        }
     }
 </script>
 <?php include 'include/fotter.php'; ?>
