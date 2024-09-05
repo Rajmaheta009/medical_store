@@ -23,18 +23,27 @@
             foreach ($products as $product) { ?>
                 <div class="card col-md-3" style="background-color:#333; margin-bottom: 20px; margin-left:65px;">
                     <div class="image-wrapper">
-                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <img src="<?php echo $product['image_id']; ?>" alt="<?php echo $product['name']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body" style="margin-top: -60px;">
                         <h5 class="card-title"><?php echo $product['name']; ?></h5>
                         <p class="card-text"><?php echo $product['description']; ?></p>
                         <h6 class="text-center md-3">$<?php echo $product['price']; ?></h6>
-                        <button data-id="<?php echo $product['_id']; ?>" class="btn btn-primary edit-product-btn" data-bs-toggle="modal" data-bs-target="#addEditProductModal">
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addUserModal"
+                            data-id="<?php echo $product['_id']; ?>"
+                            data-name="<?php echo $product['name']; ?>"
+                            data-phone="<?php echo $product['type']; ?>"
+                            data-price="<?php echo $product['price']; ?>"
+                            data-power="<?php echo $product['power']; ?>"
+                            data-pharmacy="<?php echo $product['pharmacy']; ?>"
+                            data-gram_ml="<?php echo $product['gram_ml']; ?>"
+                            data-selling_price="<?php echo $product['selling_price']; ?>"
+                            data-description="<?php echo $product['description']; ?>"
+                            data-image="<?php echo $product['image_id']; ?>">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn btn-danger ms-3 delete-product-btn" onclick="confirmDelete('<?php echo $product['_id']; ?>')">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+
                     </div>
                 </div>
             <?php } ?>
@@ -66,7 +75,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="productName" class="form-label" style="color:#333;">Name</label>
-                                    <input type="text" class="form-control" id="productName" name="productName" required>
+                                    <input type="text" class="form-control" id="productName" name="productname" required>
                                 </div>
                                 <div class="col">
                                     <label for="productType" class="form-label" style="color:#333;">Type</label>
@@ -82,17 +91,17 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="productPrice" class="form-label" style="color:#333;">Price</label>
-                                    <input type="number" class="form-control" id="productPrice" name="productPrice" required>
+                                    <input type="number" class="form-control" id="productPrice" name="productprice" required>
                                 </div>
                                 <div class="col">
                                     <label for="productPower" class="form-label" style="color:#333;">Power</label>
-                                    <input type="text" class="form-control" id="productPower" name="productPower" required>
+                                    <input type="text" class="form-control" id="productPower" name="productpower" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="productPharmacy" class="form-label" style="color:#333;">Pharmacy</label>
-                                <select class="form-select" id="productPharmacy" name="productPharmacy" required>
+                                <select class="form-select" id="productPharmacy" name="productpharmacy" required>
                                     <option value="" disabled selected>Select pharmacy</option>
                                     <option value="pharmacy1">Pharmacy 1</option>
                                     <option value="pharmacy2">Pharmacy 2</option>
@@ -122,117 +131,153 @@
                 </div>
             </div>
         </div>
-
-        <!-- Toast container -->
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000"> <!-- Auto hide after 5 seconds -->
-                <div class="toast-header" style="background-color:#333; color:aliceblue;">
-                    <strong class="me-auto">Notification</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body" style="background-color:#333; color:aliceblue;">
-                    <!-- Toast message will be set here -->
-                </div>
-            </div>
-        </div>
     </main>
 </div>
 
+<!-- Toast container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000"> <!-- Auto hide after 5 seconds -->
+        <div class="toast-header" style="background-color:#333; color:aliceblue;">
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" style="background-color:#333; color:aliceblue;">
+            <!-- Toast message will be set here -->
+        </div>
+    </div>
+</div>
+
+
+<!-- Your content goes here -->
+
 <script>
-function showToast(message) {
-    var toastEl = document.getElementById('liveToast');
-    var toastBody = toastEl.querySelector('.toast-body');
-    toastBody.innerText = message;
+    function showToast(message) {
+        var toastEl = document.getElementById('liveToast');
+        var toastBody = toastEl.querySelector('.toast-body');
+        toastBody.innerText = message;
 
-    var toast = new bootstrap.Toast(toastEl, {
-        delay: 5000 // Hide after 5 seconds
-    });
-
-    // Show the toast after 2 seconds (2000 milliseconds)
-    setTimeout(function() {
-        toast.show();
-    }, 2000);
-}
-
-// URL parameter parsing function
-function getParameterByName(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Check for success or error messages
-    const successMessage = getParameterByName('success');
-    if (successMessage) {
-        showToast(successMessage);
-    }
-    
-    const errorMessage = getParameterByName('error');
-    if (errorMessage) {
-        showToast(errorMessage);
-    }
-
-    // Handle edit product button click
-    document.querySelectorAll('.edit-product-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productId = this.getAttribute('data-id');
-            // Fetch product data from server and populate form (AJAX call)
-            fetch(`crud_code/product_crud.php?action=get&product_id=${productId}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('productId').value = data._id;
-                    document.getElementById('productName').value = data.name;
-                    document.getElementById('productType').value = data.type;
-                    document.getElementById('productPrice').value = data.price;
-                    document.getElementById('productDescription').value = data.description;
-                    document.getElementById('action').value = 'edit';
-                    document.getElementById('addEditProductModalLabel').innerText = 'Edit Product';
-                    
-                    // Set image preview if available
-                    if (data.image) {
-                        document.getElementById('imagePreview').src = data.image;
-                        document.getElementById('imagePreview').style.display = 'block';
-                    } else {
-                        document.getElementById('imagePreview').style.display = 'none';
-                    }
-                });
+        var toast = new bootstrap.Toast(toastEl, {
+            delay: 5000 // Hide after 5 seconds
         });
-    });
 
-    // Handle delete product button click
-    document.querySelectorAll('.delete-product-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productId = this.getAttribute('data-id');
-            if (confirm('Are you sure you want to delete this product?')) {
-                fetch(`crud_code/product_crud.php?action=delete&product_id=${productId}`, {
-                    method: 'POST'
-                }).then(response => {
-                    if (response.ok) {
-                        // Reload page or remove product from list
-                        location.reload();
-                    } else {
-                        alert('Failed to delete product.');
-                    }
-                });
+        // Show the toast after 2 seconds (2000 milliseconds)
+        setTimeout(function() {
+            toast.show();
+        }, 2000);
+    }
+
+    // URL parameter parsing function
+    function getParameterByName(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const status = getParameterByName('status');
+        const type = getParameterByName('type');
+
+        if (status && type) {
+            let message = '';
+
+            if (status === 'success' && type === 'add') {
+                message = 'product added successfully!';
+            } else if (status === 'success' && type === 'edit') {
+                message = 'product updated successfully!';
+            } else if (status === 'failed' && type === 'edit') {
+                message = 'Failed to update product!';
+            } else if (status === 'failed' && type === 'add') {
+                message = 'Failed to add product!';
             }
-        });
-    });
 
-    // Image preview function
-    document.getElementById('productImage').addEventListener('change', function() {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('imagePreview').src = e.target.result;
-            document.getElementById('imagePreview').style.display = 'block';
-        };
-        reader.readAsDataURL(this.files[0]);
+            // Show the toast with the respective message if it's not empty
+            if (message) {
+                showToast(message);
+            }
+        }
     });
-
-    // Trigger file input click
-    document.getElementById('uploadIcon').addEventListener('click', function() {
-        document.getElementById('productImage').click();
-    });
-});
 </script>
 
+
+
+<!-- JavaScript to handle the Add/Edit User Modal behavior -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('.btn-outline-primary');
+        const addUserButton = document.getElementById('addUserBtn');
+        const productIdInput = document.getElementById('product_id');
+        const imageInput = document.getElementById('productImage');
+        const nameInput = document.getElementById('productname');
+        const typeInput = document.getElementById('productType');
+        const priceInput = document.getElementById('productprice');
+        const powerInput = document.getElementById('productpower');
+        const pharmacyInput = document.getElementById('productpharmacy');
+        const GramMlInput = document.getElementById('editProductGramMl');
+        const SellingPriceInput = document.getElementById('editProductSellingPrice');
+        const DescriptionInput = document.getElementById('productDescription');
+
+        // Clear form fields when Add User button is clicked
+        addUserButton.addEventListener('click', function() {
+            editButtons = ''; // make all field are empty..
+            addUserButton = ''; // make all field are empty..
+            productIdInput = ''; // make all field are empty..
+            imageInput = ''; // make all field are empty..
+            nameInput = ''; // make all field are empty..
+            typeInput = ''; // make all field are empty..
+            priceInput = ''; // make all field are empty..
+            powerInput = ''; // make all field are empty..
+            pharmacyInput = ''; // make all field are empty..
+            GramMlInput = ''; // make all field are empty..
+            SellingPriceInput = ''; // make all field are empty..
+            DescriptionInput = ''; // make all field are empty..
+        });
+
+        // Populate form when Edit button is clicked
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                const image = this.getAttribute('data-image');
+                const name = this.getAttribute('data-type');
+                const price = this.getAttribute('data-price');
+                const power = this.getAttribute('data-power');
+                const pharmacy = this.getAttribute('data-pharmacy');
+                const gram_ml = this.getAttribute('data-gram_ml');
+                const selling_price = this.getAttribute('data-selling_price');
+                const description = this.getAttribute('data-description');
+
+                // Set the values in the modal inputs
+                productIdInput = productId;
+                imageInput = image;
+                nameInput = name;
+                typeInput = type;
+                priceInput = price;
+                powerInput = power;
+                pharmacyInput = pharmacy;
+                GramMlInput = gram_ml;
+                SellingPriceInput = selling_price;
+                DescriptionInput = description;
+            });
+        });
+    });
+
+    function confirmDelete(productId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            // Redirect to delete PHP script with user ID
+            window.location.href = `crud_code/product_delte.php?id=${productId}`;
+        }
+    }
+
+    function triggerFileInput() {
+        document.getElementById('productImage').click();
+    }
+
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 <?php include 'include/fotter.php'; ?>

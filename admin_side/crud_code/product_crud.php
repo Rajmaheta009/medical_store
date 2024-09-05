@@ -1,83 +1,86 @@
 <?php
 include '../../database/collaction.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $productId = $_POST['product_id'];
+    $name = $_POST['productname'];
+    $type = $_POST['productType'];
+    $price = $_POST['productprice'];
+    $power = $_POST['productpower'];
+    $pharmacy = $_POST['productpharmacy'];
+    $gram_ml = $_POST['editProductGramMl'];
+    $selling_price = $_POST['editProductSellingPrice'];
+    $description = $_POST['productDescription'];
 
-    if ($_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
-    $fileTmpPath = $_FILES['productImage']['tmp_name'];
-    $fileName = $_FILES['productImage']['name'];
-    $fileSize = $_FILES['productImage']['size'];
-    $fileType = $_FILES['productImage']['type'];
-    $fileNameCmps = explode(".", $fileName);
-    $fileExtension = strtolower(end($fileNameCmps));
+    // Check if the request is to update an existing product
+    if (isset($productId) && !empty($productId)) {
+        $card = $product_collection->findOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
 
-    $allowedExts = array('jpg', 'jpeg', 'png', 'gif');
-    if (in_array($fileExtension, $allowedExts)) {
-        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-        $uploadFileDir = '../uploads/';
-        $destPath = $uploadFileDir . $newFileName;
+        if ($card) {
+            $image_id = $card['image_id']; // Retain the old image ID by default
 
-        if (move_uploaded_file($fileTmpPath, $destPath)) {
-            $imagePath = $destPath;
-        } else {
-            echo json_encode(['error' => 'There was an error moving the uploaded file.']);
-            exit;
-        }
-    } else {
-        echo json_encode(['error' => 'Upload failed. Allowed file types: jpg, jpeg, png, gif.']);
-        exit;
-    }
-} else {
-    $imagePath = $_POST['existingImage'] ?? ''; // Use existing image if no new file uploaded
-}
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['size'] > 0) {
+                // Delete old image from GridFS
+                $gridFS->delete($image_id);
 
-include '../../database/collaction.php'; // Adjust the path as necessary
+                // Upload new image
+                $file = $_FILES['productImage']['tmp_name'];
+                $filename = $_FILES['productImage']['name'];
+                $stream = fopen($file, 'rb');
+                $new_image_id = $gridFS->uploadFromStream($filename, $stream);
+                fclose($stream);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['productName'];
-            $type = $_POST['productType'];
-            $price = $_POST['productPrice'];
-            $power = $_POST['productPower'];
-            $pharmacy = $_POST['productPharmacy'];
-            $gramMl = $_POST['editProductGramMl'];
-            $sellingPrice = $_POST['editProductSellingPrice'];
-            $description = $_POST['productDescription'];
-            
+                // Update image reference
+                $image_id = $new_image_id;
+            }
 
-    // Prepare the user data
-    $productData = [
-        'name' => $_POST['productName'],
-            'type' => $_POST['productType'],
-            'price' => $_POST['productPrice'],
-            'power' => $_POST['productPower'],
-            'pharmacy' => $_POST['productPharmacy'],
-            'gramMl' => $_POST['editProductGramMl'],
-            'sellingPrice' => $_POST['editProductSellingPrice'],
-            'description' => $_POST['productDescription'],
-            'image' => $image // Save image path
-    ];
-
-
-    if (!empty($productId)) {
-        // Edit existing user
-        $result = $user_collection->updateOne(
-            ['_id' => new MongoDB\BSON\ObjectID($productId)],
-            ['$set' => $productData]
-        );
-
-        if ($result->getModifiedCount() > 0) {
+            // Update product details
+            $product_collection->updateOne(
+                ['_id' => new MongoDB\BSON\ObjectId($productId)],
+                ['$set' => [
+                    'name' => $name,
+                    'type' => $type,
+                    'price' => $price,
+                    'power' => $power,
+                    'pharmacy' => $pharmacy,
+                    'gram_ml' => $gram_ml,
+                    'selling_price' => $selling_price,
+                    'description' => $description,
+                    'image_id' => $image_id
+                ]]
+            );
             header("Location: ../product.php?status=success&type=edit");
         } else {
             header("Location: ../product.php?status=failed&type=edit");
         }
     } else {
-            $result = $user_collection->insertOne($productData);
+        // Adding new product
+        if (isset($_FILES['productImage']) && $_FILES['productImage']['size'] > 0) {
+            $file = $_FILES['productImage']['tmp_name'];
+            $filename = $_FILES['productImage']['name'];
 
-            if ($result->getInsertedCount() > 0) {
-                header("Location: ../product.php?status=success&type=add");
-            } else {
-                header("Location: ../product.php?status=failed&type=add");
-            }
+            // Upload image to GridFS
+            $stream = fopen($file, 'rb');
+            $image_id = $gridFS->uploadFromStream($filename, $stream);
+            fclose($stream);
+
+            // Insert new product details into MongoDB
+            $product = [
+                "name" => $name,
+                "type" => $type,
+                "price" => $price,
+                "power" => $power,
+                "pharmacy" => $pharmacy,
+                "gram_ml" => $gram_ml,
+                "selling_price" => $selling_price,
+                "description" => $description,
+                "image_id" => $image_id
+            ];
+
+            $product_collection->insertOne($product);
+            header("Location: ../product.php?status=success&type=add");
+        } else {
+            header("Location: ../product.php?status=failed&type=add");
         }
     }
 }

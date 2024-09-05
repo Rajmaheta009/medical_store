@@ -30,27 +30,34 @@
                 include '../database/collaction.php';
                 $datas = $pharmacy_collection->find();
                 $counter = 1;
-                foreach ($datas as $data) { ?>
+                foreach ($datas as $data) {
+                    $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
+                    $statusClass = $data['status'] ? 'text-success' : 'text-danger'; // Apply appropriate class
+                ?>
                     <tr>
                         <td><?php echo $counter++; ?></td>
                         <td><?php echo $data['name']; ?></td>
-                        <td class="<?php echo ($data['status'] == 'active') ? 'text-success' : 'text-danger'; ?>">
-                            <?php echo $data['status']; ?>
+                        <td class="<?php echo $statusClass; ?>">
+                            <?php echo $statusText; ?>
                         </td>
                         <td>
+                            <!-- Edit button -->
                             <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
                                 data-id="<?php echo $data['_id']; ?>"
                                 data-name="<?php echo $data['name']; ?>"
                                 data-phone="<?php echo $data['phone']; ?>"
                                 data-email="<?php echo $data['email']; ?>"
-                                data-status="<?php echo $data['status']; ?>">
+                                data-status="<?php echo $data['status'] ? '1' : '0'; ?>"> <!-- Use '1' or '0' for status -->
                                 <i class="fas fa-edit"></i>
                             </button>
 
+                            <!-- Delete button -->
                             <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php } ?>
+            </tbody>
+
             </tbody>
         </table>
 
@@ -101,6 +108,19 @@
     </main>
 </div>
 
+<!-- Toast container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000"> <!-- Auto hide after 5 seconds -->
+        <div class="toast-header" style="background-color:#333; color:aliceblue;">
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" style="background-color:#333; color:aliceblue;">
+            <!-- Toast message will be set here -->
+        </div>
+    </div>
+</div>
+
 <script>
     function showToast(message) {
         var toastEl = document.getElementById('liveToast');
@@ -143,6 +163,7 @@
             if (message) {
                 showToast(message);
             }
+            
         }
     });
 </script>
