@@ -177,14 +177,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             const editButtons = document.querySelectorAll('.btn-outline-primary');
             const addProductButton = document.getElementById('addProductBtn');
-            const pharmacyIdInput = document.getElementById('productId');
+            const productIdInput = document.getElementById('productId');
             const nameInput = document.getElementById('productName');
             const quantityInput = document.getElementById('productQuantity');
             const productExpiryInput = document.getElementById('productExpiry');
 
             // Clear form for adding a new product
             addProductButton.addEventListener('click', function() {
-                pharmacyIdInput.value = ''; // Clear hidden Pharmacy ID
+                productIdInput.value = ''; // Clear hidden Pharmacy ID
                 nameInput.value = ''; // Clear name field
                 quantityInput.value = ''; // Clear contact number field
                 productExpiryInput.value = ''; // Clear email field
@@ -193,13 +193,13 @@
             // Fill the form for editing a product
             editButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const pharmacyId = this.getAttribute('data-id');
+                    const productId = this.getAttribute('data-id');
                     const name = this.getAttribute('data-name');
                     const quantity = this.getAttribute('data-quantity');
                     const productExpiry = this.getAttribute('data-expiry-date');
                     
                     // Set the values in the modal inputs
-                    pharmacyIdInput.value = pharmacyId;
+                    productIdInput.value = productId;
                     nameInput.value = name;
                     quantityInput.value = quantity;
                     productExpiryInput.value = productExpiry;

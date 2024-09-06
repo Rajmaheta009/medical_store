@@ -58,7 +58,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="productForm" action="crud_code/product_crud.php" method="post" enctype="multipart/form-data">
+                        <form id="productForm" action="crud_code/product_crud.php" method="post" enctype="multipart/form-data" style="color:#333">
                             <input type="hidden" id="productId" name="product_id">
                             <input type="hidden" name="action" id="action" value="add">
                             <!-- Image Upload Section -->

@@ -14,6 +14,6 @@ if (isset($_GET['id'])) {
         $type = 'delete';
     }
 
-    header("Location: inventery.php?status=$status&type=$type");
+    header("Location: ../inventery.php?status=$status&type=$type");
     exit();
 }

@@ -32,7 +32,8 @@
                 include '../database/collaction.php';
                 $datas = $user_type_collection->find();
                 $counter = 1;
-                foreach ($datas as $data) {  $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
+                foreach ($datas as $data) {  
+                    $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
                     $statusClass = $data['status'] ? 'text-success' : 'text-danger'; // Apply appropriate class
                 ?>
                     <tr>

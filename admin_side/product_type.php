@@ -82,8 +82,8 @@
                             <div class="row">
                                 <label for="status" style="color:#333;">Select Status:</label>
                                 <select id="status" name="status" class="form-select" required>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">In-Active</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">In-Active</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -179,7 +179,7 @@
         addProductButton.addEventListener('click', function() {
             product_typeIdInput.value = ''; // Clear hidden Pharmacy ID
             typeInput.value = ''; // Clear name field
-            statusInput.value = ''; // Clear status field
+            statusInput.value = '1'; // Clear status field
         });
 
         // Fill the form for editing a product
