@@ -79,8 +79,8 @@
                             <div class="row">
                                 <label for="status" style="color:#333;">Select Status:</label>
                                 <select id="status" name="status" class="form-select" required>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">In-Active</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">In-Active</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -92,22 +92,51 @@
     </main>
 </div>
 
+<!-- Toast container -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+        <!-- Auto hide after 5 seconds -->
+        <div id="toast-header" class="toast-header text-white">
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div id="toast-body" class="toast-body text-white">
+            <!-- Toast message will be set here -->
+        </div>
+    </div>
+</div>
+
 
 <script>
-    function showToast(message) {
+    function showToast(message, type) {
         var toastEl = document.getElementById('liveToast');
-        var toastBody = toastEl.querySelector('.toast-body');
+        var toastHeader = document.getElementById('toast-header');
+        var toastBody = document.getElementById('toast-body');
+
+        // Set the message
         toastBody.innerText = message;
 
+        // Set background colors based on the type
+        if (type === 'success') {
+            toastHeader.style.backgroundColor = 'green'; // Success background color
+            toastBody.style.backgroundColor = 'green';
+        } else if (type === 'failed') {
+            toastHeader.style.backgroundColor = 'red'; // Failed background color
+            toastBody.style.backgroundColor = 'red';
+        }
+
+        // Show the toast
         var toast = new bootstrap.Toast(toastEl, {
             delay: 5000 // Hide after 5 seconds
         });
 
+        // Show the toast after 2 seconds (2000 milliseconds)
         setTimeout(function() {
             toast.show();
         }, 2000);
     }
 
+    // URL parameter parsing function
     function getParameterByName(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
@@ -121,17 +150,18 @@
             let message = '';
 
             if (status === 'success' && type === 'add') {
-                message = 'User Role added successfully!';
+                message = 'Product added successfully!';
             } else if (status === 'success' && type === 'edit') {
-                message = 'User Role updated successfully!';
+                message = 'Product updated successfully!';
             } else if (status === 'failed' && type === 'edit') {
-                message = 'Failed to update User Role!';
+                message = 'Failed to update product!';
             } else if (status === 'failed' && type === 'add') {
-                message = 'User Role to add product!';
+                message = 'Failed to add product!';
             }
 
+            // Show the toast with the respective message and type
             if (message) {
-                showToast(message);
+                showToast(message, status);
             }
         }
     });
@@ -148,7 +178,7 @@
         addProductButton.addEventListener('click', function() {
             user_typeIdInput.value = ''; // Clear hidden Pharmacy ID
             roleInput.value = ''; // Clear name field
-            statusInput.value = ''; // Clear status field
+            statusInput.value = '1'; // Clear status field
         });
 
         // Fill the form for editing a product

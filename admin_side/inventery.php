@@ -37,19 +37,21 @@
             foreach ($datas as $data) { ?>
                 <tr>
                     <td><?php echo $counter++; ?></td>
-                    <td><?php echo $data['name']; ?></td>
-                    <td><?php echo $data['price']; ?></td>
-                    <td><?php echo $data['s_price']; ?></td>
+                    <td><?php
+                        $product = $product_collection->findOne(['_id' => $data['product_id']]);
+                        echo $product ? $product['name'] : 'Unknown'; ?></td>
+                    <td><?php echo $product ? $product['price'] : 'N/A'; ?></td>
+                    <td><?php echo $product ? $product['selling_price'] : 'N/A'; ?></td>
                     <td><?php echo $data['quantity']; ?></td>
-                    <td><?php echo $data['s_quantity']; ?></td>
-                    <td><?php echo $data['A_quantity']; ?></td>
-                    <td><?php echo $data['exp_Date']; ?></td>
+                    <td><?php echo $data['selling_quantity']; ?></td>
+                    <td><?php echo $data['quantity'] - $data['selling_quantity']; ?></td>
+                    <td><?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?></td>
                     <td>
                         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
                             data-id="<?php echo $data['_id']; ?>"
-                            data-name="<?php echo $data['name']; ?>"
+                            data-name="<?php echo $product ? $product['name'] : ''; ?>"
                             data-quantity="<?php echo $data['quantity']; ?>"
-                            data-expiry-date="<?php echo $data['exp_Date']; ?>">
+                            data-expiry-date="<?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?>">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fas fa-trash"></i></button>
@@ -68,7 +70,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="inventery.php" method="POST">
+                    <form action="crud_code/inventery_crud.php" method="POST">
                         <input type="hidden" id="productId" name="productId">
                         <div class="row">
                             <div class="col">
@@ -76,8 +78,7 @@
                                 <select class="form-select" id="productName" name="productName" required>
                                     <option value="" disabled selected>Select Product</option>
                                     <?php
-                                    // Fetch all products from MongoDB collection
-                                    $products = $product_collection->find(); // Assuming 'product_collection' is your products collection
+                                    $products = $product_collection->find();
                                     foreach ($products as $product) {
                                         echo '<option value="' . $product['name'] . '">' . $product['name'] . '</option>';
                                     }
@@ -116,16 +117,34 @@
     </div>
 
     <script>
-        function showToast(message) {
+        function showToast(message, type) {
             var toastEl = document.getElementById('liveToast');
-            var toastBody = toastEl.querySelector('.toast-body');
+            var toastHeader = document.querySelector('.toast-header');
+            var toastBody = document.querySelector('.toast-body');
+
+            // Set the message
             toastBody.innerText = message;
 
-            var toast = new bootstrap.Toast(toastEl);
-            toast.show();
+            // Set background colors based on the type
+            if (type === 'success') {
+                toastHeader.style.backgroundColor = 'green'; // Success background color
+                toastBody.style.backgroundColor = 'green';
+            } else if (type === 'failed') {
+                toastHeader.style.backgroundColor = 'red'; // Failed background color
+                toastBody.style.backgroundColor = 'red';
+            }
+
+            // Show the toast
+            var toast = new bootstrap.Toast(toastEl, {
+                delay: 5000 // Hide after 5 seconds
+            });
+
+            // Show the toast after 2 seconds (2000 milliseconds)
+            setTimeout(function() {
+                toast.show();
+            }, 2000);
         }
 
-        // URL parameter parsing function
         function getParameterByName(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
@@ -148,52 +167,51 @@
                     message = 'Failed to add product!';
                 }
 
-                // Show the toast with the respective message if it's not empty
                 if (message) {
-                    showToast(message);
+                    showToast(message, status);
                 }
             }
         });
-
-        // JavaScript to handle the Add/Edit Product Modal behavior
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const editButtons = document.querySelectorAll('.btn-outline-primary');
             const addProductButton = document.getElementById('addProductBtn');
-            const productIdInput = document.getElementById('productId');
-            const productNameInput = document.getElementById('productName');
-            const productQuantityInput = document.getElementById('productQuantity');
+            const pharmacyIdInput = document.getElementById('productId');
+            const nameInput = document.getElementById('productName');
+            const quantityInput = document.getElementById('productQuantity');
             const productExpiryInput = document.getElementById('productExpiry');
 
-            // Clear form fields when Add Product button is clicked
+            // Clear form for adding a new product
             addProductButton.addEventListener('click', function() {
-                productIdInput.value = ''; // Clear hidden Product ID
-                productNameInput.value = ''; // Clear name field
-                productQuantityInput.value = ''; // Clear quantity field
-                productExpiryInput.value = ''; // Clear expiry date field
+                pharmacyIdInput.value = ''; // Clear hidden Pharmacy ID
+                nameInput.value = ''; // Clear name field
+                quantityInput.value = ''; // Clear contact number field
+                productExpiryInput.value = ''; // Clear email field
             });
 
-            // Populate form when Edit button is clicked
+            // Fill the form for editing a product
             editButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    const productName = this.getAttribute('data-name');
-                    const productQuantity = this.getAttribute('data-quantity');
-                    const productExpiryDate = this.getAttribute('data-expiry-date');
-
+                    const pharmacyId = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const quantity = this.getAttribute('data-quantity');
+                    const productExpiry = this.getAttribute('data-expiry-date');
+                    
                     // Set the values in the modal inputs
-                    productIdInput.value = productId;
-                    productNameInput.value = productName;
-                    productQuantityInput.value = productQuantity;
-                    productExpiryInput.value = productExpiryDate;
+                    pharmacyIdInput.value = pharmacyId;
+                    nameInput.value = name;
+                    quantityInput.value = quantity;
+                    productExpiryInput.value = productExpiry;
                 });
             });
         });
 
         function confirmDelete(productId) {
             if (confirm("Are you sure you want to delete this product?")) {
-                // Redirect to delete PHP script with product ID
-                window.location.href = `crud_code/product_delete.php?id=${productId}`;
+                window.location.href = `crud_code/inventery_delete.php?id=${productId}`;
             }
         }
     </script>
+
     <?php include 'include/fotter.php'; ?>

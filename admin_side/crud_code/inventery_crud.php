@@ -1,50 +1,45 @@
 <?php
-include '../../database/collaction.php'; // Adjust the path as necessary
+include '../../database/collaction.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $productId = $_POST['productId']; // Hidden field for User ID
     $productName = $_POST['productName'];
-    $productQuantity = $_POST['productQuantity'];
+    $productQuantity = (int) $_POST['productQuantity'];
     $productExpiry = $_POST['productExpiry'];
 
-    // Prepare the user data
-    $inveteryData = [
-        'productName' => $productName,
-        'productQuantity' => $productQuantity,
-        'productExpiry' => $productExpiry,
-    ];
+    $product = $product_collection->findOne(['name' => $productName]);
 
-    if (!empty($password)) {
-        // Hash the password before storing
-        $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
-    }
+    if ($product) {
+        $productId = $product['_id'];
 
-    if (!empty($productId)) {
-        // Edit existing user
-        $result = $inventery_collection->updateOne(
-            ['_id' => new MongoDB\BSON\ObjectID($userId)],
-            ['$set' => $inveteryData]
-        );
+        $existingInventory = $inventery_collection->findOne(['product_id' => $productId]);
 
-        if ($result->getModifiedCount() > 0) {
-            header("Location: ../inventery.php?status=success&type=edit");
+        if ($existingInventory) {
+            $inventery_collection->updateOne(
+                ['product_id' => $productId],
+                ['$set' => [
+                    'quantity' => $productQuantity,
+                    'expiry_date' => new MongoDB\BSON\UTCDateTime(strtotime($productExpiry) * 1000)
+                ]]
+            );
+            $status = 'success';
+            $type = 'edit';
         } else {
-            header("Location: ../inventery.php?status=failed&type=edit");
+            $inventery_collection->insertOne([
+                'product_id' => $productId,
+                'quantity' => $productQuantity,
+                'selling_quantity' => 0,
+                'expiry_date' => new MongoDB\BSON\UTCDateTime(strtotime($productExpiry) * 1000)
+            ]);
+            $status = 'success';
+            $type = 'add';
         }
+
+        header("Location:../inventery.php?status=$status&type=$type");
+        exit();
     } else {
-        // Add new user
-        $existingUser = $user_collection->findOne(['email' => $email]);
-
-        if ($existingUser) {
-            header("Location: ../inventery.php?status=failed&type=email_exists");
-        } else {
-            $result = $user_collection->insertOne($userData);
-
-            if ($result->getInsertedCount() > 0) {
-                header("Location: ../inventery.php?status=success&type=add");
-            } else {
-                header("Location: ../inventery.php?status=failed&type=add");
-            }
-        }
+        $status = 'failed';
+        $type = 'add';
+        header("Location:../inventery.php?status=$status&type=$type");
+        exit();
     }
 }

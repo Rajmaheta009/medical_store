@@ -1,98 +1,74 @@
 <?php
 include '../../database/collaction.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Validate and sanitize input fields    
-    $productId = $_POST['product_id'];
-    $name = $_POST['productname'];
-    $type = $_POST['productType'];
-    $price = $_POST['productprice'];
-    $power = $_POST['productpower'];
-    $pharmacy = $_POST['productpharmacy'];
-    $gram_ml = $_POST['editProductGramMl'];
-    $selling_price = $_POST['editProductSellingPrice'];
-    $description = $_POST['productDescription'];
+try {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Validate and sanitize input fields
+        $productId = $_POST['product_id'] ?? null;
+        $name = htmlspecialchars(trim($_POST['productname']));
+        $type = htmlspecialchars(trim($_POST['productType']));
+        $price = filter_var($_POST['productprice'], FILTER_VALIDATE_FLOAT);
+        $power = htmlspecialchars(trim($_POST['productpower']));
+        $pharmacy = htmlspecialchars(trim($_POST['productpharmacy']));
+        $gram_ml = filter_var($_POST['editProductGramMl'], FILTER_VALIDATE_FLOAT);
+        $selling_price = filter_var($_POST['editProductSellingPrice'], FILTER_VALIDATE_FLOAT);
+        $description = htmlspecialchars(trim($_POST['productDescription']));
 
+        $file_name = $_FILES['productImage']['name'] ?? '';
+        $file_tmp_name = $_FILES['productImage']['tmp_name'] ?? '';
+        $upload_dir = '../assets/image/';  // Ensure this path is correct
+        $upload_file = $upload_dir . basename($file_name);
 
-    try {
-        // Check if the request is to update an existing product
-        if (!empty($productId)) {
-            $card = $product_collection->findOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
-            if ($card) {
-                $image_id = $card['image_id']; // Retain the old image ID by default
-                // Handle file upload
-                if (isset($_FILES['productImage']) && $_FILES['productImage']['size'] > 0) {
-                    // Check for upload errors
-                    if ($_FILES['productImage']['error'] == UPLOAD_ERR_OK) {
-                        // Delete old image from GridFS
-                        if ($image_id) {
-                            $gridFS->delete($image_id);
-                        }
-                        // Upload new image
-                        $file = $_FILES['productImage']['tmp_name'];
-                        $filename = $_FILES['productImage']['name'];
-                        $stream = fopen($file, 'rb');
-                        $new_image_id = $gridFS->uploadFromStream($filename, $stream);
-                        fclose($stream);
-                        // Update image reference
-                        $image_id = $new_image_id;
-                    } else {
-                        throw new Exception('Error uploading file.');
-                    }
-                }
-                // Update product details
-                $product_collection->updateOne(
-                    ['_id' => new MongoDB\BSON\ObjectId($productId)],
-                    ['$set' => [
-                        'name' => $name,
-                        'type' => $type,
-                        'price' => $price,
-                        'power' => $power,
-                        'pharmacy' => $pharmacy,
-                        'gram_ml' => $gram_ml,
-                        'selling_price' => $selling_price,
-                        'description' => $description,
-                        'image_id' => $image_id
-                    ]]
-                );
-                header("Location: ../product.php?status=success&type=edit");
-            } else {
-                throw new Exception('Product not found.');
+        // Validate file upload
+        if ($file_name && $file_tmp_name) {
+            // Check file upload errors
+            if ($_FILES['productImage']['error'] !== UPLOAD_ERR_OK) {
+                throw new Exception('Error uploading file.');
             }
-        } else {
-            // Adding new product
-            if (isset($_FILES['productImage']) && $_FILES['productImage']['size'] > 0) {
-                if ($_FILES['productImage']['error'] == UPLOAD_ERR_OK) {
-                    $file = $_FILES['productImage']['tmp_name'];
-                    $filename = $_FILES['productImage']['name'];
-                    // Upload image to GridFS
-                    $stream = fopen($file, 'rb');
-                    $image_id = $gridFS->uploadFromStream($filename, $stream);
-                    fclose($stream);
-                    // Insert new product details into MongoDB
-                    $product = [
-                        "name" => $name,
-                        "type" => $type,
-                        "price" => $price,
-                        "power" => $power,
-                        "pharmacy" => $pharmacy,
-                        "gram_ml" => $gram_ml,
-                        "selling_price" => $selling_price,
-                        "description" => $description,
-                        "image_id" => $image_id
-                    ];
-                    $product_collection->insertOne($product);
-                    header("Location: ../product.php?status=success&type=add");
-                } else {
-                    throw new Exception('Error uploading file.');
-                }
-            } else {
-                throw new Exception('File not provided for new product.');
+
+            // Move the uploaded file to the destination directory
+            if (!move_uploaded_file($file_tmp_name, $upload_file)) {
+                throw new Exception('Failed to move uploaded file.');
             }
         }
-    } catch (Exception $e) {
-        // Log error and redirect
-        error_log($e->getMessage());
-        header("Location: ../product.php?status=failed&type=" . (empty($productId) ? 'add' : 'edit'));
+
+        // Prepare product data
+        $product_data = [
+            'name' => $name,
+            'type' => $type,
+            'price' => $price,
+            'power' => $power,
+            'pharmacy' => $pharmacy,
+            'gram_ml' => $gram_ml,
+            'selling_price' => $selling_price,
+            'description' => $description,
+            'image' => $file_name // This will be an empty string if no file was uploaded
+        ];
+
+        if ($productId) {
+            // Update existing product
+            $result = $product_collection->updateOne(
+                ['_id' => new MongoDB\BSON\ObjectId($productId)],
+                ['$set' => $product_data]
+            );
+
+            if ($result->getModifiedCount() === 0) {
+                throw new Exception('Product not found or no changes made.');
+            }
+
+            $status = 'success&type=edit';
+        } else {
+            // Insert new product
+            $product_collection->insertOne($product_data);
+            $status = 'success&type=add';
+        }
+
+        header("Location: ../product.php?status=$status");
+        exit();
     }
+} catch (Exception $e) {
+    // Log error and redirect with failure status
+    error_log($e->getMessage());
+    header("Location: ../product.php?status=failed&type=" . (isset($productId) ? 'edit' : 'add'));
+    exit();
 }

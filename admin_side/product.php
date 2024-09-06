@@ -1,4 +1,5 @@
 <?php include 'include/header.php'; ?>
+
 <div class="container-fluid">
     <!-- Main Content -->
     <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
@@ -14,31 +15,32 @@
                 </button>
             </div>
         </div>
+        
         <!-- Table Section -->
-        <div class="row">
+        <div class="row" style="margin-right: -70px; margin-left:100px;">
             <?php
             include '../database/collaction.php';
             $products = $product_collection->find();
             foreach ($products as $product) { ?>
-                <div class="card col-md-3" style="background-color:#333; margin-bottom: 20px; margin-left:65px;">
+                <div class="card col-md-3 mb-4 mx-3" style="margin-top:70px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                     <div class="image-wrapper">
-                        <img src="get_image.php?image_id=<?php echo $product['image_id']; ?>" alt="<?php echo $product['name']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <img src="get_image.php?image_id=<?php echo $product['image_id']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
                     </div>
-                    <div class="card-body" style="margin-top: -60px;">
-                        <h5 class="card-title"><?php echo $product['name']; ?></h5>
-                        <p class="card-text"><?php echo $product['description']; ?></p>
-                        <h6 class="text-center md-3">$<?php echo $product['price']; ?></h6>
+                    <div class="card-body mt-n4" style="margin-top:-60px;">
+                        <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
+                        <p class="card-text"><?php echo htmlspecialchars($product['description']); ?></p>
+                        <h6 class="text-center">$<?php echo number_format($product['price'], 2); ?></h6>
                         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addEditProductModal"
                             data-id="<?php echo $product['_id']; ?>"
                             data-image="<?php echo $product['image_id']; ?>"
-                            data-name="<?php echo $product['name']; ?>"
-                            data-type="<?php echo $product['type']; ?>"
-                            data-price="<?php echo $product['price']; ?>"
-                            data-power="<?php echo $product['power']; ?>"
-                            data-pharmacy="<?php echo $product['pharmacy']; ?>"
-                            data-gram_ml="<?php echo $product['gram_ml']; ?>"
-                            data-selling_price="<?php echo $product['selling_price']; ?>"
-                            data-description="<?php echo $product['description']; ?>">
+                            data-name="<?php echo htmlspecialchars($product['name']); ?>"
+                            data-type="<?php echo htmlspecialchars($product['type']); ?>"
+                            data-price="<?php echo htmlspecialchars($product['price']); ?>"
+                            data-power="<?php echo htmlspecialchars($product['power']); ?>"
+                            data-pharmacy="<?php echo htmlspecialchars($product['pharmacy']); ?>"
+                            data-gram_ml="<?php echo htmlspecialchars($product['gram_ml']); ?>"
+                            data-selling_price="<?php echo htmlspecialchars($product['selling_price']); ?>"
+                            data-description="<?php echo htmlspecialchars($product['description']); ?>">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button onclick="confirmDelete('<?php echo $product['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
@@ -46,12 +48,13 @@
                 </div>
             <?php } ?>
         </div>
+
         <!-- Modal for Adding/Editing Product -->
         <div class="modal fade" id="addEditProductModal" tabindex="-1" aria-labelledby="addEditProductModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEditProductModalLabel" style="color:#333;">Product Form</h5>
+                        <h5 class="modal-title" id="addEditProductModalLabel">Product Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -60,15 +63,15 @@
                             <input type="hidden" name="action" id="action" value="add">
                             <!-- Image Upload Section -->
                             <div class="mb-3">
-                                <label for="productImage" class="form-label" style="color:#333;">Image Upload</label>
+                                <label for="productImage" class="form-label">Image Upload</label>
                                 <div class="image-upload-wrapper">
                                     <!-- Hidden File Input -->
                                     <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" onchange="previewImage(event)" style="display:none;">
-                                    <span id="uploadIcon" onclick="triggerFileInput()" style="cursor: pointer; font-size: 24px;">
-                                        <i class="fas fa-plus-circle" style="color: black; padding:40px; border-radius:2px; border:dotted"></i>
+                                    <span id="uploadIcon" onclick="triggerFileInput()" style="cursor: pointer; font-size: 24px; justify-content:center;">
+                                        <i class="fas fa-plus-circle" style="color: black; padding:40px; border-radius:2px; border:dotted;"></i>
                                     </span>
                                     <!-- Image Preview -->
-                                    <img id="imagePreview" class="img-thumbnail" src="#" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px;">
+                                    <img id="imagePreview" class="img-thumbnail" src="" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px;">
                                     <!-- Existing Image Display -->
                                     <img id="existingImage" class="img-thumbnail" src="" alt="Existing Image" style="width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; display:none;">
                                 </div>
@@ -77,11 +80,11 @@
                             <!-- Other Input Fields -->
                             <div class="row">
                                 <div class="col">
-                                    <label for="productName" class="form-label" style="color:#333;">Name</label>
+                                    <label for="productName" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="productName" name="productname" required>
                                 </div>
                                 <div class="col">
-                                    <label for="productType" class="form-label" style="color:#333;">Type</label>
+                                    <label for="productType" class="form-label">Type</label>
                                     <select class="form-select" id="productType" name="productType" required>
                                         <option value="" disabled selected>Select type</option>
                                         <option value="tablet">Tablet</option>
@@ -93,17 +96,17 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <label for="productPrice" class="form-label" style="color:#333;">Price</label>
-                                    <input type="number" class="form-control" id="productPrice" name="productprice" required>
+                                    <label for="productPrice" class="form-label">Price</label>
+                                    <input type="number" class="form-control" id="productPrice" name="productprice" step="0.01" required>
                                 </div>
                                 <div class="col">
-                                    <label for="productPower" class="form-label" style="color:#333;">Power</label>
+                                    <label for="productPower" class="form-label">Power</label>
                                     <input type="text" class="form-control" id="productPower" name="productpower" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="productPharmacy" class="form-label" style="color:#333;">Pharmacy</label>
+                                <label for="productPharmacy" class="form-label">Pharmacy</label>
                                 <select class="form-select" id="productPharmacy" name="productpharmacy" required>
                                     <option value="" disabled selected>Select pharmacy</option>
                                     <option value="pharmacy1">Pharmacy 1</option>
@@ -114,21 +117,21 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <label for="editProductGramMl" class="form-label" style="color:#333;">Gram/ML</label>
+                                    <label for="editProductGramMl" class="form-label">Gram/ML</label>
                                     <input type="text" class="form-control" id="editProductGramMl" name="editProductGramMl" required>
                                 </div>
                                 <div class="col">
-                                    <label for="editProductSellingPrice" class="form-label" style="color:#333;">Selling Price</label>
-                                    <input type="number" class="form-control" id="editProductSellingPrice" name="editProductSellingPrice" required>
+                                    <label for="editProductSellingPrice" class="form-label">Selling Price</label>
+                                    <input type="number" class="form-control" id="editProductSellingPrice" name="editProductSellingPrice" step="0.01" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="productDescription" class="form-label" style="color:#333;">Description</label>
-                                <input type="text" class="form-control" id="productDescription" name="productDescription" required>
+                                <label for="productDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="productDescription" name="productDescription" rows="3" required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-primary" style="margin-top:7px;" id="submitButton">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -140,132 +143,94 @@
 
 <!-- Toast container -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000"> <!-- Auto hide after 5 seconds -->
-        <div class="toast-header" style="background-color:#333; color:aliceblue;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
             <strong class="me-auto">Notification</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body" style="background-color:#333; color:aliceblue;">
+        <div class="toast-body">
             <!-- Toast message will be set here -->
         </div>
     </div>
 </div>
 
-
-<!-- Your content goes here -->
-
 <script>
-    function showToast(message) {
+    function showToast(message, type) {
         var toastEl = document.getElementById('liveToast');
         var toastBody = toastEl.querySelector('.toast-body');
+
+        // Set the message
         toastBody.innerText = message;
 
-        var toast = new bootstrap.Toast(toastEl, {
-            delay: 5000 // Hide after 5 seconds
-        });
-
-        // Show the toast after 2 seconds (2000 milliseconds)
-        setTimeout(function() {
-            toast.show();
-        }, 2000);
-    }
-
-    // URL parameter parsing function
-    function getParameterByName(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const status = getParameterByName('status');
-        const type = getParameterByName('type');
-
-        if (status && type) {
-            let message = '';
-
-            if (status === 'success' && type === 'add') {
-                message = 'product added successfully!';
-            } else if (status === 'success' && type === 'edit') {
-                message = 'product updated successfully!';
-            } else if (status === 'failed' && type === 'edit') {
-                message = 'Failed to update product!';
-            } else if (status === 'failed' && type === 'add') {
-                message = 'Failed to add product!';
-            }
-
-            // Show the toast with the respective message if it's not empty
-            if (message) {
-                showToast(message);
-            }
+        // Set background colors based on the type
+        if (type === 'success') {
+            toastBody.style.backgroundColor = '#d4edda'; // green
+            toastBody.style.color = '#155724'; // dark green
+        } else if (type === 'error') {
+            toastBody.style.backgroundColor = '#f8d7da'; // red
+            toastBody.style.color = '#721c24'; // dark red
         }
-    });
-</script>
 
+        var toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    }
 
+    function confirmDelete(productId) {
+        if (confirm("Are you sure you want to delete this product?")) {
+            window.location.href = `crud_code/product_delete.php?id=${productId}`;
+        }
+    }
 
-<!-- JavaScript to handle the Add/Edit User Modal behavior -->
-<script>
     document.addEventListener('DOMContentLoaded', function() {
-        const editButtons = document.querySelectorAll('.btn-outline-primary');
-        const addProductButton = document.getElementById('addProductBtn');
-        const productIdInput = document.getElementById('productId');
-        const imageInput = document.getElementById('productImage');
-        const nameInput = document.getElementById('productName');
-        const typeInput = document.getElementById('productType');
-        const priceInput = document.getElementById('productPrice');
-        const powerInput = document.getElementById('productPower');
-        const pharmacyInput = document.getElementById('productPharmacy');
-        const GramMlInput = document.getElementById('editProductGramMl');
-        const SellingPriceInput = document.getElementById('editProductSellingPrice');
-        const DescriptionInput = document.getElementById('productDescription');
-        const imagePreview = document.getElementById('imagePreview');
-        const existingImage = document.getElementById('existingImage');
+        var addProductBtn = document.getElementById('addProductBtn');
+        var modalTitle = document.getElementById('addEditProductModalLabel');
+        var form = document.getElementById('productForm');
+        var submitButton = document.getElementById('submitButton');
 
-        // Clear form fields when Add Product button is clicked
-        addProductButton.addEventListener('click', function() {
-            productIdInput.value = '';
-            nameInput.value = '';
-            typeInput.value = '';
-            priceInput.value = '';
-            powerInput.value = '';
-            pharmacyInput.value = '';
-            GramMlInput.value = '';
-            SellingPriceInput.value = '';
-            DescriptionInput.value = '';
-            imageInput.value = '';
-            imagePreview.style.display = 'none';
-            existingImage.style.display = 'none';
-        });
+        // Event listener for modal show
+        var modalEl = document.getElementById('addEditProductModal');
+        modalEl.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
 
-        // Populate form when Edit button is clicked
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-id');
-                const image = this.getAttribute('data-image');
-                const name = this.getAttribute('data-name');
-                const type = this.getAttribute('data-type');
-                const price = this.getAttribute('data-price');
-                const power = this.getAttribute('data-power');
-                const pharmacy = this.getAttribute('data-pharmacy');
-                const gram_ml = this.getAttribute('data-gram_ml');
-                const selling_price = this.getAttribute('data-selling_price');
-                const description = this.getAttribute('data-description');
+            // Extract data from button attributes and update form
+            var productId = button.getAttribute('data-id');
+            var productImage = button.getAttribute('data-image');
+            var productName = button.getAttribute('data-name');
+            var productType = button.getAttribute('data-type');
+            var productPrice = button.getAttribute('data-price');
+            var productPower = button.getAttribute('data-power');
+            var productPharmacy = button.getAttribute('data-pharmacy');
+            var productGramMl = button.getAttribute('data-gram_ml');
+            var productSellingPrice = button.getAttribute('data-selling_price');
+            var productDescription = button.getAttribute('data-description');
 
-                productIdInput.value = productId;
-                nameInput.value = name;
-                typeInput.value = type;
-                priceInput.value = price;
-                powerInput.value = power;
-                pharmacyInput.value = pharmacy;
-                GramMlInput.value = gram_ml;
-                SellingPriceInput.value = selling_price;
-                DescriptionInput.value = description;
+            // Fill form fields
+            document.getElementById('productId').value = productId;
+            document.getElementById('productName').value = productName;
+            document.getElementById('productType').value = productType;
+            document.getElementById('productPrice').value = productPrice;
+            document.getElementById('productPower').value = productPower;
+            document.getElementById('productPharmacy').value = productPharmacy;
+            document.getElementById('editProductGramMl').value = productGramMl;
+            document.getElementById('editProductSellingPrice').value = productSellingPrice;
+            document.getElementById('productDescription').value = productDescription;
 
-                // Show the existing image and hide the image input preview
-                existingImage.src = `get_image.php?image_id=${image}`;
+            // If image exists, show the existing image
+            var existingImage = document.getElementById('existingImage');
+            var imagePreview = document.getElementById('imagePreview');
+            if (productImage) {
+                existingImage.src = 'get_image.php?image_id=' + productImage;
                 existingImage.style.display = 'block';
                 imagePreview.style.display = 'none';
-            });
+            } else {
+                existingImage.style.display = 'none';
+                imagePreview.style.display = 'none';
+            }
+
+            // Set the form action based on whether it's add or edit
+            document.getElementById('action').value = productId ? 'edit' : 'add';
+            modalTitle.innerText = productId ? 'Edit Product' : 'Add Product';
+            submitButton.innerText = productId ? 'Update' : 'Add';
         });
     });
 
@@ -274,20 +239,20 @@
     }
 
     function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function() {
-            const imagePreview = document.getElementById('imagePreview');
-            imagePreview.src = reader.result;
-            imagePreview.style.display = 'block';
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
+        var input = event.target;
+        var file = input.files[0];
+        var preview = document.getElementById('imagePreview');
 
-    function confirmDelete(productId) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            // Redirect to delete PHP script with user ID
-            window.location.href = `crud_code/product_delete.php?id=${productId}`;
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                document.getElementById('existingImage').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
         }
     }
 </script>
+
 <?php include 'include/fotter.php'; ?>

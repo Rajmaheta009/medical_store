@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_typeId = $_POST['user_typeId'];
     // echo $product_typeId; // Hidden field for User ID
     $role = $_POST['role'];
-    $status = isset($_POST['statxus']) && $_POST['statxus'] === '1' ? true : false; // Convert status to boolean
+    $status = isset($_POST['status']) && $_POST['status'] === '1' ? true : false; // Convert status to boolean
 
     // Prepare the user data
     $user_typeData = [

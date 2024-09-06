@@ -109,20 +109,35 @@
 </div>
 
 <script>
-    function showToast(message) {
+    function showToast(message, type) {
         var toastEl = document.getElementById('liveToast');
-        var toastBody = toastEl.querySelector('.toast-body');
+        var toastHeader = document.getElementById('toast-header');
+        var toastBody = document.getElementById('toast-body');
+
+        // Set the message
         toastBody.innerText = message;
 
+        // Set background colors based on the type
+        if (type === 'success') {
+            toastHeader.style.backgroundColor = 'green'; // Success background color
+            toastBody.style.backgroundColor = 'green';
+        } else if (type === 'failed') {
+            toastHeader.style.backgroundColor = 'red'; // Failed background color
+            toastBody.style.backgroundColor = 'red';
+        }
+
+        // Show the toast
         var toast = new bootstrap.Toast(toastEl, {
             delay: 5000 // Hide after 5 seconds
         });
 
+        // Show the toast after 2 seconds (2000 milliseconds)
         setTimeout(function() {
             toast.show();
         }, 2000);
     }
 
+    // URL parameter parsing function
     function getParameterByName(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
@@ -145,8 +160,9 @@
                 message = 'Failed to add product!';
             }
 
+            // Show the toast with the respective message and type
             if (message) {
-                showToast(message);
+                showToast(message, status);
             }
         }
     });

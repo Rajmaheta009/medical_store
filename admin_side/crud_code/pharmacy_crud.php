@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contactNo = $_POST['contactNo'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $status = isset($_POST['statxus']) && $_POST['statxus'] === '1' ? true : false; // Convert status to boolean
+    $status = isset($_POST['status']) && $_POST['status'] == '1' ? true : false; // Convert status to boolean
 
     // Prepare the user data
     $pharmacyData = [

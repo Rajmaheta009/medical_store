@@ -52,8 +52,8 @@
                                 <li><a class="dropdown-item text-dark" href="feedback.php" >Feedback Report</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item" style="margin-top:150%;">
-                            <a class="nav-link text-light d-flex align-items-center" href="../login_registration/login_registration.html">
+                        <li class="nav-item" style="margin-top:150%;" id="sing_out">
+                            <a class="nav-link text-light d-flex align-items-end" href="../login_registration/login_registration.html">
                                 <i class="fa-solid fa-right-from-bracket"></i> <span>Sing out</span>
                             </a>
                         </li>

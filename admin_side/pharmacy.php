@@ -31,7 +31,7 @@
                 $datas = $pharmacy_collection->find();
                 $counter = 1;
                 foreach ($datas as $data) {
-                    $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
+                    $statusText = $data['status'] ? 'Active' : 'In-Active'; // Convert boolean to text
                     $statusClass = $data['status'] ? 'text-success' : 'text-danger'; // Apply appropriate class
                 ?>
                     <tr>
@@ -95,8 +95,8 @@
                             <div class="row">
                                 <label for="status" style="color:#333;">Select Status:</label>
                                 <select id="status" name="status" class="form-select" required>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">In-Active</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">In-Active</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -109,33 +109,51 @@
 </div>
 
 <!-- Toast container -->
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000"> <!-- Auto hide after 5 seconds -->
-        <div class="toast-header" style="background-color:#333; color:aliceblue;">
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+        <!-- Auto hide after 5 seconds -->
+        <div id="toast-header" class="toast-header text-white">
             <strong class="me-auto">Notification</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body" style="background-color:#333; color:aliceblue;">
+        <div id="toast-body" class="toast-body text-white">
             <!-- Toast message will be set here -->
         </div>
     </div>
 </div>
 
+<!-- Your content goes here -->
+
 <script>
-    function showToast(message) {
+    function showToast(message, type) {
         var toastEl = document.getElementById('liveToast');
-        var toastBody = toastEl.querySelector('.toast-body');
+        var toastHeader = document.getElementById('toast-header');
+        var toastBody = document.getElementById('toast-body');
+
+        // Set the message
         toastBody.innerText = message;
 
+        // Set background colors based on the type
+        if (type === 'success') {
+            toastHeader.style.backgroundColor = 'green'; // Success background color
+            toastBody.style.backgroundColor = 'green';
+        } else if (type === 'failed') {
+            toastHeader.style.backgroundColor = 'red'; // Failed background color
+            toastBody.style.backgroundColor = 'red';
+        }
+
+        // Show the toast
         var toast = new bootstrap.Toast(toastEl, {
             delay: 5000 // Hide after 5 seconds
         });
 
+        // Show the toast after 2 seconds (2000 milliseconds)
         setTimeout(function() {
             toast.show();
         }, 2000);
     }
 
+    // URL parameter parsing function
     function getParameterByName(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
@@ -156,14 +174,12 @@
                 message = 'Failed to update product!';
             } else if (status === 'failed' && type === 'add') {
                 message = 'Failed to add product!';
-            } else if (status === 'failed' && type === 'email_exists') {
-                message = 'Email already exists!';
             }
 
+            // Show the toast with the respective message and type
             if (message) {
-                showToast(message);
+                showToast(message, status);
             }
-            
         }
     });
 </script>
@@ -184,7 +200,7 @@
             nameInput.value = ''; // Clear name field
             phoneInput.value = ''; // Clear contact number field
             emailInput.value = ''; // Clear email field
-            statusInput.value = ''; // Clear status field
+            statusInput.value = '1'; // Clear status field
             passwordInput.value = ''; // Clear password field
         });
 

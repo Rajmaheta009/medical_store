@@ -1,14 +1,8 @@
-/*all page css*/
-
-.dark-mode .table {
-    --bs-table-bg: #333 !important;
-    --bs-body-color: #ffff !important;
-}
-
-
 /* Sidebar */
 
 .sidebar {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     position: fixed;
     width: 250px;
@@ -20,6 +14,16 @@
 
 .sidebar.collapsed {
     width: 70px;
+    height: 100vh;
+}
+
+.sidebar .nav {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.sidebar .nav-item:last-child {
+    margin-top: auto;
 }
 
 .sidebar .nav-link img {
@@ -95,9 +99,6 @@
 }
 
 
-/*chart css*/
-
-
 /* Charts */
 
 .chart-container {
@@ -126,9 +127,6 @@
 }
 
 
-/*table css*/
-
-
 /* Table Styling */
 
 table {
@@ -143,9 +141,6 @@ table td {
 table tbody tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
-
-
-/*dark mode css*/
 
 
 /* Dark Mode */
@@ -172,7 +167,7 @@ body.dark-mode .btn {
 /* Cards in Dark Mode */
 
 .dark-mode .card {
-    background-color: #121212;
+    background-color: #333;
     border: 1px solid #444;
     color: #ccc;
     margin-top: 6%;
@@ -183,15 +178,9 @@ body.dark-mode .btn {
     filter: brightness(90%);
 }
 
-
-/* Chart Title in Dark Mode */
-
 .dark-mode .card-title {
     color: #ddd;
 }
-
-
-/*product css*/
 
 
 /* Product Cards */
@@ -199,23 +188,61 @@ body.dark-mode .btn {
 .row {
     display: flex;
     flex-wrap: wrap;
-    /* Ensure wrapping works correctly */
 }
 
+
+/* Light Mode Card Styling */
+
 .card {
+    background-color: #ffffff;
+    /* Light background for cards */
+    border: 1px solid #ddd;
+    /* Soft border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Softer shadow for light mode */
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.15));
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 300px;
-    /* padding: 20px 20px; */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* margin-top: 6%; */
+    width: 100%;
+    /* Ensure the card width fits its parent container */
+    box-sizing: border-box;
+    /* Include padding and border in the width */
+    overflow: hidden;
+    /* Hide any content that overflows */
 }
+
+.card-title {
+    color: #333;
+    /* Darker text for title */
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 20px;
+    color: #555;
+    /* Softer gray for body text */
+    overflow: hidden;
+    /* Ensure content inside the card-body does not overflow */
+    text-overflow: ellipsis;
+    /* Optionally add ellipsis for overflowed text */
+    white-space: nowrap;
+    /* Prevent wrapping if needed (adjust based on design) */
+}
+
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Add ellipsis if text is too long */
+    white-space: normal;
+    /* Allow text to wrap */
+}
+
+
+/* Image Styling */
 
 .image-wrapper {
     position: relative;
@@ -224,16 +251,17 @@ body.dark-mode .btn {
     top: -70px;
     z-index: 1;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    img {
-        width: 100%;
-        height: 210px;
-        border-radius: 4px;
-    }
-    margin-top: 15px;
 }
 
+.image-wrapper img {
+    width: 100%;
+    height: 210px;
+    border-radius: 8px;
+}
 
-/*inventey css */
+.image-wrapper {
+    margin-top: 15px;
+}
 
 
 /* Inventory Page */
@@ -259,7 +287,7 @@ body.dark-mode .btn {
 }
 
 
-/* bootstrap css */
+/* Bootstrap CSS */
 
 .btn-check:focus+.btn,
 .btn:focus {
