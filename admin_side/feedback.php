@@ -5,7 +5,7 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Feedback</h1>
                 <div class="input-group mb-3 w-50">
-                    <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
+                    <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2" id="searchInput">
                     <button class="btn btn-primary" type="button" id="button-addon2" style="margin-right:120px;">
                         <i class="fas fa-search"></i> 
                     </button>

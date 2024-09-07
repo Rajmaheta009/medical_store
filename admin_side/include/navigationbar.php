@@ -45,12 +45,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light d-flex align-items-center" href="selling_repoet.php">
-                                <i class="fas fa-book"></i> <span>Sales Report</span>
+                                <i class="fas fa-file"></i> <span>Sales Report</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light d-flex align-items-center" href="feedback.php">
-                                <i class="fas fa-book"></i> <span>Feedback Report</span>
+                                <i class="fas fa-comment"></i> <span>Feedback Report</span>
                             </a>
                         </li>
                         <li class="nav-item" style="position:fixed; bottom:0;" id="sing_out">
