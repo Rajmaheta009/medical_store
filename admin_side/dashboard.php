@@ -6,7 +6,7 @@
         </div> -->
         <h1 class="h2">Deshboard</h1>
         <!-- Chart Section -->
-        <div class="chart-container">
+        <div class="chart-container" >
             <div class="card chart-card">
                 <div class="card-body">
                     <h5 class="card-title" style="color:dimgrey">User Statistics</h5>

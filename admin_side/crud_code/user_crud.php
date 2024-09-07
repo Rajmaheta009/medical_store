@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $role = $_POST['role'];
+    $address = $_POST['address'];
 
     // Prepare the user data
     $userData = [
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'phone' => $contactNo,
         'email' => $email,
         'role' => $role,
+        'address' => $address,
     ];
 
     if (!empty($password)) {

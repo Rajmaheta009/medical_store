@@ -6,19 +6,18 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Users Role</h1>
             <div class="input-group mb-3 w-50">
-                <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="Search by role" aria-label="Search by role" aria-describedby="button-addon2" id="searchInput">
                 <button class="btn btn-primary" type="button" id="button-addon2">
                     <i class="fas fa-search"></i>
                 </button>
-                <button class="btn btn-primary" type="button" id="addProductBtn" style="margin-right:90px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                    <i class="fas fa-user-plus"></i> Add Product
+                <button class="btn btn-primary" type="button" id="addUserBtn" style="margin-right:90px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="fas fa-user-plus"></i> Add User Role
                 </button>
             </div>
         </div>
 
-
         <!-- Table Section -->
-        <table class="table table-striped">
+        <table class="table table-striped" id="user_typetable">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -43,7 +42,7 @@
                             <?php echo $statusText; ?>
                         </td>
                         <td>
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
+                            <button class="btn btn-outline-primary edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
                                 data-id="<?php echo $data['_id']; ?>"
                                 data-role="<?php echo $data['role']; ?>"
                                 data-status="<?php echo $data['status'] ? '1' : '0'; ?>"> <!-- Use '1' or '0' for status -->
@@ -57,31 +56,30 @@
             </tbody>
         </table>
 
-
-        <!-- Modal for Adding User -->
+        <!-- Modal for Adding/Editing User Role -->
         <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">User form</h5>
+                        <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">Add User Role</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="crud_code/user_type_crude.php" method="POST">
-                        <input type="hidden" id="user_typeId" name="user_typeId">
+                            <input type="hidden" id="user_typeId" name="user_typeId">
                             <div class="row">
                                 <label for="role" class="form-label" style="color:#333;">User Role</label>
                                 <select id="role" name="role" class="form-select" required>
-                                    <option value="manager">manager</option>
-                                    <option value="user_manager">user_manager</option>
-                                    <option value="product_manager">product_manager</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="user_manager">User Manager</option>
+                                    <option value="product_manager">Product Manager</option>
                                 </select>
                             </div>
                             <div class="row">
                                 <label for="status" style="color:#333;">Select Status:</label>
                                 <select id="status" name="status" class="form-select" required>
                                     <option value="1">Active</option>
-                                    <option value="0">In-Active</option>
+                                    <option value="0">Inactive</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -106,7 +104,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     function showToast(message, type) {
@@ -151,13 +148,13 @@
             let message = '';
 
             if (status === 'success' && type === 'add') {
-                message = 'Product added successfully!';
+                message = 'User role added successfully!';
             } else if (status === 'success' && type === 'edit') {
-                message = 'Product updated successfully!';
+                message = 'User role updated successfully!';
             } else if (status === 'failed' && type === 'edit') {
-                message = 'Failed to update product!';
+                message = 'Failed to update user role!';
             } else if (status === 'failed' && type === 'add') {
-                message = 'Failed to add product!';
+                message = 'Failed to add user role!';
             }
 
             // Show the toast with the respective message and type
@@ -165,24 +162,37 @@
                 showToast(message, status);
             }
         }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#user_typetable tbody tr');
+
+            rows.forEach(row => {
+                const role = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+                row.style.display = role.includes(query) ? '' : 'none';
+            });
+        });
     });
-</script>
-<script>
+
     document.addEventListener('DOMContentLoaded', function() {
-        const editButtons = document.querySelectorAll('.btn-outline-primary');
-        const addProductButton = document.getElementById('addProductBtn');
+        const editButtons = document.querySelectorAll('.edit-btn');
+        const addProductButton = document.getElementById('addUserBtn');
         const user_typeIdInput = document.getElementById('user_typeId');
         const roleInput = document.getElementById('role');
         const statusInput = document.getElementById('status');
+        const modalTitle = document.getElementById('addUserModalLabel');
 
-        // Clear form for adding a new product
+        // Clear form for adding a new user role
         addProductButton.addEventListener('click', function() {
-            user_typeIdInput.value = ''; // Clear hidden Pharmacy ID
-            roleInput.value = ''; // Clear name field
-            statusInput.value = '1'; // Clear status field
+            user_typeIdInput.value = ''; // Clear hidden ID
+            roleInput.value = ''; // Clear role field
+            statusInput.value = '1'; // Default status to Active
+            modalTitle.innerText = 'Add User Role'; // Set modal title
         });
 
-        // Fill the form for editing a product
+        // Fill the form for editing a user role
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const user_typeId = this.getAttribute('data-id');
@@ -191,8 +201,9 @@
 
                 // Set the values in the modal inputs
                 user_typeIdInput.value = user_typeId;
-                roleInput.value = type;
+                roleInput.value = role;
                 statusInput.value = status;
+                modalTitle.innerText = 'Edit User Role'; // Set modal title
             });
         });
     });

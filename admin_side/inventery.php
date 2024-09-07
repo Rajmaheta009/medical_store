@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Inventory</h1>
         <div class="input-group mb-3 w-50">
-            <input type="text" class="form-control" placeholder="Search by product name" aria-label="Search by product name" aria-describedby="button-addon2">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by product name" aria-label="Search by product name" aria-describedby="button-addon2">
             <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                 <i class="fas fa-search"></i>
             </button>
@@ -29,7 +29,7 @@
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="inventoryTableBody">
             <?php
             include '../database/collaction.php';
             $datas = $inventery_collection->find();
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col justify-content-between">
                                 <label for="productExpiry" class="form-label" style="color:#333;">EXP Date</label>
                                 <input type="date" class="form-control" id="productExpiry" name="productExpiry" required>
                             </div>
@@ -172,8 +172,22 @@
                 }
             }
         });
-    </script>
-    <script>
+
+        // Add event listener for search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#inventoryTableBody tr');
+
+            rows.forEach(row => {
+                const productName = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+                if (productName.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             const editButtons = document.querySelectorAll('.btn-outline-primary');
             const addProductButton = document.getElementById('addProductBtn');
@@ -181,13 +195,15 @@
             const nameInput = document.getElementById('productName');
             const quantityInput = document.getElementById('productQuantity');
             const productExpiryInput = document.getElementById('productExpiry');
+            const modalTitle = document.getElementById('addProductModalLabel');
 
             // Clear form for adding a new product
             addProductButton.addEventListener('click', function() {
-                productIdInput.value = ''; // Clear hidden Pharmacy ID
+                modalTitle.innerText = 'Add Product Quantity'; // Set modal title for adding
+                productIdInput.value = ''; // Clear hidden Product ID
                 nameInput.value = ''; // Clear name field
-                quantityInput.value = ''; // Clear contact number field
-                productExpiryInput.value = ''; // Clear email field
+                quantityInput.value = ''; // Clear quantity field
+                productExpiryInput.value = ''; // Clear expiry date field
             });
 
             // Fill the form for editing a product
@@ -199,6 +215,7 @@
                     const productExpiry = this.getAttribute('data-expiry-date');
                     
                     // Set the values in the modal inputs
+                    modalTitle.innerText = 'Edit Product Quantity'; // Set modal title for editing
                     productIdInput.value = productId;
                     nameInput.value = name;
                     quantityInput.value = quantity;

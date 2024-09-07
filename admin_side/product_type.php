@@ -1,32 +1,32 @@
 <style>
     select.form-select option {
-        color: #333;
-        /* Set color for the options */
+        color: #333; /* Set color for the options */
     }
 </style>
+
 <?php include 'include/header.php'; ?>
 <div class="container-fluid">
     <!-- Main Content -->
     <main id="mainContent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Products Types </h1>
+            <h1 class="h2">Product Types</h1>
             <div class="input-group mb-3 w-50">
-                <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="Search by product type" aria-label="Search by product type" aria-describedby="button-addon2" id="searchInput">
                 <button class="btn btn-primary" type="button" id="button-addon2">
                     <i class="fas fa-search"></i>
                 </button>
                 <button class="btn btn-primary" type="button" id="addProductBtn" style="margin-right:90px; margin-left:6px;" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                    <i class="fas fa-user-plus"></i> Add Product
+                    <i class="fas fa-plus"></i> Add Product Type
                 </button>
             </div>
         </div>
 
         <!-- Table Section -->
-        <table class="table table-striped">
+        <table class="table table-striped" id="product_type_table">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Product_type</th>
+                    <th scope="col">Product Type</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -41,41 +41,41 @@
                     $statusClass = $data['status'] ? 'text-success' : 'text-danger'; // Apply appropriate class
                 ?>
                 <tr>
-                        <td><?php echo $counter++ ?></td>
-                        <td><?php echo $data['type']; ?></td>
-                        <td class="<?php echo $statusClass; ?>">
-                            <?php echo $statusText; ?>
-                        </td>
-                        <td>
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
-                                data-id="<?php echo $data['_id']; ?>"
-                                data-type="<?php echo $data['type']; ?>"
-                                data-status="<?php echo $data['status'] ? '1' : '0'; ?>"> <!-- Use '1' or '0' for status -->
-                                <i class="fas fa-edit"></i>
-                            </button>
-
-                            <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
+                    <td><?php echo $counter++; ?></td>
+                    <td><?php echo $data['type']; ?></td>
+                    <td class="<?php echo $statusClass; ?>">
+                        <?php echo $statusText; ?>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-primary edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
+                            data-id="<?php echo $data['_id']; ?>"
+                            data-type="<?php echo $data['type']; ?>"
+                            data-status="<?php echo $data['status'] ? '1' : '0'; ?>">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
                 <?php } ?>
             </tbody>
         </table>
-        <!-- Modal for Adding User -->
-        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+
+        <!-- Modal for Adding/Editing Product Type -->
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">product form</h5>
+                        <h5 class="modal-title" id="addProductModalLabel" style="color:#333;">Add Product Type</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="crud_code/product_Type_crud.php" method="POST">
-                        <input type="hidden" id="product_typeId" name="product_typeId">
+                        <form action="crud_code/product_type_crud.php" method="POST">
+                            <input type="hidden" id="product_typeId" name="product_typeId">
                             <div class="row">
                                 <label for="type" class="form-label" style="color:#333;">Product Type</label>
                                 <select id="type" name="type" class="form-select" required>
                                     <option value="Tablet">Tablet</option>
-                                    <option value="Syrum">Syram</option>
+                                    <option value="Syrup">Syrup</option>
                                     <option value="Tube">Tube</option>
                                 </select>
                             </div>
@@ -83,7 +83,7 @@
                                 <label for="status" style="color:#333;">Select Status:</label>
                                 <select id="status" name="status" class="form-select" required>
                                     <option value="1">Active</option>
-                                    <option value="0">In-Active</option>
+                                    <option value="0">Inactive</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -111,8 +111,8 @@
 <script>
     function showToast(message, type) {
         var toastEl = document.getElementById('liveToast');
-        var toastHeader = document.getElementById('toast-header');
-        var toastBody = document.getElementById('toast-body');
+        var toastHeader = toastEl.querySelector('.toast-header');
+        var toastBody = toastEl.querySelector('.toast-body');
 
         // Set the message
         toastBody.innerText = message;
@@ -151,13 +151,13 @@
             let message = '';
 
             if (status === 'success' && type === 'add') {
-                message = 'Product added successfully!';
+                message = 'Product type added successfully!';
             } else if (status === 'success' && type === 'edit') {
-                message = 'Product updated successfully!';
+                message = 'Product type updated successfully!';
             } else if (status === 'failed' && type === 'edit') {
-                message = 'Failed to update product!';
+                message = 'Failed to update product type!';
             } else if (status === 'failed' && type === 'add') {
-                message = 'Failed to add product!';
+                message = 'Failed to add product type!';
             }
 
             // Show the toast with the respective message and type
@@ -165,24 +165,37 @@
                 showToast(message, status);
             }
         }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#product_type_table tbody tr');
+
+            rows.forEach(row => {
+                const type = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+                row.style.display = type.includes(query) ? '' : 'none';
+            });
+        });
     });
-</script>
-<script>
+
     document.addEventListener('DOMContentLoaded', function() {
-        const editButtons = document.querySelectorAll('.btn-outline-primary');
+        const editButtons = document.querySelectorAll('.edit-btn');
         const addProductButton = document.getElementById('addProductBtn');
         const product_typeIdInput = document.getElementById('product_typeId');
         const typeInput = document.getElementById('type');
         const statusInput = document.getElementById('status');
+        const modalTitle = document.getElementById('addProductModalLabel');
 
-        // Clear form for adding a new product
+        // Clear form for adding a new product type
         addProductButton.addEventListener('click', function() {
-            product_typeIdInput.value = ''; // Clear hidden Pharmacy ID
-            typeInput.value = ''; // Clear name field
-            statusInput.value = '1'; // Clear status field
+            product_typeIdInput.value = ''; // Clear hidden product type ID
+            typeInput.value = ''; // Clear type field
+            statusInput.value = '1'; // Default status to Active
+            modalTitle.innerText = 'Add Product Type'; // Set modal title
         });
 
-        // Fill the form for editing a product
+        // Fill the form for editing a product type
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const product_typeId = this.getAttribute('data-id');
@@ -193,12 +206,13 @@
                 product_typeIdInput.value = product_typeId;
                 typeInput.value = type;
                 statusInput.value = status;
+                modalTitle.innerText = 'Edit Product Type'; // Set modal title
             });
         });
     });
 
     function confirmDelete(product_typeId) {
-        if (confirm("Are you sure you want to delete this product?")) {
+        if (confirm("Are you sure you want to delete this product type?")) {
             window.location.href = `crud_code/product_type_delete.php?id=${product_typeId}`;
         }
     }

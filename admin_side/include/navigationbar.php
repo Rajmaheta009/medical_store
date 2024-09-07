@@ -43,16 +43,17 @@
                                 <i class="fas fa-book"></i> <span>Product Type</span>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-chart-bar"></i> <span>Report</span>
+                        <li class="nav-item">
+                            <a class="nav-link text-light d-flex align-items-center" href="selling_repoet.php">
+                                <i class="fas fa-book"></i> <span>Sales Report</span>
                             </a>
-                            <ul class="dropdown-menu bg-dark-custom text-light" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item text-dark" href="selling_repoet.php" >Sales Report</a></li>
-                                <li><a class="dropdown-item text-dark" href="feedback.php" >Feedback Report</a></li>
-                            </ul>
                         </li>
-                        <li class="nav-item" style="margin-top:150%;" id="sing_out">
+                        <li class="nav-item">
+                            <a class="nav-link text-light d-flex align-items-center" href="feedback.php">
+                                <i class="fas fa-book"></i> <span>Feedback Report</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" style="position:fixed; bottom:0;" id="sing_out">
                             <a class="nav-link text-light d-flex align-items-end" href="../login_registration/login_registration.html">
                                 <i class="fa-solid fa-right-from-bracket"></i> <span>Sing out</span>
                             </a>

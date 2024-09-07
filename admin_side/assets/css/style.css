@@ -15,15 +15,20 @@
 .sidebar.collapsed {
     width: 70px;
     height: 100vh;
+    #sing_out {
+        bottom: 0;
+    }
 }
 
 .sidebar .nav {
     flex-grow: 1;
     overflow-y: auto;
+    /* Allows scrolling if content overflows */
 }
 
 .sidebar .nav-item:last-child {
     margin-top: auto;
+    /* Push the "Sign out" button to the bottom */
 }
 
 .sidebar .nav-link img {
@@ -101,17 +106,28 @@
 
 /* Charts */
 
+.dark-mode .chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: -10px;
+    padding: 20px;
+    margin-left: 70px;
+}
+
 .chart-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    margin-top: 65px;
+    margin-left: 70px;
     padding: 20px;
 }
 
 .chart-card {
     flex: 1;
     min-width: 300px;
-    max-width: 100%;
+    /* max-width: 100%; */
     border: 1px solid #ddd;
     border-radius: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -167,7 +183,7 @@ body.dark-mode .btn {
 /* Cards in Dark Mode */
 
 .dark-mode .card {
-    background-color: #333;
+    background-color: #121212;
     border: 1px solid #444;
     color: #ccc;
     margin-top: 6%;
@@ -177,6 +193,9 @@ body.dark-mode .btn {
     border: 1px solid #444;
     filter: brightness(90%);
 }
+
+
+/* Chart Title in Dark Mode */
 
 .dark-mode .card-title {
     color: #ddd;
@@ -188,61 +207,23 @@ body.dark-mode .btn {
 .row {
     display: flex;
     flex-wrap: wrap;
+    /* Ensure wrapping works correctly */
 }
 
-
-/* Light Mode Card Styling */
-
 .card {
-    background-color: #ffffff;
-    /* Light background for cards */
-    border: 1px solid #ddd;
-    /* Soft border */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Softer shadow for light mode */
     border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.15));
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 100%;
-    /* Ensure the card width fits its parent container */
-    box-sizing: border-box;
-    /* Include padding and border in the width */
-    overflow: hidden;
-    /* Hide any content that overflows */
+    max-width: 300px;
+    padding: 20px 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* margin-top: -200px; */
 }
-
-.card-title {
-    color: #333;
-    /* Darker text for title */
-    font-weight: bold;
-}
-
-.card-body {
-    padding: 20px;
-    color: #555;
-    /* Softer gray for body text */
-    overflow: hidden;
-    /* Ensure content inside the card-body does not overflow */
-    text-overflow: ellipsis;
-    /* Optionally add ellipsis for overflowed text */
-    white-space: nowrap;
-    /* Prevent wrapping if needed (adjust based on design) */
-}
-
-.card-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* Add ellipsis if text is too long */
-    white-space: normal;
-    /* Allow text to wrap */
-}
-
-
-/* Image Styling */
 
 .image-wrapper {
     position: relative;
@@ -256,7 +237,7 @@ body.dark-mode .btn {
 .image-wrapper img {
     width: 100%;
     height: 210px;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .image-wrapper {

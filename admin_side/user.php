@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Users</h1>
             <div class="input-group mb-3 w-50">
-                <input type="text" class="form-control" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
+                <input type="text" class="form-control" id="searchInput" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
                 <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                     <i class="fas fa-search"></i>
                 </button>
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Table Section -->
-        <table class="table table-striped" id="myTable">
+        <table class="table table-striped" id="usertable">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -35,20 +35,20 @@
                 $counter = 1; // Initialize counter for PHP
                 foreach ($datas as $data) { ?>
                     <tr>
-                        <td><?php echo $counter++; // Display incremented counter 
-                            ?></td>
-                        <td><?php echo $data['name']; ?></td>
-                        <td><?php echo $data['role']; ?></td>
-                        <td><?php echo $data['email']; ?></td>
-                        <td><?php echo $data['phone']; ?></td>
-                        <td><span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Address"><i class="fa-solid fa-location-dot"></i></span></td>
+                        <td><?php echo $counter++; ?></td>
+                        <td><?php echo htmlspecialchars($data['name']); ?></td>
+                        <td><?php echo htmlspecialchars($data['role']); ?></td>
+                        <td><?php echo htmlspecialchars($data['email']); ?></td>
+                        <td><?php echo htmlspecialchars($data['phone']); ?></td>
+                        <td><span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="<?php echo htmlspecialchars($data['address']) ?>"><i class="fa-solid fa-location-dot"></i></span></td>
                         <td>
                             <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addUserModal"
                                 data-id="<?php echo $data['_id']; ?>"
-                                data-name="<?php echo $data['name']; ?>"
-                                data-phone="<?php echo $data['phone']; ?>"
-                                data-email="<?php echo $data['email']; ?>"
-                                data-role="<?php echo $data['role']; ?>">
+                                data-name="<?php echo htmlspecialchars($data['name']); ?>"
+                                data-phone="<?php echo htmlspecialchars($data['phone']); ?>"
+                                data-email="<?php echo htmlspecialchars($data['email']); ?>"
+                                data-role="<?php echo htmlspecialchars($data['role']); ?>"
+                                data-address="<?php echo htmlspecialchars($data['address']); ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
@@ -63,32 +63,49 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">User Form</h5>
+                        <h5 class="modal-title" id="addEditUserModalLabel" style="color:#333;">User Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="crud_code/user_crud.php" method="POST">
+                        <form action="crud_code/user_crud.php" method="POST" id="userForm">
                             <input type="hidden" id="userId" name="userId"> <!-- Hidden field for User ID -->
+
                             <div class="row">
                                 <div class="col">
                                     <label for="userName" class="form-label" style="color:#333;">Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" aria-label="Name" name="userName" id="userName" required>
+                                    <input type="text" class="form-control" placeholder="Name" aria-label="Name"
+                                        name="userName" id="userName"
+                                        pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed"
+                                        maxlength="50" minlength="2" required>
                                 </div>
+
                                 <div class="col">
                                     <label for="contactNo" class="form-label" style="color:#333;">Contact No</label>
-                                    <input type="number" class="form-control" placeholder="Contact No" aria-label="Contact No" name="contactNo" id="contactNo" required>
+                                    <input type="tel" class="form-control" placeholder="Contact No" aria-label="Contact No"
+                                        name="contactNo" id="contactNo"
+                                        pattern="[0-9]{10}" title="Please enter a valid 10-digit contact number"
+                                        required>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col">
                                     <label for="email" class="form-label" style="color:#333;">Email</label>
-                                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" id="email" required>
+                                    <input type="email" class="form-control" placeholder="Email" aria-label="Email"
+                                        name="email" id="email"
+                                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                        title="Please enter a valid email address" required>
                                 </div>
+
                                 <div class="col">
                                     <label for="password" class="form-label" style="color:#333;">Password</label>
-                                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password" id="password" required>
+                                    <input type="password" class="form-control" placeholder="Password" aria-label="Password"
+                                        name="password" id="password"
+                                        minlength="6" maxlength="20"
+                                        title="Password must be between 6 to 20 characters" required>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <label for="role" style="color:#333;">Select Role:</label>
                                 <select id="role" name="role" class="form-select" required>
@@ -98,8 +115,13 @@
                                     <option value="pharmacy_manager">Pharmacy Manager</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                                <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                            </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -107,14 +129,13 @@
     </main>
 </div>
 <!-- Toast container -->
-<div class="toast-container position-fixed top-0 end-0 p-3">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
-        <!-- Auto hide after 5 seconds -->
-        <div id="toast-header" class="toast-header text-white">
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
             <strong class="me-auto">Notification</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div id="toast-body" class="toast-body text-white">
+        <div class="toast-body">
             <!-- Toast message will be set here -->
         </div>
     </div>
@@ -123,116 +144,79 @@
 <script>
     function showToast(message, type) {
         var toastEl = document.getElementById('liveToast');
-        var toastHeader = document.getElementById('toast-header');
-        var toastBody = document.getElementById('toast-body');
+        var toastBody = toastEl.querySelector('.toast-body');
 
         // Set the message
         toastBody.innerText = message;
 
         // Set background colors based on the type
         if (type === 'success') {
-            toastHeader.style.backgroundColor = 'green'; // Success background color
-            toastBody.style.backgroundColor = 'green';
-        } else if (type === 'failed') {
-            toastHeader.style.backgroundColor = 'red'; // Failed background color
-            toastBody.style.backgroundColor = 'red';
+            toastBody.style.backgroundColor = '#d4edda'; // green
+            toastBody.style.color = '#155724'; // dark green
+        } else if (type === 'error') {
+            toastBody.style.backgroundColor = '#f8d7da'; // red
+            toastBody.style.color = '#721c24'; // dark red
         }
 
-        // Show the toast
-        var toast = new bootstrap.Toast(toastEl, {
-            delay: 5000 // Hide after 5 seconds
-        });
-
-        // Show the toast after 2 seconds (2000 milliseconds)
-        setTimeout(function() {
-            toast.show();
-        }, 2000);
+        var toast = new bootstrap.Toast(toastEl);
+        toast.show();
     }
-
-    // URL parameter parsing function
-    function getParameterByName(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const status = getParameterByName('status');
-        const type = getParameterByName('type');
-
-        if (status && type) {
-            let message = '';
-
-            if (status === 'success' && type === 'add') {
-                message = 'User added successfully!';
-            } else if (status === 'success' && type === 'edit') {
-                message = 'user updated successfully!';
-            } else if (status === 'failed' && type === 'edit') {
-                message = 'Failed to update user!';
-            } else if (status === 'failed' && type === 'add') {
-                message = 'Failed to add user!';
-            }
-
-            // Show the toast with the respective message and type
-            if (message) {
-                showToast(message, status);
-            }
-        }
-    });
-</script>
-
-
-
-
-<!-- JavaScript to handle the Add/Edit User Modal behavior -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const editButtons = document.querySelectorAll('.btn-outline-primary');
-        const addUserButton = document.getElementById('addUserBtn');
-        const userIdInput = document.getElementById('userId');
-        const userNameInput = document.getElementById('userName');
-        const contactNoInput = document.getElementById('contactNo');
-        const emailInput = document.getElementById('email');
-        const roleInput = document.getElementById('role');
-        const passwordInput = document.getElementById('password');
-
-        // Clear form fields when Add User button is clicked
-        addUserButton.addEventListener('click', function() {
-            userIdInput.value = ''; // Clear hidden User ID
-            userNameInput.value = ''; // Clear name field
-            contactNoInput.value = ''; // Clear phone field
-            emailInput.value = ''; // Clear email field
-            roleInput.value = ''; // Clear role field
-            passwordInput.value = ''; // Clear password field
-        });
-
-        // Populate form when Edit button is clicked
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const userId = this.getAttribute('data-id');
-                const userName = this.getAttribute('data-name');
-                const phone = this.getAttribute('data-phone');
-                const email = this.getAttribute('data-email');
-                const role = this.getAttribute('data-role');
-
-                // Set the values in the modal inputs
-                userIdInput.value = userId;
-                userNameInput.value = userName;
-                contactNoInput.value = phone;
-                emailInput.value = email;
-                roleInput.value = role;
-
-                // Password is usually not edited or displayed for security reasons, so it remains empty.
-                passwordInput.value = '';
-            });
-        });
-    });
 
     function confirmDelete(userId) {
         if (confirm("Are you sure you want to delete this user?")) {
-            // Redirect to delete PHP script with user ID
-            window.location.href = `crud_code/user_delte.php?id=${userId}`;
+            window.location.href = `crud_code/user_delete.php?id=${userId}`;
         }
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        var modalEl = document.getElementById('addUserModal');
+        modalEl.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var userId = button.getAttribute('data-id');
+            var userName = button.getAttribute('data-name');
+            var userEmail = button.getAttribute('data-email');
+            var userPhone = button.getAttribute('data-phone');
+            var userRole = button.getAttribute('data-role');
+            var userAddress = button.getAttribute('data-address');
+
+            // Fill form fields
+            document.getElementById('userId').value = userId || '';
+            document.getElementById('userName').value = userName || '';
+            document.getElementById('email').value = userEmail || '';
+            document.getElementById('contactNo').value = userPhone || '';
+            document.getElementById('role').value = userRole || '';
+            // Address is not included here as it’s optional in the modal
+
+            // Set the form action and modal title based on whether it's add or edit
+            var modalTitle = document.getElementById('addEditUserModalLabel');
+            var submitButton = document.querySelector('.modal-footer button[type="submit"]');
+
+            if (userId) {
+                modalTitle.innerText = 'Edit User';
+                submitButton.innerText = 'Update';
+            } else {
+                modalTitle.innerText = 'Add User';
+                submitButton.innerText = 'Add';
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            var filter = searchInput.value.toLowerCase();
+            var table = document.getElementById('usertable');
+            var rows = table.getElementsByTagName('tr');
+
+            for (var i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+                var cells = rows[i].getElementsByTagName('td');
+                var nameCell = cells[1]; // Assuming 'Name' is in the 2nd column
+                if (nameCell) {
+                    var nameText = nameCell.textContent || nameCell.innerText;
+                    rows[i].style.display = nameText.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
+                }
+            }
+        });
+    });
 </script>
 
 <?php include 'include/fotter.php'; ?>
