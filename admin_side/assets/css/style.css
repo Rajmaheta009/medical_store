@@ -75,6 +75,15 @@
 }
 
 
+/* Green Track */
+
+input[type="checkbox"].green.ios-switch:checked+div {
+    background-color: #00e359;
+    border: 1px solid rgba(0, 162, 63, 1);
+    box-shadow: inset 0 0 0 10px rgba(0, 227, 89, 1);
+}
+
+
 /* Main Content */
 
 .main-content {
@@ -155,7 +164,12 @@ table td {
 }
 
 table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
+    background-color: #333;
+}
+
+.table {
+    -bs-table-color: white var(--bs-body-color);
+    --bs-table-bg: black var(--bs-body-bg);
 }
 
 
@@ -163,20 +177,33 @@ table tbody tr:nth-child(odd) {
 
 body.dark-mode {
     background-color: #121212;
-    color: #333;
+    color: #fff;
+    /* Ensures the text color is white throughout */
+}
+
+body.dark-mode .table {
+    background-color: #333;
+    /* Table background in dark mode */
 }
 
 body.dark-mode .table thead th {
     background-color: #333;
+    color: #fff;
+    /* Ensures the text color in the header is white */
 }
 
-body.dark-mode .table tbody tr:hover {
-    background-color: #444;
+body.dark-mode .table tbody tr {
+    background-color: #333;
+    /* Row background in dark mode */
+    color: #fff;
+    /* Row text color set to white */
 }
 
 body.dark-mode .btn {
-    color: #ffffff;
+    color: #fff;
+    /* Button text color in dark mode */
     background-color: #333;
+    /* Button background in dark mode */
 }
 
 

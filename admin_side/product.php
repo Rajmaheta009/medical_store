@@ -20,8 +20,11 @@
         <div class="row" id="productCart" style="margin-right: -70px; margin-left:100px;">
             <?php
             include '../database/collaction.php';
-            $products = $product_collection->find();
-            foreach ($products as $product) { ?>
+            $products = $product_collection->find()->toArray();
+            $filter_product = array_filter($products, function($product) {
+                return $product['check'] == 'true';
+            });
+            foreach ($filter_product as $product) { ?>
                 <div class="card col-md-3 mb-4 mx-3" style="margin-top: 70px;">
                     <div class="image-wrapper">
                         <img src="assets/image/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
@@ -40,7 +43,8 @@
                             data-pharmacy="<?php echo htmlspecialchars($product['pharmacy']); ?>"
                             data-gram_ml="<?php echo htmlspecialchars($product['gram_ml']); ?>"
                             data-selling_price="<?php echo htmlspecialchars($product['selling_price']); ?>"
-                            data-description="<?php echo htmlspecialchars($product['description']); ?>">
+                            data-description="<?php echo htmlspecialchars($product['description']); ?>"
+                            data-check="<?php echo htmlspecialchars($product['check']); ?>">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button onclick="confirmDelete('<?php echo $product['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
@@ -70,7 +74,7 @@
                                         <i class="fas fa-plus-circle" style="color: black; padding:40px; border-radius:2px; border:dotted;"></i>
                                     </span>
                                     <img id="imagePreview" class="img-thumbnail" src="" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px;">
-                                    <img id="existingImage" class="img-thumbnail" src="" alt="Existing Image" style="width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; display:none;">
+                                    <img id="existingImage" class="img-thumbnail" src="assets/image/<?php echo $product['image']; ?>" alt="Existing Image" style="width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; display:none;">
                                 </div>
                             </div>
 
@@ -123,119 +127,95 @@
                                 <label for="productDescription" class="form-label">Description</label>
                                 <textarea class="form-control" id="productDescription" name="productdescription" rows="3" maxlength="500" required></textarea>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" id="submitProductBtn">Save changes</button>
-                            </div>
+                            <label class="form-label" style="color:#333;">Active</label>
+                                <label class="ios-switch">
+                                    <input type="checkbox" checked name="check" value="1">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                                    <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
+                                </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-</main>
 
-<!-- JavaScript for Image Preview -->
-<script>
-    function previewImage(event) {
-        const image = document.getElementById('imagePreview');
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            image.src = e.target.result;
-            image.style.display = 'block';
-        }
-        reader.readAsDataURL(file);
-    }
+        <!-- JavaScript -->
+        <script>
+            // Event listener to handle modal actions (Add/Edit)
+            document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const modal = document.getElementById('addEditProductModal');
+                    const modalTitle = modal.querySelector('.modal-title');
+                    const productId = this.getAttribute('data-id');
+                    const image = this.getAttribute('data-image');
+                    const name = this.getAttribute('data-name');
+                    const type = this.getAttribute('data-type');
+                    const price = this.getAttribute('data-price');
+                    const power = this.getAttribute('data-power');
+                    const pharmacy = this.getAttribute('data-pharmacy');
+                    const gramMl = this.getAttribute('data-gram_ml');
+                    const sellingPrice = this.getAttribute('data-selling_price');
+                    const description = this.getAttribute('data-description');
+                    const check = this.getAttribute('data-check');
 
-    function triggerFileInput() {
-        document.getElementById('productImage').click();
-    }
+                    if (productId) {
+                        // Editing existing product
+                        modalTitle.textContent = 'Edit Product';
+                        document.getElementById('productId').value = productId;
+                        document.getElementById('action').value = 'edit';
+                        document.getElementById('productName').value = name;
+                        document.getElementById('productType').value = type;
+                        document.getElementById('productPrice').value = price;
+                        document.getElementById('productPower').value = power;
+                        document.getElementById('productPharmacy').value = pharmacy;
+                        document.getElementById('editProductGramMl').value = gramMl;
+                        document.getElementById('editProductSellingPrice').value = sellingPrice;
+                        document.getElementById('productDescription').value = description;
 
-    function confirmDelete(id) {
-        if (confirm("Are you sure you want to delete this product?")) {
-            window.location.href = `crud_code/product_crud.php?action=delete&id=${id}`;
-        }
-    }
+                        // Show existing image and hide plus icon
+                        const existingImage = document.getElementById('existingImage');
+                        existingImage.src = image;
+                        existingImage.style.display = 'block';
 
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        const query = e.target.value.toLowerCase();
-        const products = document.querySelectorAll('.card');
-        products.forEach(product => {
-            const name = product.querySelector('.card-title').textContent.toLowerCase();
-            if (name.includes(query)) {
-                product.style.display = '';
-            } else {
-                product.style.display = 'none';
-            }
-        });
-    });
+                        document.getElementById('uploadIcon').style.display = 'none';
+                        document.getElementById('imagePreview').style.display = 'none';
+                    } else {
+                        // Adding new product
+                        modalTitle.textContent = 'Add Product';
+                        document.getElementById('productForm').reset();
+                        document.getElementById('action').value = 'add';
 
-    document.getElementById('addProductBtn').addEventListener('click', function() {
-        document.getElementById('productForm').reset();
-        document.getElementById('productId').value = '';
-        document.getElementById('action').value = 'add';
-        document.getElementById('imagePreview').style.display = 'none';
-        document.getElementById('existingImage').style.display = 'none';
-        document.getElementById('addEditProductModalLabel').textContent = 'Add New Product';
-    });
+                        // Reset image preview
+                        document.getElementById('uploadIcon').style.display = 'block';
+                        document.getElementById('existingImage').style.display = 'none';
+                        document.getElementById('imagePreview').style.display = 'none';
+                    }
+                });
+            });
 
-    document.getElementById('productForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Form submission logic
-        const formData = new FormData(this);
-        fetch('crud_code/product_crud.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            window.location.reload();
-        })
-        .catch(error => console.error('Error:', error));
-    });
+            // Preview uploaded image
+            function previewImage(event) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const output = document.getElementById('imagePreview');
+                    output.src = reader.result;
+                    output.style.display = 'block';
+                }
+                reader.readAsDataURL(event.target.files[0]);
 
-    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
-        button.addEventListener('click', function() {
-            const modal = document.getElementById('addEditProductModal');
-            const modalTitle = modal.querySelector('.modal-title');
-            const productId = this.getAttribute('data-id');
-            const image = this.getAttribute('data-image');
-            const name = this.getAttribute('data-name');
-            const type = this.getAttribute('data-type');
-            const price = this.getAttribute('data-price');
-            const power = this.getAttribute('data-power');
-            const pharmacy = this.getAttribute('data-pharmacy');
-            const gramMl = this.getAttribute('data-gram_ml');
-            const sellingPrice = this.getAttribute('data-selling_price');
-            const description = this.getAttribute('data-description');
-
-            if (productId) {
-                modalTitle.textContent = 'Edit Product';
-                document.getElementById('productId').value = productId;
-                document.getElementById('imagePreview').style.display = 'none';
-                document.getElementById('existingImage').style.display = 'block';
-                document.getElementById('existingImage').src = image;
-                document.getElementById('productName').value = name;
-                document.getElementById('productType').value = type;
-                document.getElementById('productPrice').value = price;
-                document.getElementById('productPower').value = power;
-                document.getElementById('productPharmacy').value = pharmacy;
-                document.getElementById('editProductGramMl').value = gramMl;
-                document.getElementById('editProductSellingPrice').value = sellingPrice;
-                document.getElementById('productDescription').value = description;
-                document.getElementById('action').value = 'edit';
-            } else {
-                modalTitle.textContent = 'Add New Product';
-                document.getElementById('productForm').reset();
-                document.getElementById('productId').value = '';
-                document.getElementById('action').value = 'add';
-                document.getElementById('imagePreview').style.display = 'none';
+                document.getElementById('uploadIcon').style.display = 'none';
                 document.getElementById('existingImage').style.display = 'none';
             }
-        });
-    });
-</script>
+
+            // Trigger file input when clicking on the plus icon or existing image
+            function triggerFileInput() {
+                document.getElementById('productImage').click();
+            }
+        </script>
+    </main>
+</main>
 
 <?php include 'include/fotter.php'; ?>

@@ -2,7 +2,7 @@
 include '../../database/collaction.php';
 
 try {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['productdescription'] != null) {
         // Validate and sanitize input fields
         $productId = $_POST['product_id'] ?? null;
         $name = htmlspecialchars(trim($_POST['productname']));
@@ -12,7 +12,8 @@ try {
         $pharmacy = htmlspecialchars(trim($_POST['productpharmacy']));
         $gram_ml = filter_var($_POST['editProductGramMl'], FILTER_VALIDATE_FLOAT);
         $selling_price = filter_var($_POST['editProductSellingPrice'], FILTER_VALIDATE_FLOAT);
-        $description = htmlspecialchars(trim($_POST['productDescription']));
+        $description = htmlspecialchars(trim($_POST['productdescription']));
+        $check = htmlspecialchars(trim($_POST['check']));
 
         $file_name = $_FILES['productImage']['name'] ?? '';
         $file_tmp_name = $_FILES['productImage']['tmp_name'] ?? '';
@@ -32,6 +33,12 @@ try {
             }
         }
 
+        if ($check == 1){
+            $check = True;
+        }
+        else{
+            $check =False;
+        }
         // Prepare product data
         $product_data = [
             'name' => $name,
@@ -42,6 +49,7 @@ try {
             'gram_ml' => $gram_ml,
             'selling_price' => $selling_price,
             'description' => $description,
+            'check' => $check,
             'image' => $file_name // This will be an empty string if no file was uploaded
         ];
 

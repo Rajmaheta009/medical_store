@@ -1,6 +1,7 @@
 <style>
     select.form-select option {
-        color: #333; /* Set color for the options */
+        color: #333;
+        /* Set color for the options */
     }
 </style>
 
@@ -34,28 +35,32 @@
             <tbody>
                 <?php
                 include '../database/collaction.php';
-                $datas = $product_type_collection->find();
+                $datas = $product_type_collection->find()->toArray();
                 $counter = 1;
-                foreach ($datas as $data) {
+                $filter_product_type = array_filter($datas, function ($data) {
+                    return $data['check'] == 'true';
+                });
+                foreach ($filter_product_type as $data) {
                     $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
                     $statusClass = $data['status'] ? 'text-success' : 'text-danger'; // Apply appropriate class
                 ?>
-                <tr>
-                    <td><?php echo $counter++; ?></td>
-                    <td><?php echo $data['type']; ?></td>
-                    <td class="<?php echo $statusClass; ?>">
-                        <?php echo $statusText; ?>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-primary edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
-                            data-id="<?php echo $data['_id']; ?>"
-                            data-type="<?php echo $data['type']; ?>"
-                            data-status="<?php echo $data['status'] ? '1' : '0'; ?>">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?php echo $counter++; ?></td>
+                        <td><?php echo $data['type']; ?></td>
+                        <td class="<?php echo $statusClass; ?>">
+                            <?php echo $statusText; ?>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-primary edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
+                                data-id="<?php echo $data['_id']; ?>"
+                                data-type="<?php echo $data['type']; ?>"
+                                data-check="<?php echo $data['check']; ?>"
+                                data-status="<?php echo $data['status'] ? '1' : '0'; ?>">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>
@@ -65,7 +70,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalLabel" style="color:#333;">Add Product Type</h5>
+                        <h5 class="modal-title" id="heading" style="color:#333;"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -86,7 +91,15 @@
                                     <option value="0">Inactive</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                            <label class="form-label" style="color:#333;">Active</label>
+                            <label class="ios-switch">
+                                <input type="checkbox" checked name="check" value="1">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                                <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -185,14 +198,16 @@
         const product_typeIdInput = document.getElementById('product_typeId');
         const typeInput = document.getElementById('type');
         const statusInput = document.getElementById('status');
-        const modalTitle = document.getElementById('addProductModalLabel');
+        const checkInput = document.getElementById('check');
+        const modalTitle = document.getElementById('heading'); // Correct reference
 
         // Clear form for adding a new product type
         addProductButton.addEventListener('click', function() {
+            modalTitle.innerText = 'Add Product Type'; // Set modal title correctly
             product_typeIdInput.value = ''; // Clear hidden product type ID
             typeInput.value = ''; // Clear type field
             statusInput.value = '1'; // Default status to Active
-            modalTitle.innerText = 'Add Product Type'; // Set modal title
+            checkInput.value = '1'; // Default check to Active
         });
 
         // Fill the form for editing a product type
@@ -201,15 +216,18 @@
                 const product_typeId = this.getAttribute('data-id');
                 const type = this.getAttribute('data-type');
                 const status = this.getAttribute('data-status');
+                const check = this.getAttribute('data-check');
 
                 // Set the values in the modal inputs
+                modalTitle.innerText = 'Edit Product Type'; // Set modal title correctly
                 product_typeIdInput.value = product_typeId;
                 typeInput.value = type;
                 statusInput.value = status;
-                modalTitle.innerText = 'Edit Product Type'; // Set modal title
+                checkInput.value = check;
             });
         });
     });
+
 
     function confirmDelete(product_typeId) {
         if (confirm("Are you sure you want to delete this product type?")) {

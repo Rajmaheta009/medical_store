@@ -30,9 +30,12 @@
             <tbody>
                 <?php
                 include '../database/collaction.php';
-                $datas = $pharmacy_collection->find();
+                $datas = $pharmacy_collection->find()->toArray();
+                $filter_pharmacy=array_filter($datas,function($data){
+                    return $data['check']== 'True';
+                });
                 $counter = 1;
-                foreach ($datas as $data) {
+                foreach ($filter_pharmacy as $data) {
                     $statusText = $data['status'] ? 'Active' : 'In-Active';
                     $statusClass = $data['status'] ? 'text-success' : 'text-danger';
                 ?>
@@ -50,6 +53,7 @@
                                 data-name="<?php echo $data['name']; ?>"
                                 data-phone="<?php echo $data['phone']; ?>"
                                 data-email="<?php echo $data['email']; ?>"
+                                data-check="<?php echo $data['check']; ?>"
                                 data-status="<?php echo $data['status'] ? '1' : '0'; ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
@@ -91,7 +95,15 @@
                                     <option value="0">In-Active</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                            <label class="form-label" style="color:#333;">Active</label>
+                            <label class="ios-switch">
+                                <input type="checkbox" checked name="check" value="1">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                                <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -197,13 +209,15 @@
                 const name = this.getAttribute('data-name');
                 const phone = this.getAttribute('data-phone');
                 const email = this.getAttribute('data-email');
+                const check = this.getAttribute('data-check');
                 const status = this.getAttribute('data-status');
 
                 document.getElementById('pharmacyId').value = pharmacyId || ''; // Clear or set the Pharmacy ID
                 document.getElementById('name').value = name || '';
                 document.getElementById('contactNo').value = phone || '';
                 document.getElementById('email').value = email || '';
-                document.getElementById('status').value = status || '1'; // Default to 'Active'
+                document.getElementById('check').value = cehck || '1';
+                document.getElementById('status').value = status || ''; // Default to 'Active'
             });
         });
 

@@ -4,6 +4,7 @@ include '../../database/collaction.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productName = $_POST['productName'];
     $productQuantity = (int) $_POST['productQuantity'];
+    $check = $_POST['check'];
     $productExpiry = $_POST['productExpiry'];
 
     $product = $product_collection->findOne(['name' => $productName]);
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'product_id' => $productId,
                 'quantity' => $productQuantity,
                 'selling_quantity' => 0,
+                'check' => $check,
                 'expiry_date' => new MongoDB\BSON\UTCDateTime(strtotime($productExpiry) * 1000)
             ]);
             $status = 'success';

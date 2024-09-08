@@ -31,9 +31,12 @@
             <tbody>
                 <?php
                 include '../database/collaction.php';
-                $datas = $user_collection->find();
+                $datas = $user_collection->find()->toArray();
                 $counter = 1; // Initialize counter for PHP
-                foreach ($datas as $data) { ?>
+                $filtered_user = array_filter($datas, function ($data) {
+                    return $data['check'] == 'true';
+                }); 
+                foreach ($filtered_user as $data) { ?>
                     <tr>
                         <td><?php echo $counter++; ?></td>
                         <td><?php echo htmlspecialchars($data['name']); ?></td>
@@ -48,7 +51,8 @@
                                 data-phone="<?php echo htmlspecialchars($data['phone']); ?>"
                                 data-email="<?php echo htmlspecialchars($data['email']); ?>"
                                 data-role="<?php echo htmlspecialchars($data['role']); ?>"
-                                data-address="<?php echo htmlspecialchars($data['address']); ?>">
+                                data-address="<?php echo htmlspecialchars($data['address']); ?>"
+                                data-check="<?php echo htmlspecialchars($data['check']); ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
@@ -69,7 +73,6 @@
                     <div class="modal-body">
                         <form action="crud_code/user_crud.php" method="POST" id="userForm">
                             <input type="hidden" id="userId" name="userId"> <!-- Hidden field for User ID -->
-
                             <div class="row">
                                 <div class="col">
                                     <label for="userName" class="form-label" style="color:#333;">Name</label>
@@ -78,7 +81,6 @@
                                         pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed"
                                         maxlength="50" minlength="2" required>
                                 </div>
-
                                 <div class="col">
                                     <label for="contactNo" class="form-label" style="color:#333;">Contact No</label>
                                     <input type="tel" class="form-control" placeholder="Contact No" aria-label="Contact No"
@@ -87,7 +89,6 @@
                                         required>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col">
                                     <label for="email" class="form-label" style="color:#333;">Email</label>
@@ -96,7 +97,6 @@
                                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                         title="Please enter a valid email address" required>
                                 </div>
-
                                 <div class="col">
                                     <label for="password" class="form-label" style="color:#333;">Password</label>
                                     <input type="password" class="form-control" placeholder="Password" aria-label="Password"
@@ -105,23 +105,24 @@
                                         title="Password must be between 6 to 20 characters" required>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <label for="role" style="color:#333;">Select Role:</label>
                                 <select id="role" name="role" class="form-select" required>
                                     <option value="manager">Manager</option>
-                                    <option value="product_manager">Product Manager</option>
-                                    <option value="user_manager">User Manager</option>
-                                    <option value="pharmacy_manager">Pharmacy Manager</option>
+                                    <option value="product_manager">Admin</option>
+                                    <option value="user_manager">User</option>
                                 </select>
                             </div>
-
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
-                                <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                            </div>
+                            <label class="form-label" style="color:#333;">Active</label>
+                                <label class="ios-switch">
+                                    <input type="checkbox" checked name="check" value="1">
+                                    <span class="slider"></span>
+                                </label>
+                                <div class=" d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                                    <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -164,7 +165,7 @@
 
     function confirmDelete(userId) {
         if (confirm("Are you sure you want to delete this user?")) {
-            window.location.href = `crud_code/user_delete.php?id=${userId}`;
+            window.location.href = `crud_code/user_delte.php?id=${userId}`;
         }
     }
     document.addEventListener('DOMContentLoaded', function() {
@@ -176,7 +177,7 @@
             var userEmail = button.getAttribute('data-email');
             var userPhone = button.getAttribute('data-phone');
             var userRole = button.getAttribute('data-role');
-            var userAddress = button.getAttribute('data-address');
+            var usercheck = button.getAttribute('data-check');
 
             // Fill form fields
             document.getElementById('userId').value = userId || '';
@@ -184,6 +185,7 @@
             document.getElementById('email').value = userEmail || '';
             document.getElementById('contactNo').value = userPhone || '';
             document.getElementById('role').value = userRole || '';
+            document.getElementById('check').value = usercheck || '';
             // Address is not included here as it’s optional in the modal
 
             // Set the form action and modal title based on whether it's add or edit

@@ -10,7 +10,54 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Toastify CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <style>
+        
+.ios-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
 
+.ios-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 2px;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    left: 0px;
+    bottom: 0px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #00e359;
+    box-shadow: inset 0 0 0 2px rgba(0, 162, 63, 1);
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+    </style>
 </head>
 <body>
     <?php include 'navigationbar.php'?>

@@ -32,9 +32,12 @@
         <tbody id="inventoryTableBody">
             <?php
             include '../database/collaction.php';
-            $datas = $inventery_collection->find();
+            $datas = $inventery_collection->find()->toArray();
             $counter = 1;
-            foreach ($datas as $data) { ?>
+            $filter_inventery = array_filter($datas, function ($data) {
+                return $data['check'] == 1;
+            });
+            foreach ($filter_inventery as $data) { ?>
                 <tr>
                     <td><?php echo $counter++; ?></td>
                     <td><?php
@@ -51,7 +54,8 @@
                             data-id="<?php echo $data['_id']; ?>"
                             data-name="<?php echo $product ? $product['name'] : ''; ?>"
                             data-quantity="<?php echo $data['quantity']; ?>"
-                            data-expiry-date="<?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?>">
+                            data-expiry-date="<?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?>"
+                            data-check="<?php echo $data['check']; ?>">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fas fa-trash"></i></button>
@@ -96,139 +100,151 @@
                                 <input type="date" class="form-control" id="productExpiry" name="productExpiry" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="margin-top:7px;">Submit</button>
+                        <label class="form-label" style="color:#333;">Active</label>
+                        <label class="ios-switch">
+                            <input type="checkbox" checked name="check" value="1">
+                            <span class="slider"></span>
+                        </label>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                            <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Toast container -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
-            <div class="toast-header" style="background-color:#333; color:aliceblue;">
-                <strong class="me-auto">Notification</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body" style="background-color:#333; color:aliceblue;">
-                <!-- Toast message will be set here -->
-            </div>
+</main>
+<!-- Toast container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+        <div class="toast-header" style="background-color:#333; color:aliceblue;">
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" style="background-color:#333; color:aliceblue;">
+            <!-- Toast message will be set here -->
         </div>
     </div>
+</div>
 
-    <script>
-        function showToast(message, type) {
-            var toastEl = document.getElementById('liveToast');
-            var toastHeader = document.querySelector('.toast-header');
-            var toastBody = document.querySelector('.toast-body');
+<script>
+    function showToast(message, type) {
+        var toastEl = document.getElementById('liveToast');
+        var toastHeader = document.querySelector('.toast-header');
+        var toastBody = document.querySelector('.toast-body');
 
-            // Set the message
-            toastBody.innerText = message;
+        // Set the message
+        toastBody.innerText = message;
 
-            // Set background colors based on the type
-            if (type === 'success') {
-                toastHeader.style.backgroundColor = 'green'; // Success background color
-                toastBody.style.backgroundColor = 'green';
-            } else if (type === 'failed') {
-                toastHeader.style.backgroundColor = 'red'; // Failed background color
-                toastBody.style.backgroundColor = 'red';
-            }
-
-            // Show the toast
-            var toast = new bootstrap.Toast(toastEl, {
-                delay: 5000 // Hide after 5 seconds
-            });
-
-            // Show the toast after 2 seconds (2000 milliseconds)
-            setTimeout(function() {
-                toast.show();
-            }, 2000);
+        // Set background colors based on the type
+        if (type === 'success') {
+            toastHeader.style.backgroundColor = 'green'; // Success background color
+            toastBody.style.backgroundColor = 'green';
+        } else if (type === 'failed') {
+            toastHeader.style.backgroundColor = 'red'; // Failed background color
+            toastBody.style.backgroundColor = 'red';
         }
 
-        function getParameterByName(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+        // Show the toast
+        var toast = new bootstrap.Toast(toastEl, {
+            delay: 5000 // Hide after 5 seconds
+        });
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const status = getParameterByName('status');
-            const type = getParameterByName('type');
+        // Show the toast after 2 seconds (2000 milliseconds)
+        setTimeout(function() {
+            toast.show();
+        }, 2000);
+    }
 
-            if (status && type) {
-                let message = '';
+    function getParameterByName(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
 
-                if (status === 'success' && type === 'add') {
-                    message = 'Product added successfully!';
-                } else if (status === 'success' && type === 'edit') {
-                    message = 'Product updated successfully!';
-                } else if (status === 'failed' && type === 'edit') {
-                    message = 'Failed to update product!';
-                } else if (status === 'failed' && type === 'add') {
-                    message = 'Failed to add product!';
-                }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const status = getParameterByName('status');
+        const type = getParameterByName('type');
 
-                if (message) {
-                    showToast(message, status);
-                }
+        if (status && type) {
+            let message = '';
+
+            if (status === 'success' && type === 'add') {
+                message = 'Product added successfully!';
+            } else if (status === 'success' && type === 'edit') {
+                message = 'Product updated successfully!';
+            } else if (status === 'failed' && type === 'edit') {
+                message = 'Failed to update product!';
+            } else if (status === 'failed' && type === 'add') {
+                message = 'Failed to add product!';
             }
-        });
 
-        // Add event listener for search functionality
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#inventoryTableBody tr');
-
-            rows.forEach(row => {
-                const productName = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
-                if (productName.includes(query)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const editButtons = document.querySelectorAll('.btn-outline-primary');
-            const addProductButton = document.getElementById('addProductBtn');
-            const productIdInput = document.getElementById('productId');
-            const nameInput = document.getElementById('productName');
-            const quantityInput = document.getElementById('productQuantity');
-            const productExpiryInput = document.getElementById('productExpiry');
-            const modalTitle = document.getElementById('addProductModalLabel');
-
-            // Clear form for adding a new product
-            addProductButton.addEventListener('click', function() {
-                modalTitle.innerText = 'Add Product Quantity'; // Set modal title for adding
-                productIdInput.value = ''; // Clear hidden Product ID
-                nameInput.value = ''; // Clear name field
-                quantityInput.value = ''; // Clear quantity field
-                productExpiryInput.value = ''; // Clear expiry date field
-            });
-
-            // Fill the form for editing a product
-            editButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    const name = this.getAttribute('data-name');
-                    const quantity = this.getAttribute('data-quantity');
-                    const productExpiry = this.getAttribute('data-expiry-date');
-                    
-                    // Set the values in the modal inputs
-                    modalTitle.innerText = 'Edit Product Quantity'; // Set modal title for editing
-                    productIdInput.value = productId;
-                    nameInput.value = name;
-                    quantityInput.value = quantity;
-                    productExpiryInput.value = productExpiry;
-                });
-            });
-        });
-
-        function confirmDelete(productId) {
-            if (confirm("Are you sure you want to delete this product?")) {
-                window.location.href = `crud_code/inventery_delete.php?id=${productId}`;
+            if (message) {
+                showToast(message, status);
             }
         }
-    </script>
+    });
 
-    <?php include 'include/fotter.php'; ?>
+    // Add event listener for search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#inventoryTableBody tr');
+
+        rows.forEach(row => {
+            const productName = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            if (productName.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('.btn-outline-primary');
+        const addProductButton = document.getElementById('addProductBtn');
+        const productIdInput = document.getElementById('productId');
+        const nameInput = document.getElementById('productName');
+        const quantityInput = document.getElementById('productQuantity');
+        const productExpiryInput = document.getElementById('productExpiry');
+        const checkInput = document.getElementById('check');
+        const modalTitle = document.getElementById('addProductModalLabel');
+
+        // Clear form for adding a new product
+        addProductButton.addEventListener('click', function() {
+            modalTitle.innerText = 'Add Product Quantity'; // Set modal title for adding
+            productIdInput.value = ''; // Clear hidden Product ID
+            nameInput.value = ''; // Clear name field
+            quantityInput.value = ''; // Clear quantity field
+            productExpiryInput.value = ''; // Clear expiry date field
+            checkInput.value = '1'; // Clear check field
+        });
+
+        // Fill the form for editing a product
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const quantity = this.getAttribute('data-quantity');
+                const productExpiry = this.getAttribute('data-expiry-date');
+                const check = this.getAttribute('data-check');
+
+                // Set the values in the modal inputs
+                modalTitle.innerText = 'Edit Product Quantity'; // Set modal title for editing
+                productIdInput.value = productId;
+                nameInput.value = name;
+                quantityInput.value = quantity;
+                productExpiryInput.value = productExpiry;
+                checkInput.value = check;
+            });
+        });
+    });
+
+    function confirmDelete(productId) {
+        if (confirm("Are you sure you want to delete this product?")) {
+            window.location.href = `crud_code/inventery_delete.php?id=${productId}`;
+        }
+    }
+</script>
+
+<?php include 'include/fotter.php'; ?>

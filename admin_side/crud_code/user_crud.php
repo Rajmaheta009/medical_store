@@ -9,7 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $role = $_POST['role'];
     $address = $_POST['address'];
+    $check = $_POST['check'];
 
+    if ($check == 1){
+        $check = True;
+    }
+    else{
+        $check =False;
+    }
     // Prepare the user data
     $userData = [
         'name' => $userName,
@@ -17,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'email' => $email,
         'role' => $role,
         'address' => $address,
+        'check' => $check,
     ];
 
     if (!empty($password)) {

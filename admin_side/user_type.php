@@ -29,9 +29,12 @@
             <tbody>
                 <?php
                 include '../database/collaction.php';
-                $datas = $user_type_collection->find();
+                $datas = $user_type_collection->find()->toArray();
                 $counter = 1;
-                foreach ($datas as $data) {  
+                $filter_user_type = array_filter($datas, function($data){
+                    return $data['check'] == 'true';
+                });
+                foreach ($filter_user_type as $data) {
                     $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
                     $statusClass = $data['status'] ? 'text-success' : 'text-danger'; // Apply appropriate class
                 ?>
@@ -45,15 +48,15 @@
                             <button class="btn btn-outline-primary edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
                                 data-id="<?php echo $data['_id']; ?>"
                                 data-role="<?php echo $data['role']; ?>"
+                                data-check="<?php echo $data['check']; ?>"
                                 data-status="<?php echo $data['status'] ? '1' : '0'; ?>"> <!-- Use '1' or '0' for status -->
                                 <i class="fas fa-edit"></i>
                             </button>
-
                             <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php } ?>
-            </tbody>
+                </tbod>
         </table>
 
         <!-- Modal for Adding/Editing User Role -->
@@ -70,9 +73,8 @@
                             <div class="row">
                                 <label for="role" class="form-label" style="color:#333;">User Role</label>
                                 <select id="role" name="role" class="form-select" required>
-                                    <option value="manager">Manager</option>
-                                    <option value="user_manager">User Manager</option>
-                                    <option value="product_manager">Product Manager</option>
+                                    <option value="manager">admin</option>
+                                    <option value="user_manager">clint</option>
                                 </select>
                             </div>
                             <div class="row">
@@ -82,7 +84,15 @@
                                     <option value="0">Inactive</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                            <label class="form-label" style="color:#333;">Active</label>
+                            <label class="ios-switch">
+                                <input type="checkbox" checked name="check" value="1">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                                <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -181,15 +191,17 @@
         const addProductButton = document.getElementById('addUserBtn');
         const user_typeIdInput = document.getElementById('user_typeId');
         const roleInput = document.getElementById('role');
+        const checkInput = document.getElementById('check');
         const statusInput = document.getElementById('status');
         const modalTitle = document.getElementById('addUserModalLabel');
 
         // Clear form for adding a new user role
         addProductButton.addEventListener('click', function() {
+            modalTitle.innerText = 'Add User Role'; // Set modal title
             user_typeIdInput.value = ''; // Clear hidden ID
             roleInput.value = ''; // Clear role field
             statusInput.value = '1'; // Default status to Active
-            modalTitle.innerText = 'Add User Role'; // Set modal title
+            checkInput.value = '1'; // Default status to Active
         });
 
         // Fill the form for editing a user role
@@ -197,13 +209,15 @@
             button.addEventListener('click', function() {
                 const user_typeId = this.getAttribute('data-id');
                 const role = this.getAttribute('data-role');
+                const check = this.getAttribute('data-check');
                 const status = this.getAttribute('data-status');
 
                 // Set the values in the modal inputs
+                modalTitle.innerText = 'Edit User Role'; // Set modal title
                 user_typeIdInput.value = user_typeId;
                 roleInput.value = role;
                 statusInput.value = status;
-                modalTitle.innerText = 'Edit User Role'; // Set modal title
+                checkInput.value = check;
             });
         });
     });

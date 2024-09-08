@@ -7,14 +7,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contactNo = $_POST['contactNo'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $check = $_POST['check'];
     $status = isset($_POST['status']) && $_POST['status'] == '1' ? true : false; // Convert status to boolean
 
+    if ($check == 1){
+        $check= True;
+    }
+    else{
+        $check =false;
+    }
     // Prepare the user data
     $pharmacyData = [
         'name' => $pharmacy,
         'phone' => $contactNo,
         'email' => $email,
         'status' => $status,
+        'check' => $check,
     ];
 
     if (!empty($password)) {
