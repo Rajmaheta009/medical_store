@@ -1,5 +1,16 @@
 /* Sidebar */
 
+:root {
+    /* --bs-table-bg: #212529 !important; */
+    --bs-table-color: #ffff !important;
+}
+
+.table {
+    --bs-table-striped-color: #ffff !important;
+    /* --bs-table-bg: #212529 !important;
+    --bs-table-striped-color: #ffff !important; */
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -168,8 +179,8 @@ table tbody tr:nth-child(odd) {
 }
 
 .table {
-    -bs-table-color: white var(--bs-body-color);
-    --bs-table-bg: black var(--bs-body-bg);
+    /* -bs-table-color: white var(--bs-body-color);
+    --bs-table-bg: black var(--bs-body-bg); */
 }
 
 
@@ -183,6 +194,9 @@ body.dark-mode {
 
 body.dark-mode .table {
     background-color: #333;
+    --bs-table-bg: #212529 !important;
+    --bs-table-striped-color: #ffff !important;
+    --bs-table-color: #ffff;
     /* Table background in dark mode */
 }
 
@@ -269,29 +283,6 @@ body.dark-mode .btn {
 
 .image-wrapper {
     margin-top: 15px;
-}
-
-
-/* Inventory Page */
-
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-body.dark-mode .table thead th {
-    background-color: #333;
-    color: #fff;
-}
-
-body.dark-mode .table tbody tr {
-    background-color: #333;
-    color: #fff;
-}
-
-body.dark-mode .btn {
-    color: #ffffff;
-    background-color: #333;
 }
 
 

@@ -8,14 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $role = $_POST['role'];
-    $address = $_POST['address'];
     $check = $_POST['check'];
+    $delete =$_POST['delete'];
 
-    if ($check == 1){
+    if ($check == 1 || $delete == 0){
         $check = True;
+        $delete = False;
     }
     else{
         $check =False;
+        $delete = True;
     }
     // Prepare the user data
     $userData = [
@@ -23,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'phone' => $contactNo,
         'email' => $email,
         'role' => $role,
-        'address' => $address,
         'check' => $check,
+        'delete' => $delete,
     ];
 
     if (!empty($password)) {

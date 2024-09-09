@@ -35,7 +35,7 @@
             $datas = $inventery_collection->find()->toArray();
             $counter = 1;
             $filter_inventery = array_filter($datas, function ($data) {
-                return $data['check'] == 1;
+                return $data['check'] == true && $data['delete'] == false;
             });
             foreach ($filter_inventery as $data) { ?>
                 <tr>
@@ -58,7 +58,7 @@
                             data-check="<?php echo $data['check']; ?>">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             <?php } ?>
@@ -105,6 +105,7 @@
                             <input type="checkbox" checked name="check" value="1">
                             <span class="slider"></span>
                         </label>
+                        <input type="hidden" name="delete" id="deleteField" value="false">
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
                             <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
@@ -212,17 +213,24 @@
 
         // Clear form for adding a new product
         addProductButton.addEventListener('click', function() {
+
             modalTitle.innerText = 'Add Product Quantity'; // Set modal title for adding
+            
+            document.getElementById('deleteField').value = 'false';
+            
             productIdInput.value = ''; // Clear hidden Product ID
             nameInput.value = ''; // Clear name field
             quantityInput.value = ''; // Clear quantity field
             productExpiryInput.value = ''; // Clear expiry date field
             checkInput.value = '1'; // Clear check field
         });
-
+        
         // Fill the form for editing a product
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
+                
+                document.getElementById('deleteField').value = 'true';
+                
                 const productId = this.getAttribute('data-id');
                 const name = this.getAttribute('data-name');
                 const quantity = this.getAttribute('data-quantity');
@@ -242,7 +250,8 @@
 
     function confirmDelete(productId) {
         if (confirm("Are you sure you want to delete this product?")) {
-            window.location.href = `crud_code/inventery_delete.php?id=${productId}`;
+
+            document.getElementById('deleteField').value = 'true'
         }
     }
 </script>

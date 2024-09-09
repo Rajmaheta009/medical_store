@@ -32,7 +32,7 @@
                 $datas = $user_type_collection->find()->toArray();
                 $counter = 1;
                 $filter_user_type = array_filter($datas, function($data){
-                    return $data['check'] == 'true';
+                    return $data['check'] == true && $data['delete'] == false;
                 });
                 foreach ($filter_user_type as $data) {
                     $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
@@ -89,7 +89,8 @@
                                 <input type="checkbox" checked name="check" value="1">
                                 <span class="slider"></span>
                             </label>
-                            <div class="d-flex justify-content-center">
+                            <input type="hidden" name="delete" id="deleteField" value="false">
+                        <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
                                 <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
                             </div>
@@ -207,6 +208,7 @@
         // Fill the form for editing a user role
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
+                document.getElementById('deleteField').value = 'false';
                 const user_typeId = this.getAttribute('data-id');
                 const role = this.getAttribute('data-role');
                 const check = this.getAttribute('data-check');
@@ -224,6 +226,7 @@
 
     function confirmDelete(user_typeId) {
         if (confirm("Are you sure you want to delete this User Role?")) {
+            document.getElementById('deleteField').value = 'true';
             window.location.href = `crud_code/user_type_delete.php?id=${user_typeId}`;
         }
     }

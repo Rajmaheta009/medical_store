@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // echo $product_typeId; // Hidden field for User ID
     $role = $_POST['role'];
     $check = $_POST['check'];
+    $delete = $_POST['delete'];
     $status = isset($_POST['status']) && $_POST['status'] === '1' ? true : false; // Convert status to boolean
 
     if ($check == 1){

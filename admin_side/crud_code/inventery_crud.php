@@ -5,9 +5,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productName = $_POST['productName'];
     $productQuantity = (int) $_POST['productQuantity'];
     $check = $_POST['check'];
+    $delete = $_POST['delete'];
     $productExpiry = $_POST['productExpiry'];
 
     $product = $product_collection->findOne(['name' => $productName]);
+
+    if ($check == 1 || $delete == 0){
+        $check = True;
+        $delete = False;
+    }
+    else{
+        $check =False;
+        $delete = True;
+    }
 
     if ($product) {
         $productId = $product['_id'];
@@ -30,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'quantity' => $productQuantity,
                 'selling_quantity' => 0,
                 'check' => $check,
+                'delete' => $delete,
                 'expiry_date' => new MongoDB\BSON\UTCDateTime(strtotime($productExpiry) * 1000)
             ]);
             $status = 'success';

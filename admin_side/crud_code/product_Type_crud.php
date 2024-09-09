@@ -6,19 +6,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $product_typeId; // Hidden field for User ID
     $type = $_POST['type'];
     $check = $_POST['check'];
+    $delete = $_POST['delete'];
     $status = isset($_POST['status']) && $_POST['status'] === '1' ? true : false; // Convert status to boolean
 
 
-    if ($check == 1){
+    if ($check == 1 || $delete == 0){
         $check = True;
+        $delete = False;
     }
     else{
         $check =False;
+        $delete = True;
     }
     // Prepare the user data
     $product_typeData = [
         'type' => $type,
         'check' => $check,
+        'delete' => $delete,
         'status' => $status,
     ];
     if (!empty($product_typeId)) {

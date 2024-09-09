@@ -38,7 +38,7 @@
                 $datas = $product_type_collection->find()->toArray();
                 $counter = 1;
                 $filter_product_type = array_filter($datas, function ($data) {
-                    return $data['check'] == 'true';
+                    return $data['check'] == true && $data['delete'] == false;
                 });
                 foreach ($filter_product_type as $data) {
                     $statusText = $data['status'] ? 'Active' : 'Inactive'; // Convert boolean to text
@@ -96,6 +96,7 @@
                                 <input type="checkbox" checked name="check" value="1">
                                 <span class="slider"></span>
                             </label>
+                            <input type="hidden" name="delete" id="deleteField" value="false">
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
                                 <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
@@ -213,6 +214,9 @@
         // Fill the form for editing a product type
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
+
+                document.getElementById('deleteField').value = 'false';
+
                 const product_typeId = this.getAttribute('data-id');
                 const type = this.getAttribute('data-type');
                 const status = this.getAttribute('data-status');
@@ -231,6 +235,9 @@
 
     function confirmDelete(product_typeId) {
         if (confirm("Are you sure you want to delete this product type?")) {
+
+            document.getElementById('deleteField').value = 'true';
+
             window.location.href = `crud_code/product_type_delete.php?id=${product_typeId}`;
         }
     }

@@ -8,13 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $check = $_POST['check'];
+    $delete = $_POST['delete'];
     $status = isset($_POST['status']) && $_POST['status'] == '1' ? true : false; // Convert status to boolean
 
-    if ($check == 1){
-        $check= True;
+    if ($check == 1 || $delete == 0){
+        $check = True;
+        $delete = False;
     }
     else{
-        $check =false;
+        $check =False;
+        $delete = True;
     }
     // Prepare the user data
     $pharmacyData = [
@@ -23,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'email' => $email,
         'status' => $status,
         'check' => $check,
+        'delete' => $delete,
     ];
 
     if (!empty($password)) {

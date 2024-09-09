@@ -32,7 +32,7 @@
                 include '../database/collaction.php';
                 $datas = $pharmacy_collection->find()->toArray();
                 $filter_pharmacy=array_filter($datas,function($data){
-                    return $data['check']== 'True';
+                    return $data['check']== true && $data['delete'] == false;
                 });
                 $counter = 1;
                 foreach ($filter_pharmacy as $data) {
@@ -100,6 +100,7 @@
                                 <input type="checkbox" checked name="check" value="1">
                                 <span class="slider"></span>
                             </label>
+                            <input type="hidden" name="delete" id="deleteField" value="false">
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
                                 <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
@@ -203,7 +204,7 @@
                 } else {
                     modalTitle.textContent = 'Add Pharmacy';
                 }
-
+                document.getElementById('deleteField').value = 'false';
                 // Set form values based on action
                 const pharmacyId = this.getAttribute('data-id');
                 const name = this.getAttribute('data-name');
@@ -245,6 +246,7 @@
 
     function confirmDelete(pharmacyId) {
         if (confirm('Are you sure you want to delete this pharmacy?')) {
+            document.getElementById('deleteField').value = 'true';
             window.location.href = 'crud_code/pharmacy_crud.php?action=delete&id=' + pharmacyId;
         }
     }

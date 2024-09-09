@@ -14,6 +14,7 @@ try {
         $selling_price = filter_var($_POST['editProductSellingPrice'], FILTER_VALIDATE_FLOAT);
         $description = htmlspecialchars(trim($_POST['productdescription']));
         $check = htmlspecialchars(trim($_POST['check']));
+        $delete = htmlspecialchars(trim($_POST['delete']));
 
         $file_name = $_FILES['productImage']['name'] ?? '';
         $file_tmp_name = $_FILES['productImage']['tmp_name'] ?? '';
@@ -33,11 +34,13 @@ try {
             }
         }
 
-        if ($check == 1){
+        if ($check == 1 || $delete == 0){
             $check = True;
+            $delete = False;
         }
         else{
             $check =False;
+            $delete = True;
         }
         // Prepare product data
         $product_data = [
@@ -50,6 +53,7 @@ try {
             'selling_price' => $selling_price,
             'description' => $description,
             'check' => $check,
+            'delete' => $delete,
             'image' => $file_name // This will be an empty string if no file was uploaded
         ];
 

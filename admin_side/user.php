@@ -24,7 +24,6 @@
                     <th scope="col">Role</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -34,7 +33,7 @@
                 $datas = $user_collection->find()->toArray();
                 $counter = 1; // Initialize counter for PHP
                 $filtered_user = array_filter($datas, function ($data) {
-                    return $data['check'] == 'true';
+                    return $data['check'] == true && $data['delete'] == false;
                 }); 
                 foreach ($filtered_user as $data) { ?>
                     <tr>
@@ -43,7 +42,6 @@
                         <td><?php echo htmlspecialchars($data['role']); ?></td>
                         <td><?php echo htmlspecialchars($data['email']); ?></td>
                         <td><?php echo htmlspecialchars($data['phone']); ?></td>
-                        <td><span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="<?php echo htmlspecialchars($data['address']) ?>"><i class="fa-solid fa-location-dot"></i></span></td>
                         <td>
                             <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addUserModal"
                                 data-id="<?php echo $data['_id']; ?>"
@@ -51,11 +49,10 @@
                                 data-phone="<?php echo htmlspecialchars($data['phone']); ?>"
                                 data-email="<?php echo htmlspecialchars($data['email']); ?>"
                                 data-role="<?php echo htmlspecialchars($data['role']); ?>"
-                                data-address="<?php echo htmlspecialchars($data['address']); ?>"
                                 data-check="<?php echo htmlspecialchars($data['check']); ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            <button  class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -118,6 +115,7 @@
                                     <input type="checkbox" checked name="check" value="1">
                                     <span class="slider"></span>
                                 </label>
+                                <input type="hidden" name="delete" id="deleteField" value="false">
                                 <div class=" d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
                                     <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
@@ -165,12 +163,15 @@
 
     function confirmDelete(userId) {
         if (confirm("Are you sure you want to delete this user?")) {
-            window.location.href = `crud_code/user_delte.php?id=${userId}`;
+            document.getElementById('deleteField').value = true;//value change of delete
         }
     }
     document.addEventListener('DOMContentLoaded', function() {
         var modalEl = document.getElementById('addUserModal');
         modalEl.addEventListener('show.bs.modal', function(event) {
+
+            document.getElementById('deleteField').value = false;
+
             var button = event.relatedTarget;
             var userId = button.getAttribute('data-id');
             var userName = button.getAttribute('data-name');
