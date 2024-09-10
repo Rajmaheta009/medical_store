@@ -34,7 +34,7 @@
                 $counter = 1; // Initialize counter for PHP
                 $filtered_user = array_filter($datas, function ($data) {
                     return $data['check'] == true && $data['delete'] == false;
-                }); 
+                });
                 foreach ($filtered_user as $data) { ?>
                     <tr>
                         <td><?php echo $counter++; ?></td>
@@ -52,7 +52,7 @@
                                 data-check="<?php echo htmlspecialchars($data['check']); ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button  class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" onclick="confirmDelete('<?php echo $data['_id']; ?>')"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -111,16 +111,33 @@
                                 </select>
                             </div>
                             <label class="form-label" style="color:#333;">Active</label>
-                                <label class="ios-switch">
-                                    <input type="checkbox" checked name="check" value="1">
-                                    <span class="slider"></span>
-                                </label>
-                                <input type="hidden" name="delete" id="deleteField" value="false">
-                                <div class=" d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
-                                    <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                                </div>
+                            <label class="ios-switch">
+                                <input type="checkbox" checked name="check" value="1">
+                                <span class="slider"></span>
+                            </label>
+                            <input type="hidden" name="delete" id="deleteField" value="false">
+                            <div class=" d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
+                                <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                            </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmModalLabel" style="color:#333;">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: #333;">
+                        Are you sure you want to delete this user?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete()">OK</button>
                     </div>
                 </div>
             </div>
@@ -161,11 +178,10 @@
         toast.show();
     }
 
-    function confirmDelete(userId) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            document.getElementById('deleteField').value = true;//value change of delete
-        }
+    function confirmDelete() {
+        document.getElementById('deleteField').value = true; //value change of delet
     }
+
     document.addEventListener('DOMContentLoaded', function() {
         var modalEl = document.getElementById('addUserModal');
         modalEl.addEventListener('show.bs.modal', function(event) {
