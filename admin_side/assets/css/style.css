@@ -1,14 +1,11 @@
 /* Sidebar */
 
 :root {
-    /* --bs-table-bg: #212529 !important; */
-    --bs-table-color: #ffff !important;
+    --bs-table-color: #ffff;
 }
 
 .table {
-    --bs-table-striped-color: #ffff !important;
-    /* --bs-table-bg: #212529 !important;
-    --bs-table-striped-color: #ffff !important; */
+    --bs-table-striped-color: #ffff;
 }
 
 .sidebar {
@@ -196,8 +193,7 @@ body.dark-mode .table {
     background-color: #333;
     --bs-table-bg: #212529 !important;
     --bs-table-striped-color: #ffff !important;
-    --bs-table-color: #ffff;
-    /* Table background in dark mode */
+    --bs-table-color: #ffff !important;
 }
 
 body.dark-mode .table thead th {
