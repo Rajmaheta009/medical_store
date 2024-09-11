@@ -78,5 +78,44 @@
             <h6 class="text center">140</h6>
         </div>
     </div>
+    <div class="banner">
+        <div class="banner-content">
+            <h1>DO YOU HAVE ANY QUESTION ?</h1>
+            <p>Your one-stop solution for all medical needs</p>
+            <a href="contact.php" class="btn-banner">Send Massage</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="row">
+            <!-- First Icon and Text Pair -->
+            <div class="col-1 icon-column">
+                <i class="fas fa-gift gift-icon"></i>
+            </div>
+            <div class="col-3 content-column">
+                <h3 class="card-title">Gift Title</h3>
+                <p class="card-details">This is a detailed description of the gift or offer 1.</p>
+            </div>
+
+            <!-- Second Icon and Text Pair -->
+            <div class="col-1 icon-column">
+                <i class="bi bi-globe2"></i>
+            </div>
+            <div class="col-3 content-column">
+                <h3 class="card-title">
+                    Free World Delivery</h3>
+                <p class="card-details">This is a detailed description of the gift or offer 2.</p>
+            </div>
+
+            <!-- Third Icon and Text Pair -->
+            <div class="col-1 icon-column">
+                <i class="bi bi-headset"></i>
+            </div>
+            <div class="col-3 content-column">
+                <h3 class="card-title">Customer Supports</h3>
+                <p class="card-details">This is a detailed description of the gift or offer 3.</p>
+            </div>
+        </div>
+    </div>
+    
 </div>
 <?php include 'include/footer.php'; ?>

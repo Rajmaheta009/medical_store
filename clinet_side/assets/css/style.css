@@ -182,3 +182,128 @@ body {
     height: 210px;
     border-radius: 4px;
 }
+
+
+/* Banner Styling */
+
+
+/* Banner Styling */
+
+.banner {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1;
+}
+
+.banner h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.banner p {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.btn-banner {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-banner:hover {
+    background-color: #000000;
+}
+
+
+/* Dark Overlay */
+
+.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Transparent dark overlay */
+    z-index: 0;
+}
+
+.card {
+    /* border-radius: 8px; */
+    padding: 20px;
+    background-color: #fff;
+    max-width: 100%;
+    border: hidden;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.icon-column {
+    text-align: center;
+}
+
+.icon-column i {
+    font-size: 32px;
+    color: #343a40;
+}
+
+.content-column {
+    padding-left: 10px;
+}
+
+.card-title {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #343a40;
+}
+
+.card-details {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.footer {
+    background-color: #007bff;
+    /* Blue background */
+}
+
+.footer h5 {
+    color: #ffffff;
+    /* White text color for headings */
+    font-weight: bold;
+}
+
+.footer p,
+.footer ul li {
+    color: #e1e1e1;
+    /* Light grey text color for paragraph and list items */
+}
+
+.footer a {
+    color: #ffffff;
+    /* White color for links */
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    /* Underline on hover for better user interaction */
+}
+
+.footer .fab {
+    font-size: 1.5rem;
+    /* Icon size */
+}

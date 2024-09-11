@@ -1,4 +1,36 @@
+<footer class="footer bg-primary text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>We are a leading medical store providing top-quality medicines and health products. Our mission is to improve the health and well-being of our customers through excellent service and quality products.</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li>Surat</li>
+                    <li>Email: R@JMAHETA.com</li>
+                    <li>Phone: 7600230222</li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled d-flex">
+                    <li class="me-3"><a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a></li>
+                    <li class="me-3"><a href="#" class="text-white"><i class="fab fa-twitter"></i></a></li>
+                    <li class="me-3"><a href="https://www.instagram.com/raj_maheta_/" class="text-white"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <p>&copy; 2024 Medical Store. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
 <script src="assets/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body> 
+</body>
+
 </html>
