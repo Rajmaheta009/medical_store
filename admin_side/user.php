@@ -52,7 +52,7 @@
                                 data-check="<?php echo htmlspecialchars($data['check']); ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" onclick="confirmDelete('<?php echo $data['_id']; ?>')"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -179,14 +179,15 @@
     }
 
     function confirmDelete() {
-        document.getElementById('deleteField').value = true; //value change of delet
+        document.getElementById('deleteField').value = "true"; //value change of delet
+        window.location.href=window.location.href
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         var modalEl = document.getElementById('addUserModal');
         modalEl.addEventListener('show.bs.modal', function(event) {
 
-            document.getElementById('deleteField').value = false;
+            document.getElementById('deleteField').value = button.getAttribute('delete');
 
             var button = event.relatedTarget;
             var userId = button.getAttribute('data-id');

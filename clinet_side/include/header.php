@@ -13,13 +13,13 @@
 
 <body>
 <div class="top-bar">
-        <i class="fas fa-map-marker-alt"></i> BROOKLYN, NY 10036, UNITED STATES
-        <i class="fas fa-phone"></i> 1-800-123-1234
-        <i class="fas fa-envelope"></i> <a href="mailto:example@medicine-plus.com">EXAMPLE@MEDICINE-PLUS.COM</a>
+        <i class="fas fa-map-marker-alt">Surat,Gujarat</i>3
+        <i class="fas fa-phone">7600230222</i>
+        <i class="fas fa-envelope"><a href="mailto:example@medicine-plus.com">R@JMAHETA.COM</a></i>
         <a href="#">CHECKOUT</a>
         <a href="#">MY WISHLIST</a>
         <a href="#">MY ACCOUNT</a>
-        <a href="#">LOG IN</a>
+        <a href="../login_registration/login_registration.html">LOG IN</a>
     </div>
     <div class="header">
         <div class="logo">
