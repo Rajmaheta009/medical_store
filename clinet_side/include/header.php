@@ -34,13 +34,15 @@
             <img src="https://placehold.co/40x40" alt="Customer service representative">
             <div>
                 <p>Have A Question?</p>
-                <a href="#">Chat with us!</a>
+                <a href="contact_as.php">Chat with us!</a>
             </div>
         </div>
-        <div class="cart">
-            <i class="fas fa-shopping-cart"></i>
-            <span>£0.00</span>
-            <span>(0)</span>
-        </div>
+        <a href="cart.php">
+            <div class="cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span>£0.00</span>
+                <span>(0)</span>
+            </div>
+        </a>
     </div>
     <?php include 'navigation.php'; ?>

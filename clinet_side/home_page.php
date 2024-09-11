@@ -26,63 +26,113 @@
     <!-- Statistic Cards -->
     <div class="row" style="margin-top:7%;">
         <div class="col-4">
-            <div class="card text-bg-dark">
+            <div class="card" style="border:none">
                 <img src="https://img.jakpost.net/c/2018/11/15/2018_11_15_58724_1542268918._large.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Medical And Health </h5>
+                    <h5 class="card-title" style="margin-right:15px; margin-top: 8px;">Medical And Health </h5>
                 </div>
             </div>
         </div>
         <div class="col-4">
-            <div class="card text-bg-dark">
+            <div class="card" style="border:none">
                 <img src="https://img.jakpost.net/c/2018/11/15/2018_11_15_58724_1542268918._large.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Persnol Care </h5>
+                    <h5 class="card-title" style="margin-right:15px; margin-top: 8px;">Persnol Care </h5>
                 </div>
             </div>
         </div>
         <div class="col-4">
-            <div class="card text-bg-dark">
+            <div class="card" style="border:none">
                 <img src="https://img.jakpost.net/c/2018/11/15/2018_11_15_58724_1542268918._large.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Diet And Fitness </h5>
+                    <h5 class="card-title" style="margin-right:15px; margin-top: 8px;">Diet And Fitness </h5>
                 </div>
             </div>
         </div>
     </div>
     <h4>Featured Product</h4>
-    <div class="row" style="margin-top:4%">
-        <div class="card-1 col-md-3 md-4 mx-3">
-            <div class="image-wrapper">
-                <img src="https://cdn.pixabay.com/photo/2015/12/06/18/28/capsules-1079838_1280.jpg" alt="product name">
+    <div class="row row-col-md-3 g-4 py-5">
+        <div class="col-auto">
+            <div class="card1">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
+                    <div class="card-body ">
+                        <h5 class="card-title">medi_name</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <div class="d-flex justify-content-around md-5">
+                        <h3>120</h3>
+                        <button class="btn btn-primary">Add Cart</button>
+                    </div>
+                </div>
             </div>
-            <h5 class="card-title">Medi_name</h5>
-            <p class="card-tect">medi_detail</p>
-            <h6 class="text center">140</h6>
         </div>
-
-        <div class="card-1 col-md-3 md-4 mx-3">
-            <div class="image-wrapper">
-                <img src="https://cdn.pixabay.com/photo/2015/12/06/18/28/capsules-1079838_1280.jpg" alt="product name">
+        <div class="col-auto">
+            <div class="card1">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
+                    <div class="card-body ">
+                        <h5 class="card-title">medi_name</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <div class="d-flex justify-content-around md-5">
+                        <h3>120</h3>
+                        <button class="btn btn-primary">Add Cart</button>
+                    </div>
+                </div>
             </div>
-            <h5 class="card-title">Medi_name</h5>
-            <p class="card-tect">medi_detail</p>
-            <h6 class="text center">140</h6>
         </div>
-        <div class="card-1 col-md-3 md-4 mx-3">
-            <div class="image-wrapper">
-                <img src="https://cdn.pixabay.com/photo/2015/12/06/18/28/capsules-1079838_1280.jpg" alt="product name">
+        <div class="col-auto">
+            <div class="card1">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
+                    <div class="card-body ">
+                        <h5 class="card-title">medi_name</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <div class="d-flex justify-content-around md-5">
+                        <h3>120</h3>
+                        <button class="btn btn-primary">Add Cart</button>
+                    </div>
+                </div>
             </div>
-            <h5 class="card-title">Medi_name</h5>
-            <p class="card-tect">medi_detail</p>
-            <h6 class="text center">140</h6>
+        </div>
+        <div class="col-auto">
+            <div class="card1">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
+                    <div class="card-body ">
+                        <h5 class="card-title">medi_name</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <div class="d-flex justify-content-around md-5">
+                        <h3>120</h3>
+                        <button class="btn btn-primary">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="card1">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
+                    <div class="card-body ">
+                        <h5 class="card-title">medi_name</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <div class="d-flex justify-content-around md-5">
+                        <h3>120</h3>
+                        <button class="btn btn-primary">Add Cart</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="banner">
         <div class="banner-content">
             <h1>DO YOU HAVE ANY QUESTION ?</h1>
             <p>Your one-stop solution for all medical needs</p>
-            <a href="contact.php" class="btn-banner">Send Massage</a>
+            <a href="contact_as.php" class="btn-banner">Send Massage</a>
         </div>
     </div>
     <div class="card">
@@ -116,6 +166,5 @@
             </div>
         </div>
     </div>
-    
-</div>
-<?php include 'include/footer.php'; ?>
+    </div>
+    <?php include 'include/footer.php'; ?>
