@@ -12,7 +12,7 @@
                     </div>
                     <div class="d-flex justify-content-around md-5">
                         <h3>₹ 120</h3>
-                        <button class="btn btn-primary">Add Cart</button>
+                        <button class="btn btn-primary" onclick="cart()">Add Cart</button>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="d-flex justify-content-around md-5">
                         <h3>₹ 120</h3>
-                        <button class="btn btn-primary"onclick="cart()">Add Cart</button>
+                        <button class="btn btn-primary" onclick="cart()">Add Cart</button>
                     </div>
                 </div>
             </div>

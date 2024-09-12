@@ -356,8 +356,8 @@ a {
 }
 
 .rr img {
-    width: 90%;
-    border-radius: 30px;
+    width: 100%;
+    border-radius: 25px;
 }
 
 .product-details {
