@@ -60,11 +60,12 @@
         </table>
 
         <!-- Modal for Adding/Editing User -->
+        <!-- Modal for Adding/Editing User -->
         <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEditUserModalLabel" style="color:#333;">User Form</h5>
+                        <h5 class="modal-title" id="addUserModalLabel" style="color:#333;">User Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -125,6 +126,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -180,16 +182,14 @@
 
     function confirmDelete() {
         document.getElementById('deleteField').value = "true"; //value change of delet
-        window.location.href=window.location.href
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         var modalEl = document.getElementById('addUserModal');
         modalEl.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
 
             document.getElementById('deleteField').value = button.getAttribute('delete');
-
-            var button = event.relatedTarget;
             var userId = button.getAttribute('data-id');
             var userName = button.getAttribute('data-name');
             var userEmail = button.getAttribute('data-email');
@@ -204,10 +204,9 @@
             document.getElementById('contactNo').value = userPhone || '';
             document.getElementById('role').value = userRole || '';
             document.getElementById('check').value = usercheck || '';
-            // Address is not included here as it’s optional in the modal
 
             // Set the form action and modal title based on whether it's add or edit
-            var modalTitle = document.getElementById('addEditUserModalLabel');
+            var modalTitle = document.getElementById('addUserModalLabel');
             var submitButton = document.querySelector('.modal-footer button[type="submit"]');
 
             if (userId) {
@@ -219,6 +218,7 @@
             }
         });
     });
+
 
     document.addEventListener('DOMContentLoaded', function() {
         var searchInput = document.getElementById('searchInput');

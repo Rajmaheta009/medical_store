@@ -24,11 +24,13 @@
     </div>
     <div class="header">
         <div class="logo">
-            <img src="https://placehold.co/50x50" alt="Shopping cart with a medical cross">
-            <div>
-                <h1>Medicine <span>Plus</span></h1>
-                <p>welcome to our online store</p>
-            </div>
+            <a href="home_page.php" class="text-decoration-none">
+                <img src="https://placehold.co/50x50" alt="Shopping cart with a medical cross">
+                <div>
+                    <h1>Medicine <span>Plus</span></h1>
+                    <p>welcome to our online store</p>
+                </div>
+            </a>
         </div>
         <div class="contact-info">
             <img src="https://placehold.co/40x40" alt="Customer service representative">
@@ -37,7 +39,7 @@
                 <a href="contact_as.php">Chat with us!</a>
             </div>
         </div>
-        <a href="cart.php">
+        <a href="cart.php" class="text-decoration-none">
             <div class="cart">
                 <i class="fas fa-shopping-cart"></i>
                 <span>£0.00</span>
