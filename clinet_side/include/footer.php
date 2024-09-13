@@ -9,8 +9,8 @@
                 <h5>Contact Us</h5>
                 <ul class="list-unstyled">
                     <li>Surat</li>
-                    <li>Email: R@JMAHETA.com</li>
-                    <li>Phone: 7600230222</li>
+                    <li>Email: <a href="mailto:R@JMAHETA.com" class="text-white">R@JMAHETA.com</a></li>
+                    <li>Phone: <a href="tel:+917600230222" class="text-white">7600230222</a></li>
                 </ul>
             </div>
             <div class="col-md-4 mb-3">

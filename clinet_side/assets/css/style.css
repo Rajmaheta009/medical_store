@@ -4,10 +4,6 @@ body {
     padding: 0;
 }
 
-a {
-    text-decoration: none;
-}
-
 .top-bar {
     background-color: #f8f8f8;
     padding: 10px 0;
@@ -91,6 +87,7 @@ a {
 }
 
 .nav-bar {
+    position: sticky;
     background-color: #f8f8f8;
     padding: 10px 0;
     text-align: center;
@@ -104,13 +101,6 @@ a {
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-}
-
-.nav-bar a.active {
-    background-color: #00a9e0;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 20px;
 }
 
 .carousel-inner {
@@ -132,26 +122,16 @@ a {
 .card .card-title {
     display: flex;
     color: #000;
-    text-align: start;
-    align-items: center;
     margin-top: 5%;
-    padding-left: 10px;
 }
 
-.card img {
-    border-radius: 25px;
-    display: flex;
-    height: 20%;
-}
-
-.a .card .card-text {
+.card .card-text {
     color: #000;
     justify-content: center;
 }
 
-.card {
-    margin-top: 15px;
-    width: 120%;
+.card1 img {
+    height: 250px;
 }
 
 .container h4 {
@@ -160,17 +140,10 @@ a {
 
 .card1 {
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.15));
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     max-width: 400px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 5%;
-    padding-right: 15px;
 }
 
 .image-wrapper {
@@ -202,6 +175,7 @@ a {
     padding: 2rem;
     text-align: start;
     margin-top: 5%;
+    border-radius: 35px;
 }
 
 .banner-content {
@@ -284,7 +258,6 @@ a {
 .footer {
     display: flex;
     background-color: #007bff;
-    margin-top: 6%;
     /* Blue background */
 }
 
@@ -300,15 +273,19 @@ a {
     /* Light grey text color for paragraph and list items */
 }
 
+.footer a:hover {
+    color: #ffc107;
+    /* text-decoration: none; */
+    /* Highlight links on hover */
+}
+
 .footer a {
-    color: #ffffff;
-    /* White color for links */
     text-decoration: none;
 }
 
-.footer a:hover {
-    text-decoration: underline;
-    /* Underline on hover for better user interaction */
+.footer .fab:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s;
 }
 
 .footer .fab {
@@ -316,15 +293,9 @@ a {
     /* Icon size */
 }
 
-.card1 .card-img-top {
-    border-radius: 50px;
-    padding: 5px;
-}
-
 .card1 .card {
     border-radius: 30px;
     padding: 30px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
 .card-body {
