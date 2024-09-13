@@ -27,7 +27,7 @@
             foreach ($filter_product as $product) { ?>
                 <div class="card col-md-3 mb-4 mx-3" style="margin-top: 70px;">
                     <div class="image-wrapper">
-                        <img src="assets/image/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
+                        <img src="<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
                     </div>
                     <div class="card-body mt-n4" style="margin-top:-60px;">
                         <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
@@ -35,7 +35,7 @@
                         <h6 class="text-center">$<?php echo number_format($product['price'], 2); ?></h6>
                         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addEditProductModal"
                             data-id="<?php echo $product['_id']; ?>"
-                            data-image="assets/image/<?php echo $product['image']; ?>"
+                            data-image="<?php echo $product['image']; ?>"
                             data-name="<?php echo htmlspecialchars($product['name']); ?>"
                             data-type="<?php echo htmlspecialchars($product['type']); ?>"
                             data-price="<?php echo htmlspecialchars($product['price']); ?>"
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Modal for Adding/Editing Product -->
-        <div class="modal fade" id="addEditProductModal" tabindex="-1" aria-labelledby="addEditProductModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addEditProductModal" tabindex="-1" aria-labelledby="addEditProductModalLabel" data-bs-keyboard="false" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

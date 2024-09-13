@@ -114,39 +114,51 @@ a {
 }
 
 .carousel-inner {
-    height: 400px;
+    height: 500px;
     position: relative;
+    border-radius: 18px;
 }
 
 .carousel-inner img {
     display: block;
-    width: 100;
     padding-bottom: 20px;
     justify-content: center;
     overflow: hidden;
     position: absolute;
     object-fit: cover;
+    border-radius: 25px;
 }
 
 .card .card-title {
-    text-align: end;
+    display: flex;
     color: #000;
+    text-align: start;
+    align-items: center;
+    margin-top: 5%;
+    padding-left: 10px;
 }
 
-.card .card-text {
+.card img {
+    border-radius: 25px;
+    display: flex;
+    height: 20%;
+}
+
+.a .card .card-text {
     color: #000;
     justify-content: center;
 }
 
 .card {
     margin-top: 15px;
+    width: 120%;
 }
 
 .container h4 {
-    margin-top: 5%;
+    margin-top: 4%;
 }
 
-.card-1 {
+.card1 {
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
     filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.15));
@@ -155,16 +167,16 @@ a {
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 300px;
-    padding: 15px 15px;
+    max-width: 400px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 4%;
+    margin-bottom: 5%;
+    padding-right: 15px;
 }
 
 .image-wrapper {
     position: relative;
-    width: 270px;
-    height: 200px;
+    width: 70px;
+    height: 300px;
     top: -50px;
     z-index: 1;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -184,11 +196,12 @@ a {
 
 .banner {
     /* content: none; */
-    background-color: #343a40;
+    background: center;
+    background-image: url(../image/banner-back.jpg);
     color: #ffffff;
     padding: 2rem;
-    text-align: center;
-    margin-top: 2rem;
+    text-align: start;
+    margin-top: 5%;
 }
 
 .banner-content {
@@ -269,6 +282,7 @@ a {
 }
 
 .footer {
+    display: flex;
     background-color: #007bff;
     margin-top: 6%;
     /* Blue background */
