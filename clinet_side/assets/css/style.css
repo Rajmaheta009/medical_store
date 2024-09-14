@@ -1,5 +1,5 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -119,14 +119,19 @@ body {
     border-radius: 25px;
 }
 
-.card .card-title {
+.card1 .card-title {
     display: flex;
     color: #000;
     margin-top: 5%;
 }
 
-.card .card-text {
-    color: #000;
+.card1 .card {
+    border-radius: 30px;
+    border: none;
+    margin-right: -55px;
+}
+
+.card1 .card-text {
     justify-content: center;
 }
 
@@ -134,16 +139,61 @@ body {
     height: 250px;
 }
 
-.container h4 {
-    margin-top: 4%;
+.image-container {
+    position: relative;
+    overflow: hidden;
 }
 
-.card1 {
-    border-radius: 12px;
-    display: flex;
-    max-width: 400px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 5%;
+.card-img-top {
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    /* Blue background for hover effect */
+    opacity: 0;
+    z-index: 1;
+}
+
+.hover-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    /* Button background color */
+    color: black;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 2;
+    border-radius: 35px;
+}
+
+.image-container:hover .overlay {
+    opacity: 0.6;
+    /* Adjust overlay opacity as needed */
+}
+
+.image-container:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.image-container:hover .hover-button {
+    opacity: 1;
+}
+
+.container h4 {
+    margin-top: 4%;
 }
 
 .image-wrapper {
@@ -291,11 +341,6 @@ body {
 .footer .fab {
     font-size: 1.5rem;
     /* Icon size */
-}
-
-.card1 .card {
-    border-radius: 30px;
-    padding: 30px;
 }
 
 .card-body {

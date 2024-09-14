@@ -27,7 +27,7 @@
             foreach ($filter_product as $product) { ?>
                 <div class="card col-md-3 mb-4 mx-3" style="margin-top: 70px;">
                     <div class="image-wrapper">
-                        <img src="<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
+                        <img src="assets/image/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
                     </div>
                     <div class="card-body mt-n4" style="margin-top:-60px;">
                         <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
@@ -35,7 +35,7 @@
                         <h6 class="text-center">$<?php echo number_format($product['price'], 2); ?></h6>
                         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addEditProductModal"
                             data-id="<?php echo $product['_id']; ?>"
-                            data-image="<?php echo $product['image']; ?>"
+                            data-image="assets/image/<?php echo $product['image']; ?>"
                             data-name="<?php echo htmlspecialchars($product['name']); ?>"
                             data-type="<?php echo htmlspecialchars($product['type']); ?>"
                             data-price="<?php echo htmlspecialchars($product['price']); ?>"
@@ -129,7 +129,7 @@
                             </div>
                             <label class="form-label" style="color:#333;">Active</label>
                             <label class="ios-switch">
-                                <input type="checkbox" checked name="check" value="1">
+                                <input type="checkbox" checked name="check" value=0>
                                 <span class="slider"></span>
                             </label>
                             <input type="hidden" name="delete" id="deleteField" value="false">
@@ -236,7 +236,7 @@
     }
 
     function confirmDelete(productId) {
-        document.getElementById('deleteField').value = "true";
+        document.getElementById('deleteField').value = 1;
         window.location.href=window.location.href;
     }
 </script>

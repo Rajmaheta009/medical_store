@@ -36,16 +36,14 @@ try {
             throw new Exception('Invalid file type. Only JPG, PNG, and GIF files are allowed.');
         }
 
-        // Process the file upload
-        if (!empty($file_name)) {
-            $upload_file = $upload_dir . basename($file_name);
-            if (!move_uploaded_file($file_tmp_name, $upload_file)) {
-                throw new Exception('Failed to move uploaded file.');
-            }
-        } else {
-            $upload_file = $p_upload_file; // Use the previous image if no new file is uploaded
+        if ($file_name == " "){
+            $upload_file = $p_upload_file;
         }
-
+        else{
+            $upload_file = $file_name; 
+        }
+        // echo $upload_file;
+        // die();
         // Check and delete logic
         $check = ($check == 1 || $delete == 0) ? True : False;
         $delete = !$check;
