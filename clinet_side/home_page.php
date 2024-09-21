@@ -1,7 +1,7 @@
 <?php include 'include/header.php'; ?>
 <div class="container mt-4">
     <!-- Carousel -->
-    <div id="carouselExample" class="carousel slide">
+    <div id="carouselExample" class="carousel slide" style="bottom: 22px;">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="https://as2.ftcdn.net/v2/jpg/01/18/42/59/1000_F_118425925_n2GZJR42P1ai0p3qYmNe375LCd6kQ9R4.jpg" class="d-block w-100" alt="...">
@@ -54,69 +54,11 @@
     <div class="row row-col-md-3 g-4 py-5">
         <div class="col-auto">
             <div class="card1">
-                <div class="card" style="width: 18rem; position: relative;">
-                    <div class="image-container">
-                        <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                        <div class="overlay"></div>
-                        <button class="hover-button">Add to Cart</button>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">medi_name</h5>
-                    </div>
-                    <div class="d-flex justify-content-around md-5">
-                        <h3>₹ 120</h3>
-                    </div>
+                <div class="image">
+                    <img src="assets/image/p_image.jpg">
                 </div>
-            </div>
-        </div>
-        <div class="col-auto">
-            <div class="card1">
-                <div class="card" style="width: 18rem; position: relative;">
-                    <div class="image-container">
-                        <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                        <div class="overlay"></div>
-                        <button class="hover-button">Add to Cart</button>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">medi_name</h5>
-                    </div>
-                    <div class="d-flex justify-content-around md-5">
-                        <h3>₹ 120</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-auto">
-            <div class="card1">
-                <div class="card" style="width: 18rem; position: relative;">
-                    <div class="image-container">
-                        <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                        <div class="overlay"></div>
-                        <button class="hover-button">Add to Cart</button>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">medi_name</h5>
-                    </div>
-                    <div class="d-flex justify-content-around md-5">
-                        <h3>₹ 120</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-auto">
-            <div class="card1">
-                <div class="card" style="width: 18rem; position: relative;">
-                    <div class="image-container">
-                        <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                        <div class="overlay"></div>
-                        <button class="hover-button">Add to Cart</button>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">medi_name</h5>
-                    </div>
-                    <div class="d-flex justify-content-around md-5">
-                        <h3>₹ 120</h3>
-                    </div>
+                <div class="description">
+                    <h5>medi_name</h5>
                 </div>
             </div>
         </div>

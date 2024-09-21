@@ -113,7 +113,7 @@
                             </div>
                             <label class="form-label" style="color:#333;">Active</label>
                             <label class="ios-switch">
-                                <input type="checkbox" checked name="check" value="1">
+                                <input type="checkbox" checked name="check" value=1>
                                 <span class="slider"></span>
                             </label>
                             <input type="hidden" name="delete" id="deleteField" value="false">
@@ -181,7 +181,8 @@
     }
 
     function confirmDelete() {
-        document.getElementById('deleteField').value = "true"; //value change of delet
+        document.getElementById('deleteField').value = 1; //value change of delet
+        window.location.href='crud_code/prodct_crud';
     }
 
     document.addEventListener('DOMContentLoaded', function() {
