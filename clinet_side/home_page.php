@@ -52,103 +52,184 @@
         </div>
     </div>
     <h4>Featured Product</h4>
+    
     <div class="row row-col-md-3 g-4 py-5">
-        <div class="col-auto">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg">
-                </div>
-                <div class="description">
-                    <h6>medi_name</h6>
-                    <h6>medi_type</h6>
-                    <h6>medi_price</h6>
+        <div class="owl-carousel">
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-auto">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg">
-                </div>
-                <div class="description">
-                    <h6>medi_name</h6>
-                    <h6>medi_type</h6>
-                    <h6>medi_price</h6>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-auto">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg">
-                </div>
-                <div class="description">
-                    <h6>medi_name</h6>
-                    <h6>medi_type</h6>
-                    <h6>medi_price</h6>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-auto">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg">
-                </div>
-                <div class="description">
-                    <h6>medi_name</h6>
-                    <h6>medi_type</h6>
-                    <h6>medi_price</h6>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="banner">
-            <div class="banner-content">
-                <h1>DO YOU HAVE ANY QUESTION ?</h1>
-                <p>Your one-stop solution for all medical needs</p>
-                <a href="contact_as.php" class="btn-banner">Send Massage</a>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="row">
-                <!-- First Icon and Text Pair -->
-                <div class="col-1 icon-column">
-                    <i class="fas fa-gift gift-icon"></i>
-                </div>
-                <div class="col-3 content-column">
-                    <h3 class="card-title">Gift Title</h3>
-                    <p class="card-details">This is a detailed description of the gift or offer 1.</p>
-                </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
 
-                <!-- Second Icon and Text Pair -->
-                <div class="col-1 icon-column">
-                    <i class="bi bi-globe2"></i>
+                    </div>
                 </div>
-                <div class="col-3 content-column">
-                    <h3 class="card-title">
-                        Free World Delivery</h3>
-                    <p class="card-details">This is a detailed description of the gift or offer 2.</p>
-                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
 
-                <!-- Third Icon and Text Pair -->
-                <div class="col-1 icon-column">
-                    <i class="bi bi-headset"></i>
+                    </div>
                 </div>
-                <div class="col-3 content-column">
-                    <h3 class="card-title">Customer Supports</h3>
-                    <p class="card-details">This is a detailed description of the gift or offer 3.</p>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg">
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="banner">
+        <div class="banner-content">
+            <h1>DO YOU HAVE ANY QUESTION ?</h1>
+            <p>Your one-stop solution for all medical needs</p>
+            <a href="contact_as.php" class="btn-banner">Send Massage</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="row">
+            <!-- First Icon and Text Pair -->
+            <div class="col-1 icon-column">
+                <i class="fas fa-gift gift-icon"></i>
+            </div>
+            <div class="col-3 content-column">
+                <h3 class="card-title">Gift Title</h3>
+                <p class="card-details">This is a detailed description of the gift or offer 1.</p>
+            </div>
 
-    <script>
-        // Prevent the Add Cart button from triggering the link
-        function cart() {
-            window.location.href = 'cart.php';
-        }
-    </script>
-    <?php include 'include/footer.php'; ?>
+            <!-- Second Icon and Text Pair -->
+            <div class="col-1 icon-column">
+                <i class="bi bi-globe2"></i>
+            </div>
+            <div class="col-3 content-column">
+                <h3 class="card-title">
+                    Free World Delivery</h3>
+                <p class="card-details">This is a detailed description of the gift or offer 2.</p>
+            </div>
+
+            <!-- Third Icon and Text Pair -->
+            <div class="col-1 icon-column">
+                <i class="bi bi-headset"></i>
+            </div>
+            <div class="col-3 content-column">
+                <h3 class="card-title">Customer Supports</h3>
+                <p class="card-details">This is a detailed description of the gift or offer 3.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Prevent the Add Cart button from triggering the link
+    function cart() {
+        window.location.href = 'cart.php';
+    }
+</script>
+<?php include 'include/footer.php'; ?>
