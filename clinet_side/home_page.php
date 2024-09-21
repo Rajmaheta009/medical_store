@@ -25,6 +25,7 @@
 
     <!-- Statistic Cards -->
     <div class="row">
+
         <div class="col-4">
             <div class="card" style="border:none; padding: 0px;">
                 <img src="assets/image/banner.jpg" class="card-img" alt="...">
@@ -58,7 +59,49 @@
                     <img src="assets/image/p_image.jpg">
                 </div>
                 <div class="description">
-                    <h5>medi_name</h5>
+                    <h6>medi_name</h6>
+                    <h6>medi_type</h6>
+                    <h6>medi_price</h6>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="card1">
+                <div class="image">
+                    <img src="assets/image/p_image.jpg">
+                </div>
+                <div class="description">
+                    <h6>medi_name</h6>
+                    <h6>medi_type</h6>
+                    <h6>medi_price</h6>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="card1">
+                <div class="image">
+                    <img src="assets/image/p_image.jpg">
+                </div>
+                <div class="description">
+                    <h6>medi_name</h6>
+                    <h6>medi_type</h6>
+                    <h6>medi_price</h6>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="card1">
+                <div class="image">
+                    <img src="assets/image/p_image.jpg">
+                </div>
+                <div class="description">
+                    <h6>medi_name</h6>
+                    <h6>medi_type</h6>
+                    <h6>medi_price</h6>
+
                 </div>
             </div>
         </div>

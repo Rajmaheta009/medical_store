@@ -28,9 +28,28 @@
         </div>
     </div>
 </footer>
+<script>
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        items: 4,
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayTimeout: 1000,
+        autoplayHoverPause: true
+    });
+    $('.play').on('click', function() {
+        owl.trigger('play.owl.autoplay', [1000])
+    })
+    $('.stop').on('click', function() {
+        owl.trigger('stop.owl.autoplay')
+    })
+</script>
 
 <script src="assets/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/js/jquery.min.js"></script>
+<script src="assets/js/js/owl.carousel.min.js"></script>
 </body>
 
 </html>
