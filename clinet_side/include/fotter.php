@@ -1,4 +1,4 @@
-<footer class="footer bg-primary text-white py-4">
+<footer class="footer bg-primary text-white py-4" id="about_as">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-3">
@@ -22,10 +22,14 @@
                     <li><a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a></li>
                 </ul>
             </div>
+
         </div>
         <div class="text-center mt-3">
             <p>&copy; 2024 Medical Store. All rights reserved.</p>
         </div>
+    </div>
+    <div class="uper_btn">
+        <a href="#header" style="color:aliceblue;"><i class="bi bi-arrow-up-circle-fill"></i></a>
     </div>
 </footer>
 

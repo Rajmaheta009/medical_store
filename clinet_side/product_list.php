@@ -1,6 +1,9 @@
 <?php include 'include/header.php' ?>
+<div class="p_header">
+    <h1>Shop</h1>
+</div>
 <div class="container py-5">
-    <h1 class="text-center">Popular Medicines</h1>
+    
     <div class="row row-col-md-3 g-4 py-5" style="justify-content:center;">
         <div class="col-auto">
             <div class="card1">

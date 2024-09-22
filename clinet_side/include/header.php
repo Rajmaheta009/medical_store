@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <div class="top-bar">
+    <div class="top-bar" id="header">
         <i class="fas fa-map-marker-alt">Surat,Gujarat</i>3
         <i class="fas fa-phone">7600230222</i>
         <i class="fas fa-envelope"><a href="mailto:example@medicine-plus.com">R@JMAHETA.COM</a></i>
