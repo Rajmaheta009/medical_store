@@ -4,5 +4,5 @@
     <a href="#">SHORTCODES</a>
     <a href="#">POST TYPES</a>
     <a href="product_list.php">PRODUCTS</a>
-    <a href="#">CONTACTS</a>
+    <a href="contact_as.php">CONTACTS</a>
 </div>

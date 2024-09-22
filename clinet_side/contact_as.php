@@ -14,9 +14,6 @@
             <div class="r d-flex mt-2"><i class="bi bi-envelope-at-fill"></i>
                 <p class="mt-3 ms-3">EMAIL : R@JMAHETA.com</p>
             </div>
-            <div class="r d-flex mt-2"><i class="bi bi-instagram"></i>
-                <p class="mt-3 ms-3">INSTAGRAM : raj_maheta_</p>
-            </div>
         </div>
         <div class="col-md-8 p-5">
             <h2>Tell Me!</h2>
@@ -54,4 +51,4 @@
     </div>
 </div>
 
-<?php include 'include/footer.php'; ?>
+<?php include 'include/fotter.php'; ?>

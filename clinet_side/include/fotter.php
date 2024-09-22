@@ -33,8 +33,8 @@
 <script src="assets/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- <script src="assets/js/js/jquery.min.js"></script> -->
-<script src="assets/js/js/owl.carousel.js"></script>
-<script src="assets/js/js/Jequery.min.js"></script>
+<script src="assets/js/owl_js/owl.carousel.js"></script>
+<script src="assets/js/owl_js/Jequery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script>
