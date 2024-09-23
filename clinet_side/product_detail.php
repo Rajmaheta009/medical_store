@@ -23,6 +23,18 @@
             </div>
         </div>
     </div>
+    <div class="descri">
+        <button class="des" id="toggleButton"><strong>Description</strong></button>
+        <p class="des_pragraf visible" id="myParagraph">
+            Maecenas iaculis mauris lacus, nec bibendum tellus maximus non. Proin eget dictum eros, sed viverra diam. Praesent eu rhoncus eros. In hac habitasse platea dictumst. Curabitur sagittis tristique odio eget pharetra. Aenean cursus congue est non dignissim. Ut mattis augue eu purus tristique, vitae fermentum libero sagittis. Etiam euismod magna neque, suscipit lobortis augue porta non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque id ullamcorper ex. Etiam vestibulum felis at leo sodales aliquam. Donec risus nisi, ornare ut nisi non, vulputate dapibus turpis. Vestibulum non rhoncus lacus.<br>
+            Donec auctor sapien vel ornare efficitur.<br>
+            Aliquam pellentesque neque sed tortor faucibus, a ullamcorper justo tempor.<br>
+            Vivamus pretium urna vitae interdum mattis.<br>
+            Sed pretium leo eget est aliquam, sed aliquam ligula rhoncus.<br>
+            Nullam sed risus fringilla, porta libero eu, ultrices nulla.<br>
+            Proin id nisl semper, elementum lacus vel, egestas nunc. Praesent id libero lacinia, tincidunt sapien et, ullamcorper mi. Aliquam auctor luctus ex eget tincidunt. Donec maximus bibendum lorem eget cursus. Suspendisse vulputate fringilla metus eget maximus. Integer consequat arcu dolor, mollis mollis tellus auctor a. Etiam in quam lacus. Donec odio turpis, venenatis mollis bibendum quis, sodales vitae nisi. Cras nec nisi elementum felis vulputate rutrum.<br>
+        </p>
+    </div>
     <h4>Related Product</h4>
     <div class="row row-col-md-3 g-4 py-5">
         <div class="owl-carousel">
@@ -188,5 +200,17 @@
         alert("You have added " + qty + " items to your cart.");
         // Add additional logic to add the item to the cart here
     }
+    const toggleButton = document.getElementById('toggleButton');
+    const paragraph = document.getElementById('myParagraph');
+
+    toggleButton.addEventListener('click', () => {
+        if (paragraph.classList.contains('hidden')) {
+            paragraph.classList.remove('hidden');
+            paragraph.classList.add('visible');
+        } else {
+            paragraph.classList.remove('visible');
+            paragraph.classList.add('hidden');
+        }
+    });
 </script>
 <?php include 'include/fotter.php' ?>

@@ -498,3 +498,46 @@ body {
     width: 60px;
     text-align: center;
 }
+
+.descri .des {
+    border: 1px;
+    border-radius: 15px;
+    background-color: #65c5e4;
+    color: #ffffff;
+    width: 13%;
+    height: 45px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.descri .des:hover {
+    background-color: #e6e6e6;
+    color: #65c5e4;
+}
+
+.des_pragraf {
+    opacity: 1;
+    max-height: 1000px;
+    /* Large enough to fit the content */
+    overflow: hidden;
+    padding: 30px;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.hidden {
+    opacity: 0;
+    max-height: 0;
+    padding: 30px;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.visible {
+    opacity: 1;
+    max-height: 1000px;
+    /* Adjust this based on the height of your content */
+    padding: 30px;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
