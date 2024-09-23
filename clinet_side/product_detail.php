@@ -32,91 +32,153 @@
         </div>
     </div>
 
-<h4>Related Product</h4>
-<div class="row row-col-md-3 g-4 py-5">
-    <div class="col-auto">
-        <div class="card1">
-            <a href="product_detail.php" class="text-decoration-none">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">medi_name</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <h4>Related Product</h4>
+    <div class="row row-col-md-3 g-4 py-5">
+        <div class="owl-carousel">
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
-            </a>
-            <div class="d-flex justify-content-around md-5">
-                <h3>₹ 120 </h3>
-                <button class="btn btn-primary" onclick="cart()">Add Cart</button>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="assets/image/p_image.jpg" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6>medi_name</h6>
+                        <h6>medi_type</h6>
+                        <h6>medi_price</h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col-auto">
-    <div class="card1">
-        <a href="product_detail.php" class="text-decoration-none">
-            <div class="card" style="width: 18rem;">
-                <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">medi_name</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-        </a>
-        <div class="d-flex justify-content-around md-5">
-            <h3>₹ 120</h3>
-            <button class="btn btn-primary" onclick="cart()">Add Cart</button>
-        </div>
-    </div>
-</div>
-</div>
-<div class="col-auto">
-    <div class="card1">
-        <a href="product_detail.php" class="text-decoration-none">
-            <div class="card" style="width: 18rem;">
-                <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">medi_name</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-        </a>
-        <div class="d-flex justify-content-around md-5">
-            <h3>₹ 120</h3>
-            <button class="btn btn-primary" onclick="cart()">Add Cart</button>
-        </div>
-    </div>
-</div>
-</div>
-<div class="col-auto">
-    <div class="card1">
-        <a href="product_detail.php" class="text-decoration-none">
-            <div class="card" style="width: 18rem;">
-                <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">medi_name</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-        </a>
-        <div class="d-flex justify-content-around md-5">
-            <h3>₹ 120</h3>
-            <button class="btn btn-primary" onclick="cart()">Add Cart</button>
-        </div>
-    </div>
-</div>
-</div>
-<div class="col-auto">
-    <div class="card1">
-        <a href="product_detail.php" class="text-decoration-none">
-            <div class="card" style="width: 18rem;">
-                <img src="https://img.freepik.com/free-photo/medications-black_1150-13897.jpg?t=st=1726047786~exp=1726051386~hmac=10d306cc30628096a1943d6349e098e9bcd159c931437449a7ae43a711c3bd88&w=826" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">medi_name</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-        </a>
-        <div class="d-flex justify-content-around md-5">
-            <h3>₹ 120</h3>
-            <button class="btn btn-primary" onclick="cart()">Add Cart</button>
-        </div>
-    </div>
-</div>
-</div>
-<?php include 'include/footer.php' ?>
+<?php include 'include/fotter.php' ?>
