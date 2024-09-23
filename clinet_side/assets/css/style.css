@@ -449,3 +449,52 @@ body {
     color: white;
     padding: 10px 15%;
 }
+
+.card .product-de {
+    position: relative;
+    padding: 0 0 70px 40px;
+    float: right;
+}
+
+.card .button {
+    border-color: transparent;
+    border-radius: 20px;
+    width: 20%;
+    height: 15%;
+    background-color: #65c5e4;
+    color: #dddddd;
+}
+
+.card .button:hover {
+    background-color: #dddddd;
+    color: #00a9e0;
+}
+
+.product-count {
+    margin-top: 15px;
+}
+
+.product-count .qtyminus,
+.product-count .qtyplus {
+    width: 34px;
+    height: 34px;
+    background: #65c5e4;
+    text-align: center;
+    font-size: 19px;
+    line-height: 36px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.product-count .qtyminus {
+    border-radius: 3px 0 0 3px;
+}
+
+.product-count .qtyplus {
+    border-radius: 0 3px 3px 0;
+}
+
+.product-count .qty {
+    width: 60px;
+    text-align: center;
+}
