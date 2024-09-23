@@ -112,6 +112,9 @@ body {
     position: relative;
     width: 250px;
     /* Adjust width as needed */
+    a {
+        text-decoration: none;
+    }
 }
 
 .add-to-cart-btn {

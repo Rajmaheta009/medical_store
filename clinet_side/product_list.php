@@ -16,7 +16,9 @@
             <li><a class="dropdown-item" href="#" onclick="sortProducts('desc')">Product Name Z-A</a></li>
         </ul>
     </div>
-    <div class="row row-col-md-3 g-4 py-5" style="justify-content:space-between;">
+
+    <!-- Add id="productContainer" here -->
+    <div class="row row-col-md-3 g-4 py-5" id="productContainer">
         <div class="col-auto product-card">
             <div class="card1">
                 <div class="image">
@@ -24,7 +26,7 @@
                     <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
                 </div>
                 <div class="description">
-                    <h6 class="product-name">Product Name 1</h6>
+                    <h6 class="product-name"><a href="product_detail.php">froduct Name 1</a></h6>
                     <h6>Product Type</h6>
                     <h6>Product Price</h6>
                 </div>
@@ -37,7 +39,7 @@
                     <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
                 </div>
                 <div class="description">
-                    <h6 class="product-name">Product Name 1</h6>
+                    <h6 class="product-name"><a href="product_detail.php">wroduct Name 1</a></h6>
                     <h6>Product Type</h6>
                     <h6>Product Price</h6>
                 </div>
@@ -50,7 +52,7 @@
                     <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
                 </div>
                 <div class="description">
-                    <h6 class="product-name">Product Name 1</h6>
+                    <h6 class="product-name"><a href="product_detail.php">qroduct Name 1</a></h6>
                     <h6>Product Type</h6>
                     <h6>Product Price</h6>
                 </div>
@@ -63,7 +65,7 @@
                     <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
                 </div>
                 <div class="description">
-                    <h6 class="product-name">Product Name 1</h6>
+                    <h6 class="product-name"><a href="product_detail.php">croduct Name 1</a></h6>
                     <h6>Product Type</h6>
                     <h6>Product Price</h6>
                 </div>
@@ -76,7 +78,7 @@
                     <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
                 </div>
                 <div class="description">
-                    <h6 class="product-name">Product Name 1</h6>
+                    <h6 class="product-name"><a href="product_detail.php">rroduct Name 1</a></h6>
                     <h6>Product Type</h6>
                     <h6>Product Price</h6>
                 </div>
@@ -89,7 +91,7 @@
                     <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
                 </div>
                 <div class="description">
-                    <h6 class="product-name">Product Name 1</h6>
+                    <h6 class="product-name"><a href="product_detail.php">aroduct Name 1</a></h6>
                     <h6>Product Type</h6>
                     <h6>Product Price</h6>
                 </div>
@@ -102,14 +104,16 @@
                     <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
                 </div>
                 <div class="description">
-                    <h6 class="product-name">Product Name 1</h6>
+                    <h6 class="product-name"><a href="product_detail.php">mroduct Name 1</a></h6>
                     <h6>Product Type</h6>
                     <h6>Product Price</h6>
                 </div>
             </div>
         </div>
+        <!-- Repeat other product cards here -->
     </div>
 </div>
+
 <script>
     // Function to navigate to cart
     function cart() {
