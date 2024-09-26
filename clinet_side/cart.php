@@ -6,7 +6,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">No</th>
+                <th scope="col">No</th>SS
                 <th scope="col">Image</th>
                 <th scope="col">product_Name</th>
                 <th scope="col">QTY</th>
@@ -29,6 +29,11 @@
         <br><br>
         <h5 class="text-end">TOTAL AMOUNT --</h5>
     </div>
-    <div class="update-btn"></div>
+    <div class="update-btn text-end">
+        <button>Update Bascket <i class="bi bi-arrow-repeat"></i></button>
+    </div>
+    <div class="checkout-btn text-end">
+        <button>Check out <i class="bi bi-chevron-right"></i></button>
+    </div>
 </div>
 <?php include 'include/fotter.php' ?>

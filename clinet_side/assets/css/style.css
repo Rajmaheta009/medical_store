@@ -546,3 +546,34 @@ body {
     width: 20%;
     height: auto;
 }
+
+.update-btn button {
+    border-width: 0.5px;
+    margin-top: 15px;
+    width: 25%;
+    height: 41px;
+    padding: 0 0 10px 10px;
+    .bi {
+        font-size: 25px;
+        margin-left: 45%;
+    }
+}
+
+.checkout-btn button {
+    color: #ffffff;
+    border: 0;
+    background-color: #65c5e4;
+    margin-top: 15px;
+    width: 25%;
+    padding: 0 0 10px 10px;
+    height: 41px;
+    .bi {
+        font-size: 23px;
+        margin-left: 60%;
+    }
+}
+
+.checkout-btn button:hover {
+    /* color: #ffffff; */
+    background-color: #3c9ab9;
+}
