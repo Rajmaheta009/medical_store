@@ -54,152 +54,29 @@
     <h4>Featured Product</h4>
 
     <div class="row row-col-md-3 g-4 py-5">
-        <div class="owl-carousel">
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
+        <?php
+        include '../database/collaction.php';
+        $products = $product_collection->find()->toArray();
+        $filter_product = array_filter($products, function ($product) {
+            return $product['check'] == true && $product['delete'] == false;
+        });
+        foreach ($filter_product as $product) { ?>
+            <div class="owl-carousel">
+                <div class="col-auto">
+                    <div class="card1">
+                        <div class="image">
+                            <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                        <div class="description">
+                            <h6><?php echo htmlspecialchars($product['name']); ?></h6>
+                            <h6><?php echo htmlspecialchars($product['type']); ?></h6>
+                            <h6>$<?php echo number_format($product['price'], 2); ?></h6>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto">
-                <div class="card1">
-                    <div class="image">
-                        <img src="assets/image/p_image.jpg" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                    </div>
-                    <div class="description">
-                        <h6>medi_name</h6>
-                        <h6>medi_type</h6>
-                        <h6>medi_price</h6>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <?php } ?>
     </div>
     <div class="banner">
         <div class="banner-content">

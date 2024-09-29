@@ -19,99 +19,30 @@
 
     <!-- Add id="productContainer" here -->
     <div class="row row-col-md-3 g-4 py-5" id="productContainer">
-        <div class="col-auto product-card">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg" alt="Product Image">
-                    <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
-                </div>
-                <div class="description">
-                    <h6 class="product-name"><a href="product_detail.php">froduct Name 1</a></h6>
-                    <h6>Product Type</h6>
-                    <h6>Product Price</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-auto product-card">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg" alt="Product Image">
-                    <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
-                </div>
-                <div class="description">
-                    <h6 class="product-name"><a href="product_detail.php">wroduct Name 1</a></h6>
-                    <h6>Product Type</h6>
-                    <h6>Product Price</h6>
+        <?php
+        include '../database/collaction.php';
+        $products = $product_collection->find()->toArray();
+        $filter_product = array_filter($products, function ($product) {
+            return $product['check'] == true && $product['delete'] == false;
+        });
+        foreach ($filter_product as $product) { ?>
+            <div class="col-auto">
+                <div class="card1">
+                    <div class="image">
+                        <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div class="description">
+                        <h6><?php echo htmlspecialchars($product['name']); ?></h6>
+                        <h6><?php echo htmlspecialchars($product['type']); ?></h6>
+                        <h6>$<?php echo number_format($product['price'], 2); ?></h6>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-auto product-card">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg" alt="Product Image">
-                    <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
-                </div>
-                <div class="description">
-                    <h6 class="product-name"><a href="product_detail.php">qroduct Name 1</a></h6>
-                    <h6>Product Type</h6>
-                    <h6>Product Price</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-auto product-card">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg" alt="Product Image">
-                    <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
-                </div>
-                <div class="description">
-                    <h6 class="product-name"><a href="product_detail.php">croduct Name 1</a></h6>
-                    <h6>Product Type</h6>
-                    <h6>Product Price</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-auto product-card">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg" alt="Product Image">
-                    <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
-                </div>
-                <div class="description">
-                    <h6 class="product-name"><a href="product_detail.php">rroduct Name 1</a></h6>
-                    <h6>Product Type</h6>
-                    <h6>Product Price</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-auto product-card">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg" alt="Product Image">
-                    <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
-                </div>
-                <div class="description">
-                    <h6 class="product-name"><a href="product_detail.php">aroduct Name 1</a></h6>
-                    <h6>Product Type</h6>
-                    <h6>Product Price</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-auto product-card">
-            <div class="card1">
-                <div class="image">
-                    <img src="assets/image/p_image.jpg" alt="Product Image">
-                    <button class="add-to-cart-btn" onclick="cart()">Add to Cart</button>
-                </div>
-                <div class="description">
-                    <h6 class="product-name"><a href="product_detail.php">mroduct Name 1</a></h6>
-                    <h6>Product Type</h6>
-                    <h6>Product Price</h6>
-                </div>
-            </div>
-        </div>
-        <!-- Repeat other product cards here -->
+        <?php } ?>
     </div>
+    <!-- Repeat other product cards here -->
+</div>
 </div>
 
 <script>

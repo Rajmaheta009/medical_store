@@ -36,4 +36,4 @@
         <button>Check out <i class="bi bi-chevron-right"></i></button>
     </div>
 </div>
-<?php include 'include/fotter.php' ?>
+<?php include 'include/fotter.php' ?> 

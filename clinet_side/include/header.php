@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    <?php include '../database/collaction.php'
+                ?>
 
 <head>
     <meta charset="UTF-8">
