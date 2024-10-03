@@ -20,11 +20,10 @@
 
 <body>
     <div class="top-bar" id="header">
-        <i class="fas fa-map-marker-alt">Surat,Gujarat</i>3
+        <i class="fas fa-map-marker-alt">Surat,Gujarat</i>
         <i class="fas fa-phone">7600230222</i>
         <i class="fas fa-envelope"><a href="mailto:example@medicine-plus.com">R@JMAHETA.COM</a></i>
-        <a href="#">CHECKOUT</a>
-        <a href="#">MY WISHLIST</a>
+        <a href="cart.php">CHECKOUT</a>
         <a href="#">MY ACCOUNT</a>
         <a href="../login_registration/login_registration.html">LOG IN</a>
     </div>
