@@ -32,7 +32,7 @@
                         <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
                         <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
-                    <a href="product_detail.php">
+                    <a href="product_detail.php?id=<?php echo urlencode($product['_id']); ?>">
                         <div class="description">
                             <h6><?php echo htmlspecialchars($product['name']); ?></h6>
                             <h6><?php echo htmlspecialchars($product['type']); ?></h6>
