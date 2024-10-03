@@ -19,7 +19,7 @@
                     <li class="me-3"><a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a></li>
                     <li class="me-3"><a href="#" class="text-white"><i class="fab fa-twitter"></i></a></li>
                     <li class="me-3"><a href="https://www.instagram.com/raj_maheta_/" class="text-white"><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/raj-maheta-8315652b6/" class="text-white"><i class="fab fa-linkedin-in"></i></a></li>
                 </ul>
             </div>
 

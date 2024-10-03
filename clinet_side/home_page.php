@@ -1,7 +1,7 @@
 <?php include 'include/header.php'; ?>
 <div class="container mt-4">
     <!-- Carousel -->
-    <div id="carouselExample" class="carousel slide" style="bottom: 22px;">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" style="bottom: 22px;">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="https://as2.ftcdn.net/v2/jpg/01/18/42/59/1000_F_118425925_n2GZJR42P1ai0p3qYmNe375LCd6kQ9R4.jpg" class="d-block w-100" alt="...">
@@ -13,14 +13,6 @@
                 <img src="https://as2.ftcdn.net/v2/jpg/02/81/42/77/1000_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
 
     <!-- Statistic Cards -->

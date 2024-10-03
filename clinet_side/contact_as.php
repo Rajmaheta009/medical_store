@@ -1,6 +1,6 @@
 <?php include 'include/header.php'; ?>
-<div class="container mt-5 shadow" >
-    <div class="row ">
+<div class="container mt-5 shadow">
+    <div class="row" style="margin-bottom:5%;">
         <div class="col-md-4 bg-primary p-5 text-white">
             <h2>How Can I Help You?</h2>
             <p>we're open for any suggestion or just in have a chat</p>
@@ -9,10 +9,10 @@
                 <p class="mt-3 ms-3">Address: 131,AITANAGR,NEAR BY SITANAGAR CHOCKDI,PUNAGAM,SURAT,GUJARAT</p>
             </div>
             <div class="r d-flex mt-2"><i class="bi bi-telephone-inbound"></i>
-                <p class="mt-3 ms-3">PHONE : 7600230222</p>
+                <p class="mt-3 ms-3">PHONE : <a style="text-decoration: none;" href="tel:+917600230222" class="text-white">7600230222</a></p>
             </div>
             <div class="r d-flex mt-2"><i class="bi bi-envelope-at-fill"></i>
-                <p class="mt-3 ms-3">EMAIL : R@JMAHETA.com</p>
+                <p class="mt-3 ms-3">EMAIL : <a style="text-decoration: none;" href="mailto:R@JMAHETA.com" class="text-white">R@JMAHETA.com</a></p>
             </div>
         </div>
         <div class="col-md-8 p-5">
