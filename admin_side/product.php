@@ -132,7 +132,7 @@
                                 <input type="checkbox" checked name="check" value=0>
                                 <span class="slider"></span>
                             </label>
-                            <input type="hidden" name="delete" id="deleteField" value="false">
+                            <input type="hidden" name="delete" id="deleteField" value=1>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
                                 <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>

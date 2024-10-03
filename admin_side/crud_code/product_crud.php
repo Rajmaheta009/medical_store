@@ -17,76 +17,74 @@ try {
         $check = htmlspecialchars(trim($_POST['check']));
         $delete = htmlspecialchars(trim($_POST['delete']));
 
-        // Retrieve the previously uploaded image from the database if product exists
+        // Retrieve the previously uploaded image from the database if the product exists
         if ($productId) {
             $existingProduct = $product_collection->findOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
-            $p_upload_file = $existingProduct['image'] ?? '/assets/image/default.jpg';
+            $p_upload_file = $existingProduct['image'] ?? 'assets/image/default.jpg';
         } else {
-            $p_upload_file = 'assets/image/default.jpg';
+            $p_upload_file = 'assets/image/default.jpg';  // Default image for new products
         }
 
+        // Handle image upload if a new image is uploaded
         $file_name = $_FILES['productImage']['name'] ?? '';
         $file_tmp_name = $_FILES['productImage']['tmp_name'] ?? '';
-        $upload_dir = '/assets/image/';  // Ensure this path is correct
+        $upload_dir = '../assets/image/';  // Ensure this path is correct
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         $file_type = $_FILES['productImage']['type'] ?? '';
 
-        // Validate file type
-        if (!empty($file_name) && !in_array($file_type, $allowed_types)) {
-            throw new Exception('Invalid file type. Only JPG, PNG, and GIF files are allowed.');
-        }
+        // Validate file type and move the uploaded file
+        if (!empty($file_name)) {
+            if (!in_array($file_type, $allowed_types)) {
+                throw new Exception('Invalid file type. Only JPG, PNG, and GIF files are allowed.');
+            }
 
-        if ($file_name == " "){
+            // Move the uploaded file to the target directory
+            $target_file = $upload_dir . basename(  $file_name);
+            if (move_uploaded_file($file_tmp_name, $target_file)) {
+                $upload_file = $file_name;  // Use the new uploaded file name
+            } else {
+                throw new Exception('Failed to upload the file. Check the directory permissions.');
+            }
+        } else {
+            // Use existing file if no new file is uploaded
             $upload_file = $p_upload_file;
         }
-        else{
-            $upload_file = $file_name; 
-        }
-        // echo $upload_file;
-        // die();
+
         // Check and delete logic
-        $check = ($check == 1 || $delete == 0) ? True : False;
-        $delete = !$check;
+        $check = $check == 0 || $delete == 0 ? True : False;
 
         // Prepare product data
         $product_data = [
             'name' => $name,
             'type' => $type,
-            'price' => $price ?? 0,
+            'price' => $price,
             'power' => $power,
             'pharmacy' => $pharmacy,
-            'gram_ml' => $gram_ml ?? 0,
-            'selling_price' => $selling_price ?? 0,
+            'gram_ml' => $gram_ml,
+            'selling_price' => $selling_price,
             'description' => $description,
             'check' => $check,
-            'delete' => $delete,
             'image' => $upload_file
         ];
 
+        // Update or insert the product in the MongoDB collection
         if ($productId) {
-            // Update existing product
-            $result = $product_collection->updateOne(
+            // Update the existing product
+            $product_collection->updateOne(
                 ['_id' => new MongoDB\BSON\ObjectId($productId)],
                 ['$set' => $product_data]
             );
-
-            if ($result->getModifiedCount() === 0) {
-                throw new Exception('Product not found or no changes made.');
-            }
-
-            $status = 'success&type=edit';
         } else {
-            // Insert new product
+            // Insert a new product
             $product_collection->insertOne($product_data);
-            $status = 'success&type=add';
         }
 
-        header("Location: ../product.php?status=$status");
+        // Redirect or provide feedback after successful operation
+        header('Location: ../product.php');
         exit();
+    } else {
+        throw new Exception('Product description is required.');
     }
 } catch (Exception $e) {
-    // Log error and redirect with failure status
-    error_log($e->getMessage());
-    header("Location: ../product.php?status=failed&type=" . (isset($productId) ? 'edit' : 'add'));
-    exit();
+    echo 'Error: ' . $e->getMessage();
 }

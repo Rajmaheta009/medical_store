@@ -44,21 +44,26 @@
         </div>
     </div>
     <h4>Featured Product</h4>
-
     <div class="row row-col-md-3 g-4 py-5">
-        <?php
-        include '../database/collaction.php';
-        $products = $product_collection->find()->toArray();
-        $filter_product = array_filter($products, function ($product) {
-            return $product['check'] == true && $product['delete'] == false;
-        });
-        foreach ($filter_product as $product) { ?>
-            <div class="owl-carousel">
+        <div class="owl-carousel">
+            <?php
+            include '../database/collaction.php';
+            $products = $product_collection->find()->toArray();
+            $filter_product = array_filter($products, function ($product) {
+                return $product['check'] == true && $product['delete'] == false;
+            });
+            foreach ($filter_product as $product) { ?>
                 <div class="col-auto">
                     <div class="card1">
                         <div class="image">
                             <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
-                            <button class="add-to-cart-btn">Add to Cart</button>
+                            <!-- Add a form with hidden input to send product ID and other details -->
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="<?php echo $product['_id']; ?>">
+                                <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
+                                <input type="hidden" name="product_price" value="<?php echo $product['price']; ?>">
+                                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                            </form>
                         </div>
                         <a href="product_detail.php">
                             <div class="description">
@@ -69,8 +74,8 @@
                         </a>
                     </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } ?>
+        </div>
     </div>
     <div class="banner">
         <div class="banner-content">
@@ -120,10 +125,4 @@
         </div>
     </div>
 </div>
-<script>
-    // Prevent the Add Cart button from triggering the link
-    function cart() {
-        window.location.href = 'cart.php';
-    }
-</script>
 <?php include 'include/fotter.php'; ?>
