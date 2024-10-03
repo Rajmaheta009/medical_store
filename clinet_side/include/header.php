@@ -30,7 +30,7 @@
     <div class="header">
         <div class="logo">
             <a href="home_page.php" class="text-decoration-none">
-                <img src="https://placehold.co/50x50" alt="Shopping cart with a medical cross">
+                <img src="https://as2.ftcdn.net/v2/jpg/02/30/64/81/1000_F_230648151_hvErfnvVFY4NVT14AlRxwW6GfbLqdX0B.jpg" alt="Shopping cart with a medical cross">
                 <div>
                     <h1>Medicine <span>Plus</span></h1>
                     <p>welcome to our online store</p>
@@ -38,7 +38,7 @@
             </a>
         </div>
         <div class="contact-info">
-            <img src="https://placehold.co/40x40" alt="Customer service representative">
+            <img src="https://as1.ftcdn.net/v2/jpg/03/36/13/14/1000_F_336131422_TdgWcydQotDk1L9yKYiXmUHqOkQSj052.jpg" alt="Customer service representative">
             <div>
                 <p>Have A Question?</p>
                 <a href="contact_as.php">Chat with us!</a>

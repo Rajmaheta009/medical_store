@@ -48,11 +48,6 @@
 </div>
 
 <script>
-    // Function to navigate to cart
-    function cart() {
-        window.location.href = 'cart.php';
-    }
-
     // Search filter function
     document.addEventListener('DOMContentLoaded', function() {
         var searchInput = document.getElementById('searchInput');

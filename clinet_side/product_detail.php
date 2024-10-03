@@ -26,7 +26,7 @@
                                     <div class="qtyplus" onclick="changeQuantity(1)">+</div>
                                 </form>
                             </div>
-                            <button class="button" onclick="cart()"><strong>Add To Cart</strong></button>
+                            <a href="cart.php"><button class="button" onclick="cart()"><strong>Add To Cart</strong></button></a>
                         </div>
                     </div>
             <?php } else {
@@ -84,12 +84,6 @@
         if (currentQty + change >= 1) {
             qtyInput.value = currentQty + change;
         }
-    }
-
-    function cart() {
-        var qty = document.getElementById('quantity').value;
-        alert("You have added " + qty + " items to your cart.");
-        // Add additional logic to add the item to the cart here
     }
     const toggleButton = document.getElementById('toggleButton');
     const paragraph = document.getElementById('myParagraph');
