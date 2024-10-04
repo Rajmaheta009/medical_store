@@ -3,7 +3,7 @@
     <h1>BASKET</h1>
 </div>
 <div class="container product-page my-5">
-    
+
     <table class="table">
         <thead>
             <tr>

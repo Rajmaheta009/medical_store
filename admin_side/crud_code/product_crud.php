@@ -39,7 +39,7 @@ try {
             }
 
             // Move the uploaded file to the target directory
-            $target_file = $upload_dir . basename(  $file_name);
+            $target_file = $upload_dir . basename($file_name);
             if (move_uploaded_file($file_tmp_name, $target_file)) {
                 $upload_file = $file_name;  // Use the new uploaded file name
             } else {
@@ -64,6 +64,7 @@ try {
             'selling_price' => $selling_price,
             'description' => $description,
             'check' => $check,
+            'delete' => false,
             'image' => $upload_file
         ];
 
