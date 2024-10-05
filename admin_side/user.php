@@ -52,7 +52,7 @@
                                 data-check="<?php echo htmlspecialchars($data['check']); ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-id="<?php echo $data['_id']; ?>"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -181,22 +181,22 @@
     }
 
     function confirmDelete() {
-        document.getElementById('deleteField').value = 1; //value change of delet
-        window.location.href='crud_code/prodct_crud';
+        document.getElementById('deleteField').value = 1; // Set delete value to true
+        document.getElementById('userForm').submit(); // Submit the form
     }
+
 
     document.addEventListener('DOMContentLoaded', function() {
         var modalEl = document.getElementById('addUserModal');
         modalEl.addEventListener('show.bs.modal', function(event) {
             var button = event.relatedTarget;
 
-            document.getElementById('deleteField').value = button.getAttribute('delete');
             var userId = button.getAttribute('data-id');
             var userName = button.getAttribute('data-name');
             var userEmail = button.getAttribute('data-email');
             var userPhone = button.getAttribute('data-phone');
             var userRole = button.getAttribute('data-role');
-            var usercheck = button.getAttribute('data-check');
+            var userCheck = button.getAttribute('data-check');
 
             // Fill form fields
             document.getElementById('userId').value = userId || '';
@@ -204,7 +204,7 @@
             document.getElementById('email').value = userEmail || '';
             document.getElementById('contactNo').value = userPhone || '';
             document.getElementById('role').value = userRole || '';
-            document.getElementById('check').value = usercheck || '';
+            document.querySelector('input[name="check"]').checked = userCheck === 'true';
 
             // Set the form action and modal title based on whether it's add or edit
             var modalTitle = document.getElementById('addUserModalLabel');
@@ -222,20 +222,17 @@
 
 
     document.addEventListener('DOMContentLoaded', function() {
-        var searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', function() {
-            var filter = searchInput.value.toLowerCase();
-            var table = document.getElementById('usertable');
-            var rows = table.getElementsByTagName('tr');
+        // Handle delete button click
+        var deleteConfirmModal = document.getElementById('deleteConfirmModal');
+        deleteConfirmModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var userId = button.getAttribute('data-id');
+            var deleteField = document.getElementById('deleteField');
+            var userIdInput = document.getElementById('userId');
 
-            for (var i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
-                var cells = rows[i].getElementsByTagName('td');
-                var nameCell = cells[1]; // Assuming 'Name' is in the 2nd column
-                if (nameCell) {
-                    var nameText = nameCell.textContent || nameCell.innerText;
-                    rows[i].style.display = nameText.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
-                }
-            }
+            // Set hidden field to pass the userId and delete flag
+            userIdInput.value = userId;
+            deleteField.value = '1'; // Set delete to true
         });
     });
 </script>
