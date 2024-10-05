@@ -1,4 +1,5 @@
-<?php include 'include/header.php'; ?>
+<?php session_start(); // Start the session
+include 'include/header.php'; ?>
 <div class="container mt-4">
     <!-- Carousel -->
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" style="bottom: 22px;">
@@ -17,33 +18,32 @@
 
     <!-- Statistic Cards -->
     <div class="row">
-
         <div class="col-4">
             <div class="card" style="border:none; padding: 0px;">
                 <img src="assets/image/banner.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
-                    <h5 class="card-title ">Medical And Health </h5>
+                    <h5 class="card-title">Medical And Health</h5>
                 </div>
             </div>
         </div>
         <div class="col-4">
-            <div class="card" style="border:none ;padding: 0px;">
+            <div class="card" style="border:none; padding: 0px;">
                 <img src="assets/image/banner-1-1.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Persnol Care </h5>
+                    <h5 class="card-title">Personal Care</h5>
                 </div>
             </div>
         </div>
         <div class="col-4">
-            <div class="card" style="border:none;  padding: 0px;">
+            <div class="card" style="border:none; padding: 0px;">
                 <img src="assets/image/banner-2.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Diet And Fitness </h5>
+                    <h5 class="card-title">Diet And Fitness</h5>
                 </div>
             </div>
         </div>
     </div>
-    <h4>Featured Product</h4>
+    <h4>Featured Products</h4>
     <div class="row row-col-md-3 g-4 py-5">
         <div class="owl-carousel">
             <?php
@@ -52,6 +52,7 @@
             $filter_product = array_filter($products, function ($product) {
                 return $product['check'] == true && $product['delete'] == false;
             });
+
             foreach ($filter_product as $product) { ?>
                 <div class="col-auto">
                     <div class="card1">
@@ -65,7 +66,11 @@
                                 <button type="submit" class="add-to-cart-btn">Add to Cart</button>
                             </form>
                         </div>
-                        <a href="product_detail.php?id=<?php echo urlencode($product['_id']); ?>">
+                        <?php
+                        $value = $product['_id'];
+                        echo "<script>localStorage.setItem('product-id', '$value');</script>";
+                        ?>
+                        <a href="product_detail.php">
                             <div class="description">
                                 <h6><?php echo htmlspecialchars($product['name']); ?></h6>
                                 <h6><?php echo htmlspecialchars($product['type']); ?></h6>
@@ -77,13 +82,15 @@
             <?php } ?>
         </div>
     </div>
+
     <div class="banner">
         <div class="banner-content">
-            <h1>HAVE A QUESTION ?</h1>
+            <h1>HAVE A QUESTION?</h1>
             <p>Your one-stop solution for all medical needs</p>
-            <a href="contact_as.php" class="btn-banner">Send Massage</a>
+            <a href="contact_as.php" class="btn-banner">Send Message</a>
         </div>
     </div>
+
     <div class="row">
         <div class="col-4">
             <div class="cards">
@@ -92,9 +99,7 @@
                 </div>
                 <div class="details">
                     <h4>TAKE YOUR PRESENT</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consecur ipiscing elit. Phasellus pellenesque pore risus lacinia tristique sed massada.
-                    </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pellentesque posuere risus lacinia tristique sed massa.</p>
                 </div>
             </div>
         </div>
@@ -104,10 +109,8 @@
                     <i class="bi bi-globe2"></i>
                 </div>
                 <div class="details">
-                    <h4>
-                        Free World Delivery</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, consecetur ipiscing elit. Phasellus pellenesque pore risus lacinia tristique sed massa id.</p>
+                    <h4>Free World Delivery</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pellentesque posuere risus lacinia tristique sed massa id.</p>
                 </div>
             </div>
         </div>
@@ -118,8 +121,7 @@
                 </div>
                 <div class="details">
                     <h4>Customer Support</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet, conseetur ipiscing elit. Phasellus pellenesque pose risus lacinia tristique sed massa id.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pellentesque posuere risus lacinia tristique sed massa id.</p>
                 </div>
             </div>
         </div>

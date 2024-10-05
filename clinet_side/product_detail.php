@@ -1,17 +1,21 @@
-<?php include 'include/header.php'; ?>
+<?php
+$productid="<script> localStorage.getItem('product-id')</script>";
+include 'include/header.php';
+?>
+
 <div class="container product-page my-5">
     <div class="card mb-3" style="border:0; bottom:20px;">
         <div class="row g-0">
             <?php
             include '../database/collaction.php';
-
-            if (isset($_GET['id'])) {
-                $productId = $_GET['id'];
+            if ($productid) {
                 // Fetch the product details from MongoDB based on the ID
-                $product = $product_collection->findOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
-                if ($product) { ?>
+                $product = $product_collection->findOne(['_id' => new MongoDB\BSON\ObjectId($productid)]);
+
+                if ($product) {
+            ?>
                     <div class="col-md-4 text-center">
-                        <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" class="img-fluid rounded-start" alt="...">
+                        <img src="../admin_side/assets/image/<?php echo htmlspecialchars($product['image']); ?>" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8 product-de text-center">
                         <div class="w-70">
@@ -29,7 +33,8 @@
                             <a href="cart.php"><button class="button" onclick="cart()"><strong>Add To Cart</strong></button></a>
                         </div>
                     </div>
-            <?php } else {
+            <?php
+                } else {
                     echo 'Product not found.';
                 }
             } else {
@@ -38,12 +43,14 @@
             ?>
         </div>
     </div>
+
     <div class="descri">
         <button class="des" id="toggleButton"><strong>Description</strong></button>
         <p class="des_pragraf visible" id="myParagraph">
             <?php echo htmlspecialchars($product['description']); ?>
         </p>
     </div>
+
     <h4>Related Products</h4>
     <div class="row row-col-md-3 g-4 py-5">
         <div class="owl-carousel">
@@ -58,7 +65,7 @@
                 <div class="col-auto">
                     <div class="card1">
                         <div class="image">
-                            <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
+                            <img src="../admin_side/assets/image/<?php echo htmlspecialchars($product['image']); ?>" alt="Product Image">
                             <button class="add-to-cart-btn">Add to Cart</button>
                         </div>
                         <a href="product_detail.php?id=<?php echo urlencode($product['_id']); ?>">
@@ -74,6 +81,7 @@
         </div>
     </div>
 </div>
+
 <script>
     // Your existing JavaScript code
     function changeQuantity(change) {
@@ -98,4 +106,5 @@
         }
     });
 </script>
+
 <?php include 'include/fotter.php'; ?>

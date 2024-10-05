@@ -8,17 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $role = $_POST['role'];
-    $check = $_POST['check'];
-    $delete =$_POST['delete'];
+    $check = isset($_POST['check']) ? true : false; // Convert checkbox value to boolean
 
-    if ($check == 1 || $delete == 0){
-        $check = True;
-        $delete = False;
+    // Initialize delete flag to false
+    $delete = false;
+
+    // Determine if we should mark the user as deleted
+    if (isset($_POST['delete']) && $_POST['delete'] == '1') {
+        $delete = true; // Set delete to true if the delete checkbox is checked
     }
-    else{
-        $check =False;
-        $delete = True;
-    }
+
     // Prepare the user data
     $userData = [
         'name' => $userName,
@@ -29,12 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'delete' => $delete,
     ];
 
+    // Hash the password only if it is provided
     if (!empty($password)) {
-        // Hash the password before storing
         $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    if (!empty($userId)) {
+    if (!empty($userId) && MongoDB\BSON\ObjectId::isValid($userId)) {
         // Edit existing user
         $result = $user_collection->updateOne(
             ['_id' => new MongoDB\BSON\ObjectID($userId)],
@@ -43,8 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->getModifiedCount() > 0) {
             header("Location: ../user.php?status=success&type=edit");
+            exit;
         } else {
             header("Location: ../user.php?status=failed&type=edit");
+            exit;
         }
     } else {
         // Add new user
@@ -52,13 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($existingUser) {
             header("Location: ../user.php?status=failed&type=email_exists");
+            exit;
         } else {
             $result = $user_collection->insertOne($userData);
 
             if ($result->getInsertedCount() > 0) {
                 header("Location: ../user.php?status=success&type=add");
+                exit;
             } else {
                 header("Location: ../user.php?status=failed&type=add");
+                exit;
             }
         }
     }

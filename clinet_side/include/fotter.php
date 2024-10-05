@@ -55,6 +55,7 @@
             autoplayHoverPause: true
         });
     });
+    var productid = localStorage.getItem('product-id');
 </script>
 </body>
 
