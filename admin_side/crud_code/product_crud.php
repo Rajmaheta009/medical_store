@@ -2,7 +2,7 @@
 include '../../database/collaction.php';
 
 try {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['productdescription'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Validate and sanitize input fields
         $productId = $_POST['product_id'] ?? null;
@@ -14,44 +14,39 @@ try {
         $gram_ml = filter_var($_POST['editProductGramMl'], FILTER_VALIDATE_FLOAT);
         $selling_price = filter_var($_POST['editProductSellingPrice'], FILTER_VALIDATE_FLOAT);
         $description = htmlspecialchars(trim($_POST['productdescription']));
-        $check = htmlspecialchars(trim($_POST['check']));
-        $delete = htmlspecialchars(trim($_POST['delete']));
+        $check = isset($_POST['check']) ? true : false;
+        $delete = $_POST['delete'] == 1 ? true : false;
 
         // Retrieve the previously uploaded image from the database if the product exists
+        $p_upload_file = 'assets/image/default.jpg';  // Default image for new products
         if ($productId) {
             $existingProduct = $product_collection->findOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
-            $p_upload_file = $existingProduct['image'] ?? 'assets/image/default.jpg';
-        } else {
-            $p_upload_file = 'assets/image/default.jpg';  // Default image for new products
+            if ($existingProduct) {
+                $p_upload_file = $existingProduct['image'] ?? $p_upload_file;
+            }
         }
 
         // Handle image upload if a new image is uploaded
-        $file_name = $_FILES['productImage']['name'] ?? '';
-        $file_tmp_name = $_FILES['productImage']['tmp_name'] ?? '';
-        $upload_dir = '../assets/image/';  // Ensure this path is correct
-        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-        $file_type = $_FILES['productImage']['type'] ?? '';
+        $upload_file = $p_upload_file;  // Default to existing file
+        if (!empty($_FILES['productImage']['name'])) {
+            $file_name = $_FILES['productImage']['name'];
+            $file_tmp_name = $_FILES['productImage']['tmp_name'];
+            $upload_dir = '../assets/image/';
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            $file_type = $_FILES['productImage']['type'];
 
-        // Validate file type and move the uploaded file
-        if (!empty($file_name)) {
+            // Validate file type
             if (!in_array($file_type, $allowed_types)) {
                 throw new Exception('Invalid file type. Only JPG, PNG, and GIF files are allowed.');
             }
 
-            // Move the uploaded file to the target directory
+            // Move the uploaded file
             $target_file = $upload_dir . basename($file_name);
-            if (move_uploaded_file($file_tmp_name, $target_file)) {
-                $upload_file = $file_name;  // Use the new uploaded file name
-            } else {
+            if (!move_uploaded_file($file_tmp_name, $target_file)) {
                 throw new Exception('Failed to upload the file. Check the directory permissions.');
             }
-        } else {
-            // Use existing file if no new file is uploaded
-            $upload_file = $p_upload_file;
+            $upload_file = $file_name;  // Use the new uploaded file name
         }
-
-        // Check and delete logic
-        $check = $check == 0 || $delete == 0 ? True : False;
 
         // Prepare product data
         $product_data = [
@@ -64,7 +59,7 @@ try {
             'selling_price' => $selling_price,
             'description' => $description,
             'check' => $check,
-            'delete' => false,
+            'delete' => $delete,
             'image' => $upload_file
         ];
 

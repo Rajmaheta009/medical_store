@@ -129,10 +129,10 @@
                             </div>
                             <label class="form-label" style="color:#333;">Active</label>
                             <label class="ios-switch">
-                                <input type="checkbox" checked name="check" value=0>
+                                <input type="checkbox" checked name="check" value=1 checked>
                                 <span class="slider"></span>
                             </label>
-                            <input type="hidden" name="delete" id="deleteField" value=1>
+                            <input type="hidden" name="delete" id="deleteField" value="false">
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary" style="margin-top: 7px; margin-right: 10px;">Submit</button>
                                 <button type="button" class="btn btn-secondary" style="margin-top: 7px;" data-bs-dismiss="modal">Close</button>
@@ -235,9 +235,9 @@
         document.getElementById('productImage').click();
     }
 
-    function confirmDelete(productId) {
-        document.getElementById('deleteField').value = 1;
-        window.location.href=window.location.href;
+    function confirmDelete() {
+        document.getElementById('deleteField').value = 1; // Set delete value to true
+        document.getElementById('productForm').submit(); // Submit the form
     }
 </script>
 
