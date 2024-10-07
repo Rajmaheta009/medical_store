@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $role = $_POST['role'];
     $check = isset($_POST['check']) ? true : false;
     $delete = $_POST['delete'] == 1 ? true : false;
-
     // Prepare the user data
     $userData = [
         'name' => $userName,

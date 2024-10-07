@@ -66,10 +66,25 @@ try {
         // Update or insert the product in the MongoDB collection
         if ($productId) {
             // Update the existing product
-            $product_collection->updateOne(
-                ['_id' => new MongoDB\BSON\ObjectId($productId)],
-                ['$set' => $product_data]
-            );
+            if ($delete) {
+                // Delete the product if the delete flag is set
+                $result = $product_collection->updateOne(
+                    ['_id' => new MongoDB\BSON\ObjectID($productId)],
+                    ['$set' => ['delete' => true]]
+                );
+                if ($result->getDeletedCount() > 0) {
+                    header("Location: ../user.php?status=success&type=delete");
+                } else {
+                    header("Location: ../user.php?status=failed&type=delete");
+                }
+                exit();  // Ensure that the script stops after the deletion
+            } else {
+                // Proceed with the update operation if not deleting
+                $product_collection->updateOne(
+                    ['_id' => new MongoDB\BSON\ObjectId($productId)],
+                    ['$set' => $product_data]
+                );
+            }
         } else {
             // Insert a new product
             $product_collection->insertOne($product_data);

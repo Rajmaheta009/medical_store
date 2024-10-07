@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Users</h1>
             <div class="input-group mb-3 w-50">
-                <input type="text" class="form-control" id="searchInput" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2">
+                <input type="text" class="form-control" id="searchInput" placeholder="Search by username" aria-label="Search by username" aria-describedby="button-addon2" onkeyup="filterTable()">
                 <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                     <i class="fas fa-search"></i>
                 </button>
@@ -31,14 +31,14 @@
                 <?php
                 include '../database/collaction.php';
                 $datas = $user_collection->find()->toArray();
-                $counter = 1; // Initialize counter for PHP
+                $counter = 1;
                 $filtered_user = array_filter($datas, function ($data) {
                     return $data['check'] == true && $data['delete'] == false;
                 });
                 foreach ($filtered_user as $data) { ?>
                     <tr>
                         <td><?php echo $counter++; ?></td>
-                        <td><?php echo htmlspecialchars($data['name']); ?></td>
+                        <td class="user-name"><?php echo htmlspecialchars($data['name']); ?></td> <!-- Add this class -->
                         <td><?php echo htmlspecialchars($data['role']); ?></td>
                         <td><?php echo htmlspecialchars($data['email']); ?></td>
                         <td><?php echo htmlspecialchars($data['phone']); ?></td>
@@ -57,6 +57,7 @@
                     </tr>
                 <?php } ?>
             </tbody>
+
         </table>
 
         <!-- Modal for Adding/Editing User -->
@@ -113,7 +114,7 @@
                             </div>
                             <label class="form-label" style="color:#333;">Active</label>
                             <label class="ios-switch">
-                                <input type="checkbox" checked name="check" value=1>
+                                <input type="checkbox" checked name="check" value=1 checked>
                                 <span class="slider"></span>
                             </label>
                             <input type="hidden" name="delete" id="deleteField" value="false">
@@ -235,6 +236,21 @@
             deleteField.value = '1'; // Set delete to true
         });
     });
+    // JavaScript function to filter table based on search input
+    function filterTable() {
+        var input = document.getElementById('searchInput');
+        var filter = input.value.toUpperCase();
+        var table = document.getElementById('usertable');
+        var rows = table.getElementsByTagName('tr');
+
+        for (var i = 1; i < rows.length; i++) {
+            var td = rows[i].getElementsByClassName('user-name')[0];
+            if (td) {
+                var textValue = td.textContent || td.innerText;
+                rows[i].style.display = textValue.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
+            }
+        }
+    }
 </script>
 
 <?php include 'include/fotter.php'; ?>
