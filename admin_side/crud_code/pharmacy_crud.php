@@ -7,18 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contactNo = $_POST['contactNo'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $check = $_POST['check'];
-    $delete = $_POST['delete'];
+    $check = isset($_POST['check']) ? true : false;
+    $delete = $_POST['delete'] == 1 ? true : false;
     $status = isset($_POST['status']) && $_POST['status'] == '1' ? true : false; // Convert status to boolean
-
-    if ($check == 1 || $delete == 0){
-        $check = True;
-        $delete = False;
-    }
-    else{
-        $check =False;
-        $delete = True;
-    }
     // Prepare the user data
     $pharmacyData = [
         'name' => $pharmacy,
@@ -35,16 +26,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!empty($pharmacyId)) {
-        // Edit existing user
-        $result = $pharmacy_collection->updateOne(
-            ['_id' => new MongoDB\BSON\ObjectID($pharmacyId)],
-            ['$set' => $pharmacyData]
-        );
-
-        if ($result->getModifiedCount() > 0) {
-            header("Location: ../pharmacy.php?status=success&type=edit");
+        if ($delete == false) {
+            $result = $pharmacy_collection->updateOne(
+                ['_id' => new MongoDB\BSON\ObjectID($pharmacyId)],
+                ['$set' => ['delete' => true]]
+            );
+            if ($result->getModifiedCount() > 0) {
+                header("Location: ../pharmacy.php?status=success&type=delete");
+            } else {
+                header("Location: ../pharmacy.php?status=failed&type=delete");
+            }
         } else {
-            header("Location: ../pharmacy.php?status=failed&type=edit");
+            // Edit existing user
+            $result = $pharmacy_collection->updateOne(
+                ['_id' => new MongoDB\BSON\ObjectID($pharmacyId)],
+                ['$set' => $pharmacyData]
+            );
+            if ($result->getModifiedCount() > 0) {
+                header("Location: ../pharmacy.php?status=success&type=edit");
+            } else {
+                header("Location: ../pharmacy.php?status=failed&type=edit");
+            }
         }
     } else {
         // Add new user

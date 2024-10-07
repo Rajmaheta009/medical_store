@@ -31,35 +31,34 @@
                 <?php
                 include '../database/collaction.php';
                 $datas = $pharmacy_collection->find()->toArray();
-                $filter_pharmacy=array_filter($datas,function($data){
-                    return $data['check']== true && $data['delete'] == false;
+                $filter_pharmacy = array_filter($datas, function ($data) {
+                    return $data['check'] == true && $data['delete'] == false;
                 });
                 $counter = 1;
                 foreach ($filter_pharmacy as $data) {
                     $statusText = $data['status'] ? 'Active' : 'In-Active';
                     $statusClass = $data['status'] ? 'text-success' : 'text-danger';
                 ?>
-                    <tr>
-                        <td><?php echo $counter++; ?></td>
-                        <td><?php echo $data['name']; ?></td>
-                        <td><?php echo $data['phone']; ?></td>
-                        <td><?php echo $data['email']; ?></td>
-                        <td class="<?php echo $statusClass; ?>"><?php echo $statusText; ?></td>
-                        <td>
-                            <!-- Edit button -->
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addPharmacyModal"
-                                data-action="edit"
-                                data-id="<?php echo $data['_id']; ?>"
-                                data-name="<?php echo $data['name']; ?>"
-                                data-phone="<?php echo $data['phone']; ?>"
-                                data-email="<?php echo $data['email']; ?>"
-                                data-check="<?php echo $data['check']; ?>"
-                                data-status="<?php echo $data['status'] ? '1' : '0'; ?>">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <!-- Delete button -->
-                            <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                        </td>
+                    <td><?php echo $counter++; ?></td>
+                    <td><?php echo $data['name']; ?></td>
+                    <td><?php echo $data['phone']; ?></td>
+                    <td><?php echo $data['email']; ?></td>
+                    <td class="<?php echo $statusClass; ?>"><?php echo $statusText; ?></td>
+                    <td>
+                        <!-- Edit button -->
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addPharmacyModal"
+                            data-action="edit"
+                            data-id="<?php echo $data['_id']; ?>"
+                            data-name="<?php echo $data['name']; ?>"
+                            data-phone="<?php echo $data['phone']; ?>"
+                            data-email="<?php echo $data['email']; ?>"
+                            data-check="<?php echo $data['check']; ?>"
+                            data-status="<?php echo $data['status'] ? '1' : '0'; ?>">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <!-- Delete button -->
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-id="<?php echo $data['_id']; ?>"><i class="fa-solid fa-trash"></i></button>
+                    </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -74,7 +73,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="crud_code/pharmacy_crud.php" method="POST" style="color:black;">
+                        <form action="crud_code/pharmacy_crud.php" method="POST" style="color:black;" id="pharmacyForm">
                             <input type="hidden" id="pharmacyId" name="pharmacyId"> <!-- Hidden field for Pharmacy ID -->
                             <div class="col">
                                 <label for="name" class="form-label">Name</label>
@@ -97,7 +96,7 @@
                             </div>
                             <label class="form-label" style="color:#333;">Active</label>
                             <label class="ios-switch">
-                                <input type="checkbox" checked name="check" value="1">
+                                <input type="checkbox" checked name="check" value=1>
                                 <span class="slider"></span>
                             </label>
                             <input type="hidden" name="delete" id="deleteField" value="false">
@@ -110,6 +109,7 @@
                 </div>
             </div>
         </div>
+        <!-- Delete Confirmation Modal -->
         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -202,10 +202,6 @@
             }
         }
     });
-</script>
-
-<!-- JavaScript for Modal Behavior and Search Functionality -->
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         const editButtons = document.querySelectorAll('.btn-outline-primary');
         const addPharmacyButton = document.getElementById('addPharmacyBtn');
@@ -261,11 +257,24 @@
         });
     });
 
-    
-    function confirmDelete(productId) {
+
+    function confirmDelete() {
         document.getElementById('deleteField').value = "true";
-        window.location.href=window.location.href;
+        document.getElementById('pharmacyForm').submit();
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteConfirmModal = document.getElementById('deleteConfirmModal');
+        deleteConfirmModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var deleteField = button.getAttribute('data-id');
+            var deletePharmacyIdInput = document.getElementById('deleteField');
+            var userIdInput = document.getElementById('pharmacyId');
+
+            // Set hidden field to pass the userId and delete flag
+            userIdInput.value = deleteField;
+            deleteField.value = '1'; // Set delete to true
+        });
+    });
 </script>
 
 <?php include 'include/fotter.php'; ?>
