@@ -35,10 +35,10 @@
                         <h6 class="text-center">$<?php echo number_format($product['price'], 2); ?></h6>
                         <!-- Edit and Delete Buttons -->
                         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addEditProductModal" data-id="<?php echo $product['_id']; ?>" data-name="<?php echo htmlspecialchars($product['name']); ?>" data-image="<?php echo htmlspecialchars($product['image']); ?>" data-type="<?php echo htmlspecialchars($product['type']); ?>" data-price="<?php echo htmlspecialchars($product['price']); ?>" data-power="<?php echo htmlspecialchars($product['power']); ?>" data-pharmacy="<?php echo htmlspecialchars($product['pharmacy']); ?>" data-gram_ml="<?php echo htmlspecialchars($product['gram_ml']); ?>" data-selling_price="<?php echo htmlspecialchars($product['selling_price']); ?>" data-description="<?php echo htmlspecialchars($product['description']); ?>" data-check="<?php echo $product['check'] ? '1' : '0'; ?>">
-                            Edit
+                            <i class="fas fa-edit"></i>
                         </button>
                         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" onclick="setDeleteProduct('<?php echo $product['_id']; ?>')">
-                            Delete
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
                 </div>
@@ -230,7 +230,7 @@
     function confirmDelete() {
         document.getElementById('deleteField').value = 1; // Set delete value to true
         document.getElementById('productForm').submit(); // Submit the form
-    } // Function to filter products based on search input
+    }
     // Function to filter products
     function filterProducts() {
         const input = document.getElementById('searchInput').value.toLowerCase();
