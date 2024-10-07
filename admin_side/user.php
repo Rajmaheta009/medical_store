@@ -205,7 +205,16 @@
             document.getElementById('email').value = userEmail || '';
             document.getElementById('contactNo').value = userPhone || '';
             document.getElementById('role').value = userRole || '';
-            document.querySelector('input[name="check"]').checked = userCheck === 'true';
+
+            // Handle checkbox status
+            var checkBox = document.getElementById('activeCheckbox');
+            if (userId) {
+                // Editing: Set checkbox based on stored value
+                checkBox.checked = (userCheck === 'true');
+            } else {
+                // Adding: Checkbox checked by default
+                checkBox.checked = true;
+            }
 
             // Set the form action and modal title based on whether it's add or edit
             var modalTitle = document.getElementById('addUserModalLabel');
@@ -220,6 +229,7 @@
             }
         });
     });
+
 
 
     document.addEventListener('DOMContentLoaded', function() {

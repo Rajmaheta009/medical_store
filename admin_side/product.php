@@ -34,7 +34,18 @@
                         <p class="card-text"><?php echo htmlspecialchars($product['description']); ?></p>
                         <h6 class="text-center">$<?php echo number_format($product['price'], 2); ?></h6>
                         <!-- Edit and Delete Buttons -->
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addEditProductModal" data-id="<?php echo $product['_id']; ?>" data-name="<?php echo htmlspecialchars($product['name']); ?>" data-image="<?php echo htmlspecialchars($product['image']); ?>" data-type="<?php echo htmlspecialchars($product['type']); ?>" data-price="<?php echo htmlspecialchars($product['price']); ?>" data-power="<?php echo htmlspecialchars($product['power']); ?>" data-pharmacy="<?php echo htmlspecialchars($product['pharmacy']); ?>" data-gram_ml="<?php echo htmlspecialchars($product['gram_ml']); ?>" data-selling_price="<?php echo htmlspecialchars($product['selling_price']); ?>" data-description="<?php echo htmlspecialchars($product['description']); ?>" data-check="<?php echo $product['check'] ? '1' : '0'; ?>">
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addEditProductModal"
+                            data-id="<?php echo $product['_id']; ?>"
+                            data-image="assets/image/<?php echo $product['image']; ?>"
+                            data-name="<?php echo htmlspecialchars($product['name']); ?>"
+                            data-type="<?php echo htmlspecialchars($product['type']); ?>"
+                            data-price="<?php echo htmlspecialchars($product['price']); ?>"
+                            data-power="<?php echo htmlspecialchars($product['power']); ?>"
+                            data-pharmacy="<?php echo htmlspecialchars($product['pharmacy']); ?>"
+                            data-gram_ml="<?php echo htmlspecialchars($product['gram_ml']); ?>"
+                            data-selling_price="<?php echo htmlspecialchars($product['selling_price']); ?>"
+                            data-description="<?php echo htmlspecialchars($product['description']); ?>"
+                            data-check="<?php echo htmlspecialchars($product['check']); ?>">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" onclick="confirmDelete('<?php echo $product['_id']; ?>')">
@@ -66,7 +77,7 @@
                                         <i class="fas fa-plus-circle" style="color: black; padding:40px; border-radius:2px; border:dotted;"></i>
                                     </span>
                                     <img id="imagePreview" class="img-thumbnail" src="assets/image/<?php echo $product['image']; ?>" alt="Image Preview" style="display:none; width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px;">
-                                    <img id="existingImage" class="img-thumbnail" src="assets/image/2121733.jpg" alt="Existing Image" style="width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; display:none;">
+                                    <img id="existingImage" class="img-thumbnail" src="assets/image/<?php ?>" alt="Existing Image" style="width: 300px; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; display:none;">
                                 </div>
                             </div>
 
@@ -119,11 +130,11 @@
                                 <label for="productDescription" class="form-label">Description</label>
                                 <textarea class="form-control" id="productDescription" name="productdescription" rows="3" maxlength="500" required></textarea>
                             </div>
-                            <label class="form-label" for="productCheck">Check</label>
-                            <select class="form-select" id="productCheck" name="productCheck" required>
-                                <option value="1">Check</option>
-                                <option value="0">Uncheck</option>
-                            </select>
+                            <label class="form-label" style="color:#333;">Active</label>
+                            <label class="ios-switch">
+                                <input type="checkbox" checked name="check" value=1 checked>
+                                <span class="slider"></span>
+                            </label>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
@@ -160,103 +171,99 @@
 </main>
 
 <script>
-    function confirmDelete(productId) {
-        // Set the product ID to delete
-        document.getElementById('productIdToDelete').value = productId;
-    }
+// Event listener to handle modal actions (Add/Edit)
+document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+    button.addEventListener('click', function() {
+        const modal = document.getElementById('addEditProductModal');
+        const modalTitle = modal.querySelector('.modal-title');
+        const productId = this.getAttribute('data-id');
+        const image = this.getAttribute('data-image');
+        const name = this.getAttribute('data-name');
+        const type = this.getAttribute('data-type');
+        const price = this.getAttribute('data-price');
+        const power = this.getAttribute('data-power');
+        const pharmacy = this.getAttribute('data-pharmacy');
+        const gramMl = this.getAttribute('data-gram_ml');
+        const sellingPrice = this.getAttribute('data-selling_price');
+        const description = this.getAttribute('data-description');
+        const check = this.getAttribute('data-check');
 
-    function previewImage(event) {
-        const imagePreview = document.getElementById('imagePreview');
-        const existingImage = document.getElementById('existingImage');
-        const uploadIcon = document.getElementById('uploadIcon');
-
-        if (event.target.files.length > 0) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-                existingImage.style.display = 'none';
-                uploadIcon.style.display = 'none'; // Hide upload icon
-            };
-            reader.readAsDataURL(file);
-        } else {
-            imagePreview.style.display = 'none';
-            existingImage.style.display = 'block';
-            uploadIcon.style.display = 'block'; // Show upload icon
-        }
-    }
-
-    function triggerFileInput() {
-        document.getElementById('productImage').click();
-    }
-
-    // Function to handle adding/editing products and updating modal content
-    document.getElementById('addEditProductModal').addEventListener('show.bs.modal', function(event) {
-        const button = event.relatedTarget; // Button that triggered the modal
-        const action = button.getAttribute('data-action'); // Extract info from data-* attributes
-
-        const modalTitle = document.getElementById('addEditProductModalLabel');
-        const productId = document.getElementById('productId');
-        const productName = document.getElementById('productName');
-        const productType = document.getElementById('productType');
-        const productPrice = document.getElementById('productPrice');
-        const productPower = document.getElementById('productPower');
-        const productPharmacy = document.getElementById('productPharmacy');
-        const editProductGramMl = document.getElementById('editProductGramMl');
-        const editProductSellingPrice = document.getElementById('editProductSellingPrice');
-        const productDescription = document.getElementById('productDescription');
-        const productCheck = document.getElementById('productCheck');
-
-        if (action === 'edit') {
+        if (productId) {
+            // Editing existing product
             modalTitle.textContent = 'Edit Product';
-            productId.value = button.getAttribute('data-id');
-            productName.value = button.getAttribute('data-name');
-            productType.value = button.getAttribute('data-type');
-            productPrice.value = button.getAttribute('data-price');
-            productPower.value = button.getAttribute('data-power');
-            productPharmacy.value = button.getAttribute('data-pharmacy');
-            editProductGramMl.value = button.getAttribute('data-gram_ml');
-            editProductSellingPrice.value = button.getAttribute('data-selling_price');
-            productDescription.value = button.getAttribute('data-description');
-            productCheck.value = button.getAttribute('data-check');
+            document.getElementById('productId').value = productId;
+            document.getElementById('action').value = 'edit';
+            document.getElementById('productName').value = name;
+            document.getElementById('productType').value = type;
+            document.getElementById('productPrice').value = price;
+            document.getElementById('productPower').value = power;
+            document.getElementById('productPharmacy').value = pharmacy;
+            document.getElementById('editProductGramMl').value = gramMl;
+            document.getElementById('editProductSellingPrice').value = sellingPrice;
+            document.getElementById('productDescription').value = description;
 
-            // Show existing image
-            document.getElementById('existingImage').src = 'assets/image/' + button.getAttribute('data-image');
-            document.getElementById('existingImage').style.display = 'block';
+            // Show existing image and hide plus icon
+            const existingImage = document.getElementById('existingImage');
+            existingImage.src = image;
+            existingImage.style.display = 'block';
+            document.getElementById('uploadIcon').style.display = 'none';
             document.getElementById('imagePreview').style.display = 'none';
         } else {
+            // Adding new product
             modalTitle.textContent = 'Add Product';
-            productId.value = '';
-            productName.value = '';
-            productType.value = '';
-            productPrice.value = '';
-            productPower.value = '';
-            productPharmacy.value = '';
-            editProductGramMl.value = '';
-            editProductSellingPrice.value = '';
-            productDescription.value = '';
-            productCheck.value = '1'; // Default to checked
+            document.getElementById('productForm').reset(); // Reset the form fields
+            document.getElementById('action').value = 'add';
+            
+            // Reset image preview
+            document.getElementById('uploadIcon').style.display = 'block';
             document.getElementById('existingImage').style.display = 'none';
             document.getElementById('imagePreview').style.display = 'none';
         }
     });
+});
 
-    // Filter products by name
-    function filterProducts() {
-        const input = document.getElementById('searchInput');
-        const filter = input.value.toLowerCase();
-        const cards = document.querySelectorAll('.product-card');
+// Filter products by name
+function filterProducts() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const cards = document.querySelectorAll('.product-card');
 
-        cards.forEach(card => {
-            const name = card.getAttribute('data-name');
-            if (name.includes(filter)) {
-                card.style.display = ''; // Show card
-            } else {
-                card.style.display = 'none'; // Hide card
-            }
-        });
+    cards.forEach(card => {
+        const name = card.getAttribute('data-name');
+        if (name.includes(filter)) {
+            card.style.display = ''; // Show card
+        } else {
+            card.style.display = 'none'; // Hide card
+        }
+    });
+}
+
+function triggerFileInput() {
+    document.getElementById('productImage').click();
+}
+
+function previewImage(event) {
+    const imagePreview = document.getElementById('imagePreview');
+    const existingImage = document.getElementById('existingImage');
+    const uploadIcon = document.getElementById('uploadIcon');
+
+    if (event.target.files.length > 0) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+            existingImage.style.display = 'none';
+            uploadIcon.style.display = 'none'; // Hide upload icon
+        };
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.style.display = 'none';
+        existingImage.style.display = 'block';
+        uploadIcon.style.display = 'block'; // Show upload icon
     }
+}
 </script>
+
 
 <?php include 'include/fotter.php'; ?>
