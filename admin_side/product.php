@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Products</h1>
             <div class="input-group mb-3 w-50">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search by name" aria-label="Search by name" aria-describedby="button-addon2">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by name" aria-label="Search by name" aria-describedby="button-addon2" onkeyup="filterProducts()">
                 <button class="btn btn-primary" type="button" id="button-addon2" style="margin-left:2px;">
                     <i class="fas fa-search"></i>
                 </button>
@@ -25,29 +25,21 @@
                 return $product['check'] == true && $product['delete'] == false;
             });
             foreach ($filter_product as $product) { ?>
-                <div class="card col-md-3 mb-4 mx-3" style="margin-top: 70px;">
+                <div class="card col-md-3 mb-4 mx-3 product-card" data-name="<?php echo strtolower(htmlspecialchars($product['name'])); ?>" style="margin-top: 70px;">
                     <div class="image-wrapper">
-                        <img src="assets/image/<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
+                        <img src="assets/image/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="card-img-top">
                     </div>
                     <div class="card-body mt-n4" style="margin-top:-60px;">
                         <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
                         <p class="card-text"><?php echo htmlspecialchars($product['description']); ?></p>
                         <h6 class="text-center">$<?php echo number_format($product['price'], 2); ?></h6>
-                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addEditProductModal"
-                            data-id="<?php echo $product['_id']; ?>"
-                            data-image="assets/image/<?php echo $product['image']; ?>"
-                            data-name="<?php echo htmlspecialchars($product['name']); ?>"
-                            data-type="<?php echo htmlspecialchars($product['type']); ?>"
-                            data-price="<?php echo htmlspecialchars($product['price']); ?>"
-                            data-power="<?php echo htmlspecialchars($product['power']); ?>"
-                            data-pharmacy="<?php echo htmlspecialchars($product['pharmacy']); ?>"
-                            data-gram_ml="<?php echo htmlspecialchars($product['gram_ml']); ?>"
-                            data-selling_price="<?php echo htmlspecialchars($product['selling_price']); ?>"
-                            data-description="<?php echo htmlspecialchars($product['description']); ?>"
-                            data-check="<?php echo htmlspecialchars($product['check']); ?>">
-                            <i class="fas fa-edit"></i>
+                        <!-- Edit and Delete Buttons -->
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addEditProductModal" data-id="<?php echo $product['_id']; ?>" data-name="<?php echo htmlspecialchars($product['name']); ?>" data-image="<?php echo htmlspecialchars($product['image']); ?>" data-type="<?php echo htmlspecialchars($product['type']); ?>" data-price="<?php echo htmlspecialchars($product['price']); ?>" data-power="<?php echo htmlspecialchars($product['power']); ?>" data-pharmacy="<?php echo htmlspecialchars($product['pharmacy']); ?>" data-gram_ml="<?php echo htmlspecialchars($product['gram_ml']); ?>" data-selling_price="<?php echo htmlspecialchars($product['selling_price']); ?>" data-description="<?php echo htmlspecialchars($product['description']); ?>" data-check="<?php echo $product['check'] ? '1' : '0'; ?>">
+                            Edit
                         </button>
-                        <button onclick="confirmDelete('<?php echo $product['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" onclick="setDeleteProduct('<?php echo $product['_id']; ?>')">
+                            Delete
+                        </button>
                     </div>
                 </div>
             <?php } ?>
@@ -238,6 +230,20 @@
     function confirmDelete() {
         document.getElementById('deleteField').value = 1; // Set delete value to true
         document.getElementById('productForm').submit(); // Submit the form
+    } // Function to filter products based on search input
+    // Function to filter products
+    function filterProducts() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const productCards = document.querySelectorAll('.product-card');
+
+        productCards.forEach(card => {
+            const productName = card.getAttribute('data-name');
+            if (productName.includes(input)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
 </script>
 
