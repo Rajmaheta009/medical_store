@@ -59,12 +59,7 @@ include 'include/header.php'; ?>
                         <div class="image">
                             <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
                             <!-- Add a form with hidden input to send product ID and other details -->
-                            <form action="cart.php" method="POST">
-                                <input type="hidden" name="product_id" value="<?php echo $product['_id']; ?>">
-                                <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
-                                <input type="hidden" name="product_price" value="<?php echo $product['price']; ?>">
-                                <a href="cart.php?id=<?php echo $product['_id']; ?>"><button class="add-to-cart-btn">Add to Cart</button></a>
-                            </form>
+                            <a href="cart.php?id=<?php echo urlencode($product['_id']); ?>"><button class="add-to-cart-btn">Add to Cart</button></a>
                         </div>
                         <?php
                         $value = $product['_id'];
