@@ -37,31 +37,37 @@
             $filter_inventery = array_filter($datas, function ($data) {
                 return $data['check'] == true && $data['delete'] == false;
             });
-            foreach ($filter_inventery as $data) { ?>
-                <tr>
-                    <td><?php echo $counter++; ?></td>
-                    <td><?php
-                        $product = $product_collection->findOne(['_id' => $data['product_id']]);
-                        echo $product ? $product['name'] : 'Unknown'; ?></td>
-                    <td><?php echo $product ? $product['price'] : 'N/A'; ?></td>
-                    <td><?php echo $product ? $product['selling_price'] : 'N/A'; ?></td>
-                    <td><?php echo $data['quantity']; ?></td>
-                    <td><?php echo $data['selling_quantity']; ?></td>
-                    <td><?php echo $data['quantity'] - $data['selling_quantity']; ?></td>
-                    <td><?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?></td>
-                    <td>
-                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
-                            data-id="<?php echo $data['_id']; ?>"
-                            data-name="<?php echo $product ? $product['name'] : ''; ?>"
-                            data-quantity="<?php echo $data['quantity']; ?>"
-                            data-expiry-date="<?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?>"
-                            data-check="<?php echo $data['check']; ?>">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            <?php } ?>
+            foreach ($filter_inventery as $data) {
+                $product = $product_collection->findOne(['_id' => $data['product_id']]);
+
+                if (!empty($product) && !empty($product['name'])) { ?>
+                    <tr>
+                        <td><?php echo $counter++; ?></td>
+                        <td><?php
+                            $product = $product_collection->findOne(['_id' => $data['product_id']]);
+                            echo $product ? $product['name'] : 'Unknown'; ?></td>
+                        <td><?php echo $product ? $product['price'] : 'N/A'; ?></td>
+                        <td><?php echo $product ? $product['selling_price'] : 'N/A'; ?></td>
+                        <td><?php echo $data['quantity']; ?></td>
+                        <td><?php echo $data['selling_quantity']; ?></td>
+                        <td><?php echo $data['quantity'] - $data['selling_quantity']; ?></td>
+                        <td><?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?></td>
+                        <td>
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addProductModal"
+                                data-id="<?php echo $data['_id']; ?>"
+                                data-name="<?php echo $product ? $product['name'] : ''; ?>"
+                                data-quantity="<?php echo $data['quantity']; ?>"
+                                data-expiry-date="<?php echo $data['expiry_date']->toDateTime()->format('Y-m-d'); ?>"
+                                data-check="<?php echo $data['check']; ?>">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+            <?php } else {
+                    echo '<tr><td colspan="9">Product details not available</td></tr>';
+                }
+            } ?>
         </tbody>
     </table>
 
@@ -130,7 +136,8 @@
                     </div>
                 </div>
             </div>
-        </div></script>
+        </div>
+        </script>
     </div>
 </main>
 <!-- Toast container -->
@@ -232,22 +239,22 @@
         addProductButton.addEventListener('click', function() {
 
             modalTitle.innerText = 'Add Product Quantity'; // Set modal title for adding
-            
+
             document.getElementById('deleteField').value = 'false';
-            
+
             productIdInput.value = ''; // Clear hidden Product ID
             nameInput.value = ''; // Clear name field
             quantityInput.value = ''; // Clear quantity field
             productExpiryInput.value = ''; // Clear expiry date field
             checkInput.value = '1'; // Clear check field
         });
-        
+
         // Fill the form for editing a product
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
-                
+
                 document.getElementById('deleteField').value = 'true';
-                
+
                 const productId = this.getAttribute('data-id');
                 const name = this.getAttribute('data-name');
                 const quantity = this.getAttribute('data-quantity');
@@ -267,7 +274,7 @@
 
     function confirmDelete(productId) {
         document.getElementById('deleteField').value = "true";
-        window.location.href=window.location.href;
+        window.location.href = window.location.href;
     }
 </script>
 

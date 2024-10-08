@@ -3,29 +3,8 @@ include '../../database/collaction.php';
 
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $action = $_POST['action'] ?? '';
 
-        // Handle DELETE action
-        if ($action === 'delete') {
-            $productId = $_POST['product_id'] ?? null;
-            if ($productId) {
-                // Update the product's delete field to true
-                $updateResult = $product_collection->updateOne(
-                    ['_id' => new MongoDB\BSON\ObjectId($productId)],
-                    ['$set' => ['delete' => true]]
-                );
-
-                if ($updateResult->getModifiedCount() > 0) {
-                    header("Location: ../product.php?msg=Product+Deleted+Successfully");
-                    exit();
-                } else {
-                    header("Location: ../product.php?error=Failed+to+delete+product");
-                    exit();
-                }
-            }
-        }
-
-        // Handle ADD or EDIT action
+        // Validate and sanitize input fields
         $productId = $_POST['product_id'] ?? null;
         $name = htmlspecialchars(trim($_POST['productname']));
         $type = htmlspecialchars(trim($_POST['productType']));
@@ -36,71 +15,92 @@ try {
         $selling_price = filter_var($_POST['editProductSellingPrice'], FILTER_VALIDATE_FLOAT);
         $description = htmlspecialchars(trim($_POST['productdescription']));
         $check = isset($_POST['check']) ? true : false;
+        $delete = $_POST['delete'] == 1 ? true : false;
 
-        // Handle file upload if image is provided
-        $image = '';
-        if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
-            $image = basename($_FILES['productImage']['name']);
-            $targetDir = "../../assets/image/";
-            $targetFile = $targetDir . $image;
-
-            if (!move_uploaded_file($_FILES['productImage']['tmp_name'], $targetFile)) {
-                header("Location: ../product.php?error=Failed+to+upload+image");
-                exit();
+        // Retrieve the previously uploaded image from the database if the product exists
+        $p_upload_file = 'assets/image/default.jpg';  // Default image for new products
+        if ($productId) {
+            $existingProduct = $product_collection->findOne(['_id' => new MongoDB\BSON\ObjectId($productId)]);
+            if ($existingProduct) {
+                $p_upload_file = $existingProduct['image'] ?? $p_upload_file;
             }
         }
 
-        if ($action === 'add') {
-            // Inserting new product
-            $insertResult = $product_collection->insertOne([
-                'name' => $name,
-                'type' => $type,
-                'price' => $price,
-                'power' => $power,
-                'pharmacy' => $pharmacy,
-                'gram_ml' => $gram_ml,
-                'selling_price' => $selling_price,
-                'description' => $description,
-                'check' => $check,
-                'delete' => false,
-                'image' => $image
-            ]);
+        // Handle image upload if a new image is uploaded
+        $upload_file = $p_upload_file;  // Default to existing file
+        if (!empty($_FILES['productImage']['name'])) {
+            $file_name = $_FILES['productImage']['name'];
+            $file_tmp_name = $_FILES['productImage']['tmp_name'];
+            $upload_dir = '../assets/image/';
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            $file_type = $_FILES['productImage']['type'];
 
-            if ($insertResult->getInsertedCount() > 0) {
-                header("Location: ../product.php?msg=Product+Added+Successfully");
-                exit();
-            }
-        } elseif ($action === 'edit' && $productId) {
-            // Updating existing product
-            $updateFields = [
-                'name' => $name,
-                'type' => $type,
-                'price' => $price,
-                'power' => $power,
-                'pharmacy' => $pharmacy,
-                'gram_ml' => $gram_ml,
-                'selling_price' => $selling_price,
-                'description' => $description,
-                'check' => $check,
-                'delete' => false,
-            ];
-
-            if ($image) {
-                $updateFields['image'] = $image; // Update image only if a new image was uploaded
+            // Validate file type
+            if (!in_array($file_type, $allowed_types)) {
+                throw new Exception('Invalid file type. Only JPG, PNG, and GIF files are allowed.');
             }
 
-            $updateResult = $product_collection->updateOne(
-                ['_id' => new MongoDB\BSON\ObjectId($productId)],
-                ['$set' => $updateFields]
-            );
-
-            if ($updateResult->getModifiedCount() > 0) {
-                header("Location: ../product.php?msg=Product+Updated+Successfully");
-                exit();
+            // Move the uploaded file
+            $target_file = $upload_dir . basename($file_name);
+            if (!move_uploaded_file($file_tmp_name, $target_file)) {
+                throw new Exception('Failed to upload the file. Check the directory permissions.');
             }
+            $upload_file = $file_name;  // Use the new uploaded file name
         }
+
+        // Prepare product data
+        $product_data = [
+            'name' => $name,
+            'type' => $type,
+            'price' => $price,
+            'power' => $power,
+            'pharmacy' => $pharmacy,
+            'gram_ml' => $gram_ml,
+            'selling_price' => $selling_price,
+            'description' => $description,
+            'check' => $check,
+            'delete' => $delete,
+            'image' => $upload_file
+        ];
+
+        // Update or insert the product in the MongoDB collection
+        if (!empty($productId)) {
+            // Update the existing product
+            if ($delete) {
+                // Delete the product if the delete flag is set
+                $result = $product_collection->updateOne(
+                    ['_id' => new MongoDB\BSON\ObjectID($productId)],
+                    ['$set' => ['delete' => true]]
+                );
+                if ($result->getModifiedCount() > 0) {
+                    header("Location: ../product.php?status=success&type=delete");
+                } else {
+                    header("Location: ../product.php?status=failed&type=delete");
+                }
+                exit();  // Ensure that the script stops after the deletion
+            } else {
+                // Proceed with the update operation if not deleting
+                $product_collection->updateOne(
+                    ['_id' => new MongoDB\BSON\ObjectId($productId)],
+                    ['$set' => $product_data]
+                );
+                if ($result->getModifiedCount() > 0) {
+                    header("Location: ../product.php?status=success&type=edit");
+                } else {
+                    header("Location: ../product.php?status=failed&type=edit");
+                }
+            }
+        } else {
+            // Insert a new product
+            $product_collection->insertOne($product_data);
+        }
+
+        // Redirect or provide feedback after successful operation
+        header('Location: ../product.php');
+        exit();
+    } else {
+        throw new Exception('Product description is required.');
     }
 } catch (Exception $e) {
-    header("Location: ../product.php?error=" . urlencode($e->getMessage()));
-    exit();
+    echo 'Error: ' . $e->getMessage();
 }

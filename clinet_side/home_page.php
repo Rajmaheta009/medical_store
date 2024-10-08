@@ -63,18 +63,18 @@ include 'include/header.php'; ?>
                                 <input type="hidden" name="product_id" value="<?php echo $product['_id']; ?>">
                                 <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
                                 <input type="hidden" name="product_price" value="<?php echo $product['price']; ?>">
-                                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                                <a href="cart.php?id=<?php echo $product['_id']; ?>"><button class="add-to-cart-btn">Add to Cart</button></a>
                             </form>
                         </div>
                         <?php
                         $value = $product['_id'];
                         echo "<script>localStorage.setItem('product-id', '$value');</script>";
                         ?>
-                        <a href="product_detail.php">
+                        <a href="product_detail.php?id=<?php echo $product['_id']; ?>">
                             <div class="description">
                                 <h6><?php echo htmlspecialchars($product['name']); ?></h6>
                                 <h6><?php echo htmlspecialchars($product['type']); ?></h6>
-                                <h6>$<?php echo number_format($product['price'], 2); ?></h6>
+                                <h6>$<?php echo number_format($product['selling_price'], 2); ?></h6>
                             </div>
                         </a>
                     </div>

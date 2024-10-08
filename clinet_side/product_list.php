@@ -30,13 +30,13 @@
                 <div class="card1">
                     <div class="image">
                         <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
-                        <button class="add-to-cart-btn">Add to Cart</button>
+                        <a href="cart.php?id=<?php echo urlencode($product['_id']); ?>"><button class="add-to-cart-btn">Add to Cart</button></a>
                     </div>
                     <a href="product_detail.php?id=<?php echo urlencode($product['_id']); ?>">
                         <div class="description">
                             <h6><?php echo htmlspecialchars($product['name']); ?></h6>
                             <h6><?php echo htmlspecialchars($product['type']); ?></h6>
-                            <h6>$<?php echo number_format($product['price'], 2); ?></h6>
+                            <h6>$<?php echo number_format($product['selling_price'], 2); ?></h6>
                         </div>
                     </a>
                 </div>
