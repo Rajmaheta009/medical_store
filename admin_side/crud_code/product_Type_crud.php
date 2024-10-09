@@ -10,12 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = isset($_POST['status']) && $_POST['status'] === '1' ? true : false; // Convert status to boolean
 
 
-    if ($check == 1 || $delete == 0){
+    if ($check == 1 || $delete == 0) {
         $check = True;
         $delete = False;
-    }
-    else{
-        $check =False;
+    } else {
+        $check = False;
         $delete = True;
     }
     // Prepare the user data
@@ -26,16 +25,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'status' => $status,
     ];
     if (!empty($product_typeId)) {
-        // Edit existing user
-        $result = $product_type_collection->updateOne(
-            ['_id' => new MongoDB\BSON\ObjectID($product_typeId)],
-            ['$set' => $product_typeData]
-        );
-
-        if ($result->getModifiedCount() > 0) {
-            header("Location: ../product_type.php?status=success&type=edit");
+        if ($delete) {
+            $result = $product_type_collection->updateOne(
+                ['_id' => new MongoDB\BSON\ObjectID($product_typeId)],
+                ['$set' => ['delete' => true]]
+            );
+            if ($result->getModifiedCount() > 0) {
+                header("Location: ../product_type.php?status=success&type=delete");
+            } else {
+                header("Location: ../product_type.php?status=failed&type=delete");
+            }
         } else {
-            header("Location: ../product_type.php?status=failed&type=edit");
+            // Edit existing user
+            $result = $product_type_collection->updateOne(
+                ['_id' => new MongoDB\BSON\ObjectID($product_typeId)],
+                ['$set' => $product_typeData]
+            );
+
+            if ($result->getModifiedCount() > 0) {
+                header("Location: ../product_type.php?status=success&type=edit");
+            } else {
+                header("Location: ../product_type.php?status=failed&type=edit");
+            }
         }
     } else {
         $result = $product_type_collection->insertOne($product_typeData);

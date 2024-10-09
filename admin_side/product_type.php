@@ -58,7 +58,7 @@
                                 data-status="<?php echo $data['status'] ? '1' : '0'; ?>">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button onclick="confirmDelete('<?php echo $data['_id']; ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-id="<?php echo $data['_id']; ?>"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -74,7 +74,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="crud_code/product_type_crud.php" method="POST">
+                        <form action="crud_code/product_type_crud.php" method="POST" id="product_typeForm">
                             <input type="hidden" id="product_typeId" name="product_typeId">
                             <div class="row">
                                 <label for="type" class="form-label" style="color:#333;">Product Type</label>
@@ -106,6 +106,7 @@
                 </div>
             </div>
         </div>
+        <!-- Delete Confirmation Modal -->
         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -114,11 +115,16 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" style="color: #333;">
-                        Are you sure you want to delete this user?
+                        Are you sure you want to delete this user role?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" onclick="confirmDelete()">OK</button>
+                        <!-- Form for delete action -->
+                        <form id="deleteForm" method="POST" action="crud_code/product_Type_crud.php">
+                            <input type="hidden" name="product_typeId" id="deleteUserTypeId">
+                            <input type="hidden" name="delete" value="1">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">OK</button> <!-- Submit form on OK button click -->
+                        </form>
                     </div>
                 </div>
             </div>
@@ -250,9 +256,22 @@
     });
 
 
-    function confirmDelete(productId) {
-        document.getElementById('deleteField').value = "true";
-        window.location.href=window.location.href;
+    function confirmDelete() {
+        document.getElementById('deleteField').value = 1; // Set delete value to true
+        document.getElementById('product_typeForm').submit(); // Submit the form
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteConfirmModal = document.getElementById('deleteConfirmModal');
+
+        // Event listener for delete button click
+        deleteConfirmModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var product_typeId = button.getAttribute('data-id'); // Get the user type ID from button attribute
+
+            // Set the hidden input field with the user type ID
+            var deleteUserTypeIdInput = document.getElementById('deleteUserTypeId');
+            deleteUserTypeIdInput.value = product_typeId;
+        });
+    });
 </script>
 <?php include 'include/fotter.php'; ?>
