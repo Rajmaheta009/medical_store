@@ -80,7 +80,7 @@ try {
                 exit();  // Ensure that the script stops after the deletion
             } else {
                 // Proceed with the update operation if not deleting
-                $product_collection->updateOne(
+                $result=$product_collection->updateOne(
                     ['_id' => new MongoDB\BSON\ObjectId($productId)],
                     ['$set' => $product_data]
                 );

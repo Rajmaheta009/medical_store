@@ -80,7 +80,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="crud_code/inventery_crud.php" method="POST" id="inventoryForm">
+                    <form action="crud_code/inventery_crud.php" method="POST" id="inventoryForm" style="color:#333">
                         <input type="hidden" id="productId" name="productId">
                         <div class="mb-3">
                             <label for="productName" class="form-label">Product Name</label>

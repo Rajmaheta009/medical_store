@@ -32,7 +32,7 @@
                     <div class="card-body mt-n4" style="margin-top:-60px;">
                         <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
                         <p class="card-text"><?php echo htmlspecialchars($product['description']); ?></p>
-                        <h6 class="text-center">$<?php echo number_format($product['price'], 2); ?></h6>
+                        <h6 class="text-center">$<?php echo number_format($product['selling_price'], 2); ?></h6>
                         <!-- Edit and Delete Buttons -->
                         <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#addEditProductModal"
                             data-id="<?php echo $product['_id']; ?>"
@@ -109,9 +109,9 @@
                                 <label for="productPharmacy" class="form-label">Pharmacy</label>
                                 <select class="form-select" id="productPharmacy" name="productpharmacy" required>
                                     <option value="" disabled selected>Select pharmacy</option>
-                                    <option value="pharmacy1">Pharmacy 1</option>
-                                    <option value="pharmacy2">Pharmacy 2</option>
-                                    <option value="pharmacy3">Pharmacy 3</option>
+                                    <option value="pharmacy1">CVS Pharmacy</option>
+                                    <option value="pharmacy2">Walgreens</option>
+                                    <option value="pharmacy3">Watsons</option>
                                 </select>
                             </div>
                             <div class="row">

@@ -108,8 +108,8 @@
                                 <label for="role" style="color:#333;">Select Role:</label>
                                 <select id="role" name="role" class="form-select" required>
                                     <option value="manager">Manager</option>
-                                    <option value="product_manager">Admin</option>
-                                    <option value="user_manager">User</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
                                 </select>
                             </div>
                             <label class="form-label" style="color:#333;">Active</label>
@@ -209,14 +209,12 @@
             // Handle checkbox status
             var checkBox = document.getElementById('activeCheckbox');
             if (userId) {
-                // Editing: Set checkbox based on stored value
                 checkBox.checked = (userCheck === 'true');
             } else {
-                // Adding: Checkbox checked by default
                 checkBox.checked = true;
             }
 
-            // Set the form action and modal title based on whether it's add or edit
+            // Update modal title and submit button
             var modalTitle = document.getElementById('addUserModalLabel');
             var submitButton = document.querySelector('.modal-footer button[type="submit"]');
 
@@ -229,9 +227,6 @@
             }
         });
     });
-
-
-
     document.addEventListener('DOMContentLoaded', function() {
         // Handle delete button click
         var deleteConfirmModal = document.getElementById('deleteConfirmModal');
