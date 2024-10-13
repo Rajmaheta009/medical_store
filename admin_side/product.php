@@ -109,9 +109,9 @@
                                 <label for="productPharmacy" class="form-label">Pharmacy</label>
                                 <select class="form-select" id="productPharmacy" name="productpharmacy" required>
                                     <option value="" disabled selected>Select pharmacy</option>
-                                    <option value="pharmacy1">CVS Pharmacy</option>
-                                    <option value="pharmacy2">Walgreens</option>
-                                    <option value="pharmacy3">Watsons</option>
+                                    <option value="CVS Pharmacy">CVS Pharmacy</option>
+                                    <option value="Walgreens">Walgreens</option>
+                                    <option value="Watsons">Watsons</option>
                                 </select>
                             </div>
                             <div class="row">
