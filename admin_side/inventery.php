@@ -4,7 +4,8 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Inventory</h1>
         <div class="input-group mb-3 w-50">
-            <input type="text" class="form-control" id="searchInput" placeholder="Search by product name" aria-label="Search by product name">
+            <!-- Search Input Field -->
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by product name" aria-label="Search by product name" oninput="filterTable()">
             <button class="btn btn-primary" type="button" id="addProductBtn" data-bs-toggle="modal" data-bs-target="#addProductModal">
                 <i class="fas fa-plus"></i> Add Product Quantity
             </button>
@@ -37,7 +38,8 @@
                     if (!empty($product)) { ?>
                         <tr>
                             <td><?php echo $counter++; ?></td>
-                            <td><?php echo $product['name']; ?></td>
+                            <!-- Updated Product Table Row -->
+                            <td class="product-name"><?php echo $product['name']; ?></td>
                             <td><?php echo $product['price']; ?></td>
                             <td><?php echo $product['selling_price']; ?></td>
                             <td><?php echo $data['quantity']; ?></td>
@@ -75,17 +77,17 @@
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="color:#333">
                     <h5 class="modal-title" id="addProductModalLabel">Add Product Quantity</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="crud_code/inventery_crud.php" method="POST" id="inventoryForm" style="color:#333">
+                <div class="modal-body" style="color:#333">
+                    <form action="crud_code/inventery_crud.php" method="POST" id="inventoryForm">
                         <input type="hidden" id="productId" name="productId">
                         <div class="mb-3">
                             <label for="productName" class="form-label">Product Name</label>
                             <select class="form-select" id="productName" name="productName" required>
-                                <option value="" disabled selected>Select Product</option>
+                                <option value="" selected>Select Product</option>
                                 <?php
                                 $products = $product_collection->find();
                                 foreach ($products as $product) {
@@ -208,5 +210,20 @@
             }
         });
     });
+
+    function filterTable() {
+        var input = document.getElementById('searchInput');
+        var filter = input.value.toUpperCase();
+        var table = document.getElementById('inventoryTableBody');
+        var rows = table.getElementsByTagName('tr');
+
+        for (var i = 0; i < rows.length; i++) {
+            var td = rows[i].getElementsByClassName('product-name')[0];
+            if (td) {
+                var textValue = td.textContent || td.innerText;
+                rows[i].style.display = textValue.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
+            }
+        }
+    }
 </script>
 <?php include 'include/fotter.php'; ?>

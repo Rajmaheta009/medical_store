@@ -15,7 +15,6 @@
                 </button>
             </div>
         </div>
-
         <!-- Table Section -->
         <table class="table table-striped" id="user_typetable">
             <thead>
@@ -73,8 +72,9 @@
                             <div class="row">
                                 <label for="role" class="form-label" style="color:#333;">User Role</label>
                                 <select id="role" name="role" class="form-select" required>
-                                    <option value="manager">admin</option>
-                                    <option value="user_manager">clint</option>
+                                    <option value="admin">admin</option>
+                                    <option value="clinet">clinet</option>
+                                    <option value="manager">manager</option>
                                 </select>
                             </div>
                             <div class="row">
@@ -122,7 +122,6 @@
                 </div>
             </div>
         </div>
-
     </main>
 </div>
 

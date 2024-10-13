@@ -88,7 +88,7 @@
                                 <div class="col">
                                     <label for="productType" class="form-label">Type</label>
                                     <select class="form-select" id="productType" name="productType" required>
-                                        <option value="" disabled selected>Select type</option>
+                                        <option value="" selected>Select type</option>
                                         <option value="tablet">Tablet</option>
                                         <option value="syrup">Syrup</option>
                                         <option value="tube">Tube</option>
