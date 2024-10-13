@@ -4,9 +4,9 @@ include "../database/collaction.php";
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $user = $login_registration_collection->findOne(['email' => $email]);
+    $user = $user_collection->findOne(['email' => $email]);
 
-    if ($user && $password == $user['password']) {
+    if ($user && password_verify($password, $user['password'])) {
         // Assuming you have some way to differentiate Admin and Client users
         if ($user['role'] == 'admin' or $user['role'] == 'manager') {  // For Admin users
             echo '<script type="text/javascript" src="../admin_side/assets/js/sweetalert.js"></script>
@@ -30,7 +30,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                             icon: "success",
                             button: "Proceed to Home",
                         }).then(function(){ 
-                            window.location.href = "../client_side/home.php";
+                            window.location.href = "../clinet_side/home_page.php";
                         });
                     };
                 </script>';
