@@ -23,7 +23,7 @@
         <i class="fas fa-phone">7600230222</i>
         <i class="fas fa-envelope"><a href="mailto:example@medicine-plus.com">R@JMAHETA.COM</a></i>
         <a href="cart.php">CHECKOUT</a>
-        <a href="#">MY ACCOUNT</a>
+        <a href="profile.php">MY ACCOUNT</a>
         <a href="../login_registration/login_registration.html">LOG IN</a>
     </div>
     <div class="header">
@@ -46,8 +46,6 @@
         <a href="cart.php" class="text-decoration-none">
             <div class="cart">
                 <i class="fas fa-shopping-cart"></i>
-                <span>£0.00</span>
-                <span>(0)</span>
             </div>
         </a>
     </div>

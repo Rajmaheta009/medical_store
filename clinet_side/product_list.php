@@ -26,7 +26,7 @@
         });
         foreach ($filter_product as $product) { ?>
             <div class="col-auto product-card">
-                <div class="card1" style="height: 250px;">
+                <div class="card1">
                     <div class="image">
                         <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image" style="width:100%; height:150px;">
                         <a href="cart.php?id=<?php echo urlencode($product['_id']); ?>"><button class="add-to-cart-btn">Add to Cart</button></a>
