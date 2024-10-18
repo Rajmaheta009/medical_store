@@ -17,7 +17,7 @@
         </div>
 
         <!-- Table Section -->
-        <div class="row" id="productCart" style="margin-right: -70px; margin-left:100px;">
+        <div class="row" id="productCart" style="margin-left:10px; justify-content:center;">
             <?php
             include '../database/collaction.php';
             $products = $product_collection->find()->toArray();

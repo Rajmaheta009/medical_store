@@ -5,7 +5,7 @@
 <div class="container py-5">
     <div class="input-group mb-3 w-25 ms-auto d-flex justify-content-end">
         <input type="text" class="form-control" id="searchInput" placeholder="Search by product name" aria-label="Search by product name" aria-describedby="button-addon2">
-        <button class="btn " type="button" id="button-addon2" style="margin-left:2px; background-color:#65c5e4; color:aliceblue;">
+        <button class="btn" type="button" id="button-addon2" style="margin-left:2px; background-color:#65c5e4; color:aliceblue;">
             <i class="fas fa-search"></i>
         </button>
         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #65c5e4; color:antiquewhite; margin-left:5px;">
@@ -17,8 +17,7 @@
         </ul>
     </div>
 
-    <!-- Add id="productContainer" here -->
-    <div class="row row-col-md-3 g-4 py-5" id="productContainer">
+    <div class="row row-cols-md-3 g-4 py-5" id="productContainer">
         <?php
         include '../database/collaction.php';
         $products = $product_collection->find()->toArray();
@@ -26,15 +25,15 @@
             return $product['check'] == true && $product['delete'] == false;
         });
         foreach ($filter_product as $product) { ?>
-            <div class="col-auto">
-                <div class="card1">
+            <div class="col-auto product-card">
+                <div class="card1" style="height: 250px;">
                     <div class="image">
-                        <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image">
+                        <img src="../admin_side/assets/image/<?php echo $product['image']; ?>" alt="Product Image" style="width:100%; height:150px;">
                         <a href="cart.php?id=<?php echo urlencode($product['_id']); ?>"><button class="add-to-cart-btn">Add to Cart</button></a>
                     </div>
                     <a href="product_detail.php?id=<?php echo urlencode($product['_id']); ?>">
                         <div class="description">
-                            <h6><?php echo htmlspecialchars($product['name']); ?></h6>
+                            <h6 class="product-name"><?php echo htmlspecialchars($product['name']); ?></h6>
                             <h6><?php echo htmlspecialchars($product['type']); ?></h6>
                             <h6>$<?php echo number_format($product['selling_price'], 2); ?></h6>
                         </div>
@@ -43,8 +42,6 @@
             </div>
         <?php } ?>
     </div>
-    <!-- Repeat other product cards here -->
-</div>
 </div>
 
 <script>
@@ -57,7 +54,7 @@
 
             products.forEach(function(product) {
                 var productName = product.querySelector('.product-name').textContent.toLowerCase();
-                if (productName.indexOf(filter) > -1) {
+                if (productName.includes(filter)) {
                     product.style.display = ''; // Show product
                 } else {
                     product.style.display = 'none'; // Hide product
@@ -89,4 +86,5 @@
         });
     }
 </script>
+
 <?php include 'include/fotter.php' ?>

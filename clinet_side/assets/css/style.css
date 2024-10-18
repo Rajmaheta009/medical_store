@@ -152,14 +152,13 @@ body {
 
 .card1 img {
     background: transparent;
-    border: 1px solid #dddddd;
     border-radius: 20px;
     justify-content: center;
-    padding-bottom: 15px;
+    /* padding-bottom: 15px; */
     margin: auto;
     width: 100%;
     /* Sets the width to 100% of the parent container */
-    height: auto;
+    height: 200px;
     /* Maintains the aspect ratio of the image */
     max-width: 500px;
     /* Optionally, set a maximum width */
